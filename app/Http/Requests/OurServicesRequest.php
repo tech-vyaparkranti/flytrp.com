@@ -32,13 +32,10 @@ class OurServicesRequest extends FormRequest
         return [
             OurServicesModel::ID=>"bail|required_if:action,update,enable,disable|nullable|exists:our_services,id",
             OurServicesModel::SERVICE_NAME=>"bail|required_if:action,update,insert|nullable|string|max:500",
-            OurServicesModel::SERVICE_DETAILS=>"bail|nullable|string",
-            OurServicesModel::BANNER_IMAGE=>"bail|required_if:action,insert|nullable|image|max:2048",
-            OurServicesModel::SHORT_DESC=>"bail|required_if:action,update,insert|nullable",
+            OurServicesModel::SERVICE_DETAILS=>"bail|nullable|string|max:500",
+            OurServicesModel::SERVICE_IMAGE=>"bail|required_if:action,insert|nullable|image|max:2048",
             OurServicesModel::POSITION=>"required_if:action,update,insert|numeric|gt:0",
-            "action"=>"bail|required|in:insert,update,enable,disable",
-            'service_image' => 'bail|array|required_if:action,insert|nullable',
-            'service_image.*' => 'image',                                     
+            "action"=>"bail|required|in:insert,update,enable,disable"
         ];
     }
 

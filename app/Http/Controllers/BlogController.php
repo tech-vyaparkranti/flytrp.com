@@ -29,7 +29,6 @@ class BlogController extends Controller
         Blog::FACEBOOK_LINK,
         Blog::YOUTUBE_LINK,
         Blog::TWITTER_LINK,
-        Blog::BLOG_IMAGES,
         Blog::INSTAGRAM_LINK,
         Blog::META_KEYWORD,
         Blog::META_TITLE,
@@ -83,21 +82,21 @@ class BlogController extends Controller
 
     public function insertBlog(BlogRequest $request){ 
         $imageUpload = $this->blogImageUpload($request);
-        
-        $blogImages = $this->blogMultipleImage($request);
-        $blogImageUrls = array_column($blogImages, 'data');
-        if($imageUpload['status'] || $blogImages['status'])
-        {
+        if($imageUpload["status"]){
             $Blog = new Blog();
-            $Blog->{Blog::IMAGE} = $imageUpload['data'];
-            $Blog->{Blog::BLOG_IMAGES} = json_encode($blogImageUrls);
+            $Blog->{Blog::IMAGE} = $imageUpload["data"];
             $Blog->{Blog::TITLE} = $request->input(Blog::TITLE);
             $Blog->{Blog::CONTENT} = $request->input(Blog::CONTENT);
             $Blog->{Blog::BLOG_DATE} = $request->input(Blog::BLOG_DATE);
             $Blog->{Blog::BLOG_CATEGORY} = $request->input(Blog::BLOG_CATEGORY);
-            $Blog->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
+            $Blog->{Blog::FACEBOOK_LINK} = $request->input(Blog::FACEBOOK_LINK);
+            $Blog->{Blog::YOUTUBE_LINK} = $request->input(Blog::YOUTUBE_LINK);
+            $Blog->{Blog::TWITTER_LINK} = $request->input(Blog::TWITTER_LINK);
+            $Blog->{Blog::INSTAGRAM_LINK} = $request->input(Blog::INSTAGRAM_LINK);
             $Blog->{Blog::META_TITLE} = $request->input(Blog::META_TITLE);
+            $Blog->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
             $Blog->{Blog::META_DESCRIPTION} = $request->input(Blog::META_DESCRIPTION);
+            $Blog->{Blog::BLOG_SORTING} = $request->input(Blog::BLOG_SORTING);
             $Blog->{Blog::BLOG_STATUS} = $request->input(Blog::BLOG_STATUS);           
             $Blog->{Blog::STATUS} = 1;
             $Blog->{Blog::CREATED_BY} = Auth::user()->id;
@@ -115,36 +114,28 @@ class BlogController extends Controller
         $maxId += 1;
         $timeNow = strtotime($this->timeNow());
         $maxId .= "_$timeNow";
-        return $this->uploadLocalFile($request,"image","/images/blog/","slide_$maxId");
-    }
-
-    public function blogMultipleImage(BlogRequest $request){
-        $maxId = Blog::max(Blog::ID);
-        $maxId += 1;
-        $timeNow = strtotime($this->timeNow());
-        $maxId .= "_$timeNow";
-        return $this->uploadMultipleLocalFiles($request,"blog_images","/images/blogImages/","slide_$maxId");
+        return $this->uploadLocalFile($request,"image","/website/uploads/blog/","slide_$maxId");
     }
 
     public function updateBlog(BlogRequest $request){
         $check = Blog::where([Blog::ID=>$request->input(Blog::ID),Blog::STATUS=>1])->first();
         if($check){
-            if($request->hasFile('image') ){
+            if($request->hasFile('image')){
                 $imageUpload =$this->blogImageUpload($request);
-                $blogImages = $this->blogMultipleImage($request);
-                $blogImageUrls = array_column($blogImages, 'data');
                 if($imageUpload["status"]){
                     $check->{Blog::IMAGE} = $imageUpload["data"];
-                    $check->{Blog::BLOG_IMAGES} = json_encode($blogImageUrls);
                     $check->{Blog::BLOG_SORTING} = $request->input(Blog::BLOG_SORTING);
                     $check->{Blog::TITLE} = $request->input(Blog::TITLE);
                     $check->{Blog::CONTENT} = $request->input(Blog::CONTENT);
                     $check->{Blog::BLOG_DATE} = $request->input(Blog::BLOG_DATE);
                     $check->{Blog::BLOG_CATEGORY} = $request->input(Blog::BLOG_CATEGORY);
-                    $check->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
+                    $check->{Blog::FACEBOOK_LINK} = $request->input(Blog::FACEBOOK_LINK);
+                    $check->{Blog::YOUTUBE_LINK} = $request->input(Blog::YOUTUBE_LINK);
+                    $check->{Blog::TWITTER_LINK} = $request->input(Blog::TWITTER_LINK);
+                    $check->{Blog::INSTAGRAM_LINK} = $request->input(Blog::INSTAGRAM_LINK);
                     $check->{Blog::META_TITLE} = $request->input(Blog::META_TITLE);
+                    $check->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
                     $check->{Blog::META_DESCRIPTION} = $request->input(Blog::META_DESCRIPTION);
-                    
                     $check->{Blog::BLOG_STATUS} = $request->input(Blog::BLOG_STATUS);
                     $check->{Blog::UPDATED_BY} = Auth::user()->id;
                     $check->save();
@@ -159,13 +150,13 @@ class BlogController extends Controller
                 $check->{Blog::CONTENT} = $request->input(Blog::CONTENT);
                 $check->{Blog::BLOG_DATE} = $request->input(Blog::BLOG_DATE);
                 $check->{Blog::BLOG_CATEGORY} = $request->input(Blog::BLOG_CATEGORY);
-                $check->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
-                $check->{Blog::META_TITLE} = $request->input(Blog::META_TITLE);
-                $check->{Blog::META_DESCRIPTION} = $request->input(Blog::META_DESCRIPTION);
                 $check->{Blog::FACEBOOK_LINK} = $request->input(Blog::FACEBOOK_LINK);
                 $check->{Blog::YOUTUBE_LINK} = $request->input(Blog::YOUTUBE_LINK);
                 $check->{Blog::TWITTER_LINK} = $request->input(Blog::TWITTER_LINK);
                 $check->{Blog::INSTAGRAM_LINK} = $request->input(Blog::INSTAGRAM_LINK);
+                $check->{Blog::META_TITLE} = $request->input(Blog::META_TITLE);
+                $check->{Blog::META_KEYWORD} = $request->input(Blog::META_KEYWORD);
+                $check->{Blog::META_DESCRIPTION} = $request->input(Blog::META_DESCRIPTION);
                 $check->{Blog::BLOG_STATUS} = $request->input(Blog::BLOG_STATUS);
                 $check->{Blog::UPDATED_BY} = Auth::user()->id;
                 $check->save();
@@ -195,29 +186,5 @@ class BlogController extends Controller
             $return = ["status"=>false,"message"=>"Details not found.","data"=>""];
         }
         return $return;
-    }
-
-    public function getBlogs()
-    {
-        $blogs = Blog::where('status',1)->get();
-        $data = [
-            'status' => true,
-            'success' => true,
-            'blogs' => $blogs,
-        ];
-
-        return response()->json($data, 200);
-    }
-
-    public function blogDetails($id)
-    {
-        $blog = Blog::where('id',$id)->first();
-        $data = [
-            'status' => true,
-            'success' => true,
-            'blog' => $blog,
-        ];
-
-        return response()->json($data, 200);
     }
 }

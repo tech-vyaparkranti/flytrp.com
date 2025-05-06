@@ -3062,7 +3062,7 @@ textarea.form-control-lg {
   content: "";
 }
 .dropstart .dropdown-toggle::after {
-  display: block;
+  display: none;
 }
 .dropstart .dropdown-toggle::before {
   display: inline-block;

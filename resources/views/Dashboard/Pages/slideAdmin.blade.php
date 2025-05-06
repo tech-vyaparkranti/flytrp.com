@@ -12,12 +12,12 @@
                     required></x-input-with-label-element>
 
                 {{-- <x-input-with-label-element id="heading_top" label="Top Heading Text"
-                    name="heading_top"></x-input-with-label-element> --}}
+                    name="heading_top"></x-input-with-label-element>
 
-                {{-- <x-input-with-label-element id="heading_middle" label="Middle Heading Text"
-                    name="heading_middle"></x-input-with-label-element> --}}
+                <x-input-with-label-element id="heading_middle" label="Middle Heading Text"
+                    name="heading_middle"></x-input-with-label-element>
 
-                {{-- <x-input-with-label-element id="heading_bottom" label="Bootom Heading Text"
+                <x-input-with-label-element id="heading_bottom" label="Bootom Heading Text"
                     name="heading_bottom"></x-input-with-label-element> --}}
 
                 <x-select-with-label id="slide_status" name="slide_status" label="Select Slide Status" required="true">
@@ -83,6 +83,21 @@
                         searchable: false,
                         title: "Slide Image"
                     },
+                    // {
+                    //     data: '{{ \App\Models\SliderModel::HEADING_TOP }}',
+                    //     name: '{{ \App\Models\SliderModel::HEADING_TOP }}',
+                    //     title: 'Top Heading'
+                    // },
+                    // {
+                    //     data: '{{ \App\Models\SliderModel::HEADING_MIDDLE }}',
+                    //     name: '{{ \App\Models\SliderModel::HEADING_MIDDLE }}',
+                    //     title: 'Middle Heading'
+                    // },
+                    // {
+                    //     data: '{{ \App\Models\SliderModel::HEADING_BOTTOM }}',
+                    //     name: '{{ \App\Models\SliderModel::HEADING_BOTTOM }}',
+                    //     title: 'Bottom Heading'
+                    // },
                     {
                         data: '{{ \App\Models\SliderModel::SLIDE_STATUS }}',
                         name: '{{ \App\Models\SliderModel::SLIDE_STATUS }}',
@@ -112,9 +127,9 @@
             if (row['id']) {
                 $("#id").val(row['id']);
                 $("#image").attr("required",false);
-                // $("#heading_top").val(row['heading_top']);
-                // $("#heading_middle").val(row['heading_middle']);
-                // $("#heading_bottom").val(row['heading_bottom']);
+                $("#heading_top").val(row['heading_top']);
+                $("#heading_middle").val(row['heading_middle']);
+                $("#heading_bottom").val(row['heading_bottom']);
                 $("#slide_status").val(row['slide_status']);
                 $("#slide_sorting").val(row['slide_sorting']);
                 $("#action").val("update");

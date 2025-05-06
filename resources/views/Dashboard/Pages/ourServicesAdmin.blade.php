@@ -9,33 +9,17 @@
                 <x-input type="hidden" name="action" id="action" value="insert"></x-input>
 
                 <x-input-with-label-element id="service_name" label="Service Name" placeholder="Service Name"
-                    name="service_name" required></x-input-with-label-element>
+                    name="service_name"  required></x-input-with-label-element>
                 
-                <x-input-with-label-element div_id="service_image_div" id="service_image" label="Multiple Service Image" type="file" accept="image/*"
-                placeholder="Service Image" name="service_image[]" required="true" multiple></x-input-with-label-element>
-
-                <x-input-with-label-element div_id="banner_image_div" id="banner_image" label="Banner Image" type="file" accept="image/*"
-                placeholder="Banner Image" name="banner_image"></x-input-with-label-element>
+                <x-input-with-label-element div_id="service_image_div" id="service_image" label="Service Image" type="file" accept="image/*"
+                placeholder="Service Image" name="service_image" required="true"></x-input-with-label-element>
 
                 <x-input-with-label-element id="sorting_number" label="Sorting Number" type="numeric" minVal="1"
                     placeholder="Sorting Number" name="position" required="true"></x-input-with-label-element>
 
-                <x-select-with-label id="category" name="category" label="Select Category" required="true">
-                        <option value="Content Marketing">Content Marketing</option>
-                        <option value="Social Marketing">Social Marketing</option>
-                        <option value="App Development">App Development</option>
-                        <option value="SEO Optimization">SEO Optimization</option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="PPC Advertising">PPC Advertising</option>
-                </x-select-with-label>
                 <x-text-area-with-label div_class="col-md-12 col-sm-12 mb-3" id="service_details"
                     placeholder="Service Details" label="Service Details" name="service_details"  ></x-text-area-with-label>
 
-                <x-text-area-with-label div_class="col-md-12 col-sm-12 mb-3" id="short_description"
-                    placeholder="Short Description" label="Short Description" name="short_desc"  ></x-text-area-with-label>
-
-                
-    
                 <x-form-buttons></x-form-buttons>
             </x-form-element>
 
@@ -54,11 +38,6 @@
     <script type="text/javascript">
         $('#service_details').summernote({
             placeholder: 'Service Details',
-            tabsize: 2,
-            height: 100
-        });
-        $('#short_description').summernote({
-            placeholder: 'Short Description',
             tabsize: 2,
             height: 100
         });
@@ -97,72 +76,30 @@
                         width: '20%'
                     },
                     {
-                        data: 'banner_image',
+                        data: 'service_image',
                         render: function(data, type, row) {
                             let image = '';
                             if (data) {
-                                image = '<image  class="img-thumbnail" src="'+data+'">'
+                                image = '<image  class="img-thumbnail" src="'+site_url+''+data+'">'
                             }
                             return image;
                         },
                         orderable: false,
                         searchable: false,
-                        title: "Banner Image",
+                        title: "Service Icon",
                         width: '30%'
                     },
-                    {
-                        data: 'service_image',
-                        render: function(data, type, row) {
-                            let images = '';
 
-                            if (data) {
-                                try {
-                                    let cleanData = data.replace(/&quot;/g, '"');
-                                    if (!cleanData.startsWith('[') || !cleanData.endsWith(']')) {
-                                        cleanData = `[${cleanData}]`;
-                                    }
 
-                                    let imageArray = JSON.parse(cleanData);
-
-                                    images += '<div style="display: flex; flex-wrap: wrap;">';
-
-                                    imageArray.forEach(function(image) {
-                                        images += '<img class="img-thumbnail" src="' +
-                                            image +
-                                            '" alt="Image" style="width: 100px; margin-right: 5px; height: auto;">';
-                                    });
-                                } catch (e) {
-                                    images = '<span class="text-danger">Invalid image data</span>';
-                                }
-                            }
-
-                            return images;
-                        },
-                        orderable: false,
-                        searchable: false,
-                        title: "Service Images",
-                    },
                     {
                         data: 'service_details',
                         name: 'service_details',
-                        title: 'Service Details',
-                        width: '30%'
-                    },
-                    {
-                        data: 'short_desc',
-                        name: 'short_desc',
-                        title: 'Short Description',
-                        width: '10%'
-                    },
-                    {
-                        data: 'category',
-                        name: 'category',
-                        title: 'Category',
+                        title: 'Service Details'
                     },
                     {
                         data: 'position',
                         name: 'position',
-                        title: 'Service Position',
+                        title: 'Listing Position',
                         width: '20%'
                     },
                     {
@@ -185,22 +122,20 @@
             if (row['id']) {
                 $("#service_image_old_div").remove();
                 $("#id").val(row['id']);
-                $("#service_image").attr("required", false);
-                $("#banner_image").attr("required", false);
+                $("#service_image").prop("required",false);
                 $("#service_name").val(row['service_name']);                
                 $("#service_image_div").parent().append(`
                 <div class="col-md-4 col-sm-12 mb-3" id="service_image_old_div">
-                    <label class="form-label" for="service_image_old">Current Service Image</label>            
-                        <input class="form-control" type="image" src="${row['banner_image']}" id="service_image_old" label=" Old Banner Image "   >
-                </div>`);
+    <label class="form-label" for="service_image_old">Current Service Image</label>            
+        <input class="form-control" type="image" src="${site_url+row['service_image']}" id="service_image_old" label="Service Image Old"   >
+</div>`);
                 $("#sorting_number").val(row['position']);
-                $("#service_details").val(row['service_details']);
-                $("#category").val(row['category']);
+                $("#service_details").text(row['service_details']);
                 $('#service_details').summernote('destroy');
-                $('#service_details').summernote({focus: true});
-                $("#short_description").val(row['short_desc']);
-                $('#short_description').summernote('destroy');
-                $('#short_description').summernote({focus: true});
+                $("#service_details").val(row["service_details"]);
+                $('#service_details').summernote({
+                    focus: true
+                });
                 $("#action").val("update");
 
                 scrollToDiv();

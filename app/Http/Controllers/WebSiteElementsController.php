@@ -17,27 +17,54 @@ class WebSiteElementsController extends Controller
     const ELEMENTS = [
         "Logo",
         "Address",
-        "mail",
-        "mobile",
-        "whatsapp_number",
+        "Email",
+        "Phone_number1",
+        "Phone_number2",
+        "Phone_number3",
+        "Phone_number4",
+        "Phone_number5",
+        "ContactUs_heading",
+        "contactus_content",
         "Map_link",
+        "contactus_image1",
+        "contactus_image2",
+        "contactus_image3",
         "facebook_link",
         "youtube_link",
-        "instagram_link",
-        "twitter",
-        "linkedin",
-        "banner_title",
-        "banner_content",
-        "active_clients_number",
-        "team_advisor_number",
-        "project_done_number",
-        "glorious_years_no",       
-        "testimonial_heading",
-        "testimonial_content",
-        "packages_heading",
-        "packages_short_description",
-        "blog_heading",
-        "blog_short_description",
+        // "pinterest_link",
+        "insta_link",
+        "whatsapp_footer_link",
+        "phone_footer_link",
+        "footer_content",
+        "our_services_subheading",
+        "home_other_services_content_heading",
+        "home_other_services_image",
+        "home_other_services_content_subheading",
+        "home_other_services_happy_customer_no",
+        "home_other_services_holidays_content",
+        "home_other_services_weddings_content",
+        "home_other_services_event_content",
+        "home_other_services_friendly_support_content",
+        "years_of_experience",
+        "home_aboutus_content_heading",
+        "home_aboutus_content_subheading",
+        "home_aboutus_content_image",
+        "home_aboutus_content_popular_destination_no",
+        "home_aboutus_content_satisfied_clients_no",
+        "about_company_heading",
+        "about_company_subheading",
+        "about_us_image_1",
+        "about_us_image_2",
+        "about_us_image_3",
+        "about_us_image_4",
+        "about_us_image_3_heading",
+        "about_us_image_3_subheading",
+        "about_us_image_2_card_1_heading",
+        "about_us_image_2_card_1_subheading",
+        "about_us_image_2_card_2_heading",
+        "about_us_image_2_card_2_subheading",
+        "about_testimonial_no",
+        "about_testimonial_heading",
     ];
     public function addWebSiteElements()
     {
@@ -86,7 +113,7 @@ class WebSiteElementsController extends Controller
                 $check->{WebSiteElements::ELEMENT} = $requestData[WebSiteElements::ELEMENT];
                 $check->{WebSiteElements::ELEMENT_TYPE} = $requestData[WebSiteElements::ELEMENT_TYPE];
                 if ($requestData[WebSiteElements::ELEMENT_TYPE] == "Image") {
-                    $fileUpload = $this->uploadLocalFile($request, "element_details_image", "/images/WesiteElements/");
+                    $fileUpload = $this->uploadLocalFile($request, "element_details_image", "/website/uploads/WesiteElements/");
                     if ($fileUpload["status"]) {
                         $check->{WebSiteElements::ELEMENT_DETAILS} = $fileUpload["data"];
                     } else {
@@ -126,7 +153,7 @@ class WebSiteElementsController extends Controller
             $check->{WebSiteElements::ELEMENT} = $requestData[WebSiteElements::ELEMENT];
             $check->{WebSiteElements::ELEMENT_TYPE} = $requestData[WebSiteElements::ELEMENT_TYPE];
             if ($requestData[WebSiteElements::ELEMENT_TYPE] == "Image") {
-                $fileUpload = $this->uploadLocalFile($request, "element_details_image", "/images/WesiteElements/");
+                $fileUpload = $this->uploadLocalFile($request, "element_details_image", "/website/uploads/WesiteElements/");
                 if ($fileUpload["status"]) {
                     $check->{WebSiteElements::ELEMENT_DETAILS} = $fileUpload["data"];
                 } else {
@@ -166,19 +193,5 @@ class WebSiteElementsController extends Controller
             })
             ->rawColumns(['action',WebSiteElements::ELEMENT_DETAILS])
             ->make(true);
-    }
-
-
-    public function homeElements()
-    {
-
-        $elements = WebSiteElements::where('status','1')->get();
-        $elementData = $elements->pluck('element_details', 'element')->toArray();
-        $data = [
-            'status' => true,
-            'success' => true,
-            'elements' => $elementData,
-        ];
-        return response()->json($data, 200);
     }
 }

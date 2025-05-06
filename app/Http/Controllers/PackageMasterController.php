@@ -8,82 +8,93 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PackageMaster;
 use App\Traits\CommonFunctions;
+use App\Models\PackageItinerary;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 class PackageMasterController extends Controller
 {
-    use CommonFunctions;
-
     const ACTIVE_PACKAGES = "getActivePackages";
-// 
+    use CommonFunctions;
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         try {
-            $city_master = CityMaster::where(CityMaster::STATUS, 1)
-                ->get([CityMaster::CITY_NAME, CityMaster::ID]);
-
-            return view("Dashboard.PackageMaster.viewPackages", compact("city_master"));
+            $package_types = PackageMaster::PACKAGE_TYPES;
+            $city_master = CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID]);
+            return view("Dashboard.PackageMaster.viewPackages", compact("package_types", "city_master"));
         } catch (Exception $exception) {
-            report($exception);
-            return back()->withErrors($exception->getMessage());
+            dd($exception->getMessage());
         }
     }
 
     /**
-     * Store a new or updated package.
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create()
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                "id" => "nullable|exists:package_master,id",
-                "package_name" => "required|string|unique:package_master,package_name," . $request->id . ",id",
-                "package_country" => "required|string",
-                "package_image.*" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
-                "description" => "nullable|string|max:65535",
-                "meta_keyword"=>"bail|nullable",
-                "meta_title"=>"bail|nullable",
-                "meta_description"=>"bail|nullable",
-            ]);
+        //
+    }
 
-            if ($validator->fails()) {
-                return response()->json(["status" => false, "message" => $validator->errors()->first()]);
+
+    public function store(FormRequest $request)
+    {
+        try { 
+            // dd ($request);
+            $validate = $this->validatePackageData($request);
+            if ($validate->fails()) {
+                return response()->json(["status" => false, "message" => $validate->getMessageBag()->first(), "data" => null]);
             }
 
             DB::beginTransaction();
 
-            $package = $request->id
-                ? PackageMaster::find($request->id)
+            // Determine if this is a new or existing package
+            $newPackage = $request->input(PackageMaster::ID)
+                ? PackageMaster::find($request->input(PackageMaster::ID))
                 : new PackageMaster();
 
-            // Image Upload
-            if ($request->hasFile('package_image')) {
-                $images = $this->uploadMultipleImages($request, 'package_image');
-                $package->package_image = $images;
+            // Handle image upload
+            $images = [];
+            if ($request->hasFile(PackageMaster::PACKAGE_IMAGE)) {
+                $images = $this->uploadMultipleImages($request, PackageMaster::PACKAGE_IMAGE);
+                $newPackage->{PackageMaster::PACKAGE_IMAGE} = $images;
             }
 
-            $package->package_name = $request->package_name;
-            $package->package_country = $request->package_country;
-            $package->description = $request->description;
-            $package->meta_keyword = $request->meta_keyword;
-            $package->meta_title = $request->meta_title;
-            $package->meta_description = $request->meta_description;
-            $package->status = 1;
+            $newPackage->{PackageMaster::PACKAGE_NAME} = $request->input(PackageMaster::PACKAGE_NAME);
+            $newPackage->{PackageMaster::PACKAGE_COUNTRY} = $request->input(PackageMaster::PACKAGE_COUNTRY);
+            $newPackage->{PackageMaster::PACKAGE_DURATION_DAYS} = $request->input(PackageMaster::PACKAGE_DURATION_DAYS);
+            $newPackage->{PackageMaster::PACKAGE_DURATION_NIGHTS} = $request->input(PackageMaster::PACKAGE_DURATION_NIGHTS);
+            $newPackage->{PackageMaster::PACKAGE_OFFER_PRICE} = $request->input(PackageMaster::PACKAGE_OFFER_PRICE);
+            $newPackage->{PackageMaster::PACKAGE_PRICE} = $request->input(PackageMaster::PACKAGE_PRICE);
+            $newPackage->{PackageMaster::PACKAGE_TYPE} = $request->input(PackageMaster::PACKAGE_TYPE);
+            $newPackage->{PackageMaster::PACKAGE_EXTERNAL_LINK} = $request->input(PackageMaster::PACKAGE_EXTERNAL_LINK);
+            $newPackage->{PackageMaster::DESCRIPTION} = $request->input(PackageMaster::DESCRIPTION);
+            $newPackage->{PackageMaster::PACKAGE_INCLUDED} = $request->input(PackageMaster::PACKAGE_INCLUDED);
+            $newPackage->{PackageMaster::PACKAGE_EXCLUDED} = $request->input(PackageMaster::PACKAGE_EXCLUDED);
+            $newPackage->{PackageMaster::ITINERARY_TITLES} = $request->input(PackageMaster::ITINERARY_TITLES);
+            $newPackage->{PackageMaster::ITINERARY_DESCRIPTIONS} = $request->input(PackageMaster::ITINERARY_DESCRIPTIONS);
+            $newPackage->{PackageMaster::META_TITLE} = $request->input(PackageMaster::META_TITLE);
+            $newPackage->{PackageMaster::META_KEYWORD} = $request->input(PackageMaster::META_KEYWORD);
+            $newPackage->{PackageMaster::META_DESCRIPTION} = $request->input(PackageMaster::META_DESCRIPTION);
+            $newPackage->{PackageMaster::STATUS} = 1;
 
-            if ($request->id) {
-                $package->updated_by = Auth::id();
-            } else {
-                $package->created_by = Auth::id();
-            }
+            $newPackage->{PackageMaster::UPDATED_BY} = $request->input(PackageMaster::ID) ? Auth::user()->id : null;
+            $newPackage->{PackageMaster::CREATED_BY} = $request->input(PackageMaster::ID) ? null : Auth::user()->id;
 
-            $package->save();
+            $newPackage->save();
+
+            // Save city details for the package
+            $this->saveUpdatePackageItinerary($request, $newPackage->id);
 
             Cache::forget(self::ACTIVE_PACKAGES);
             DB::commit();
@@ -96,108 +107,139 @@ class PackageMasterController extends Controller
         }
     }
 
+
+
+
     /**
-     * Edit a package.
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     try {
-    //         $packageData = PackageMaster::where([['id', $id], ['status', 1]])
-    //             ->firstOrFail();
+    public function show($id)
+    {
+        //
+    }
 
-    //         $city_master = CityMaster::where(CityMaster::STATUS, 1)
-    //             ->get([CityMaster::CITY_NAME, CityMaster::ID]);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
-    //         return view("Dashboard.PackageMaster.editPackage", compact("packageData", "city_master"));
-    //     } catch (Exception $exception) {
-    //         report($exception);
-    //         return back()->withErrors($exception->getMessage());
-    //     }
-    // }
     public function edit($id)
     {
         $packageData = PackageMaster::where([
             [PackageMaster::ID, $id],
             [PackageMaster::STATUS, 1]
-        ])->firstOrFail();
+        ])->with("itinerary", "itinerary.city")->first();
 
-        // $package_types = PackageMaster::PACKAGE_TYPES;
-        // $city_master = CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID]);
+        $package_types = PackageMaster::PACKAGE_TYPES;
+        $city_master = CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID]);
 
-        return view("Dashboard.PackageMaster.editPackage", compact( 'packageData'));
+        return view("Dashboard.PackageMaster.editPackage", compact("package_types", "city_master", 'packageData'));
     }
-    public function getActivePackages()
-{
-    try {
-        // Retrieve from cache if available
-        $packageData = Cache::get(self::ACTIVE_PACKAGES);
 
-        if (empty($packageData)) {
-            // Fetch active packages
-            $packages = PackageMaster::where(PackageMaster::STATUS, 1)->get();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
-            if ($packages->isNotEmpty()) {
-                $packageData = $packages;
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
-                // Cache the result
-                Cache::rememberForever(self::ACTIVE_PACKAGES, function () use ($packageData) {
-                    return $packageData;
-                });
+    
+    public function validatePackageData(Request $request)
+    {
+        return Validator::make($request->all(), [
+            "id" => "nullable|bail|required_if:action,edit",
+            "package_name" => "required|bail|unique:package_master,package_name," . $request->id . ",id",
+            "package_type" => "required|bail|in:" . implode(",", PackageMaster::PACKAGE_TYPES),
+            "package_price" => "required|integer|gt:" . $request->package_offer_price,
+            "package_offer_price" => "required|integer|lt:" . $request->package_price . "|gt:0",
+            "package_duration_days" => "required|integer|gte:0",
+            "package_country" => "required|bail",
+            "package_duration_nights" => "required|integer|gte:0",
+            "package_external_link" => "nullable|url",
+            "package_image.*" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
+            'description' => 'nullable|string|max:65535',
+            "package_included" => "nullable|array",
+            "package_excluded" => "nullable|array",
+            "itinerary_titles" => "nullable|array",
+            "itinerary_descriptions" => "nullable|array",
+            "meta_title" => "bail|nullable",
+            "meta_keyword" => "bail|nullable",
+            "meta_description" => "bail|nullable",
+            "days" => "nullable|array",
+            "days.*" => "numeric",
+            "city_id.*" => "nullable|array",
+            "city_id.*" => "exists:" . CityMaster::TABLE_NAME . "," . CityMaster::ID,
+        ]);
+    }
+
+    // public function updloadImage(FormRequest $request)
+    // {
+
+    //     $maxId = PackageMaster::max(PackageMaster::ID);
+    //     $maxId += 1;
+    //     $timeNow = strtotime($this->timeNow());
+    //     $maxId .= "_$timeNow";
+    //     return $this->uploadLocalFile($request, PackageMaster::PACKAGE_IMAGE, "/website/uploads/package_images/", "package_$maxId");
+    // }
+
+    public function uploadMultipleImages(FormRequest $request, $fieldName)
+    {
+        $images = [];
+        if ($request->hasFile($fieldName)) {
+            foreach ($request->file($fieldName) as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('website/uploads/package_images', $filename, 'public');
+                $images[] = $path;
             }
         }
-
-        return $packageData;
-    } catch (Exception $exception) {
-        report($exception);
-        return null; // Return null or handle as per your application's error-handling policy
-    }
-}
-
-
-
-    /**
-     * Enable or disable a package.
-     */
-    public function enableDisablePackage(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "action" => "required|in:enable,disable",
-            "id" => "required|exists:package_master,id",
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(["status" => false, "message" => $validator->errors()->first()]);
-        }
-
-        try {
-            $package = PackageMaster::findOrFail($request->id);
-
-            $package->status = $request->action === "enable" ? 1 : 0;
-            $package->updated_by = Auth::id();
-            $package->save();
-
-            Cache::forget(self::ACTIVE_PACKAGES);
-
-            $message = $request->action === "enable"
-                ? "Package enabled successfully."
-                : "Package disabled successfully.";
-
-            return response()->json(["status" => true, "message" => $message]);
-        } catch (Exception $exception) {
-            report($exception);
-            return response()->json(["status" => false, "message" => $exception->getMessage()]);
-        }
+        return $images;
     }
 
-    /**
-     * Handle the DataTable for listing packages.
-     */
     public function dataTable()
     {
         try {
-            $query = PackageMaster::select([
-                'id', 'package_name', 'package_image', 'package_country', 'status', 'description','meta_title','meta_keyword','meta_description'
-            ]);
+            $query = PackageMaster::select(
+                'id',
+                'package_name',
+                'package_image',
+                'package_type',
+                'package_country',
+                'status',
+                'package_price',
+                'package_offer_price',
+                'package_duration_days',
+                'package_duration_nights',
+                'package_external_link',
+                'description',
+                'package_included',
+                'package_excluded',
+                'itinerary_titles',
+                'itinerary_descriptions',
+                'meta_title',
+                'meta_keyword',
+                'meta_description'
+            );
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -215,8 +257,39 @@ class PackageMasterController extends Controller
                     }
                     return 'No Images Available';
                 })
+                ->addColumn('package_included', function ($row) {
+                    $included = is_string($row->package_included)
+                        ? json_decode($row->package_included, true)
+                        : $row->package_included;
+
+                    return is_array($included) ? implode(', ', $included) : 'N/A';
+                })
+                ->addColumn('package_excluded', function ($row) {
+                    $excluded = is_string($row->package_excluded)
+                        ? json_decode($row->package_excluded, true)
+                        : $row->package_excluded;
+
+                    return is_array($excluded) ? implode(', ', $excluded) : 'N/A';
+                })
+                ->addColumn('itinerary_titles', function ($row) {
+                    $titles = is_string($row->itinerary_titles)
+                        ? json_decode($row->itinerary_titles, true)
+                        : $row->itinerary_titles;
+
+                    return is_array($titles) ? implode('<br>', $titles) : 'N/A';
+                })
+                ->addColumn('itinerary_descriptions', function ($row) {
+                    $descriptions = is_string($row->itinerary_descriptions)
+                        ? json_decode($row->itinerary_descriptions, true)
+                        : $row->itinerary_descriptions;
+
+                    return is_array($descriptions) ? implode('<br>', $descriptions) : 'N/A';
+                })
                 ->addColumn('description', function ($row) {
                     return nl2br(e($row->description));
+                })
+                ->addColumn('package_external_link', function ($row) {
+                    return '<a href="' . e($row->package_external_link) . '" target="_blank" class="btn btn-info">Link</a>';
                 })
                 ->addColumn('action', function ($row) {
                     $editUrl = route("packageMaster.edit", $row->id);
@@ -227,27 +300,233 @@ class PackageMasterController extends Controller
 
                     return $btnEdit . ' ' . $btnToggle;
                 })
-                ->rawColumns(['package_image', 'description', 'action'])
+                ->addColumn('description', function ($row) {
+                    $modalId = "modal-description-{$row->id}";
+                    $shortDescription = Str::limit(strip_tags($row->description), 50, '...');
+                    $fullDescription = nl2br(e($row->description));
+                
+                    return '
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#' . $modalId . '">
+                            View Description
+                        </button>
+                        <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . '-label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="' . $modalId . '-label">Package Description</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ' . $fullDescription . '
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                })  
+                ->addColumn('itinerary_titles', function ($row) {
+                    $modalId = "modal-itinerary-titles-{$row->id}";
+                    $shortTitles = Str::limit(strip_tags(implode(', ', $row->itinerary_titles)), 50, '...');
+                    $fullTitles = nl2br(e(implode('<br>', $row->itinerary_titles)));
+                
+                    return '
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#' . $modalId . '">
+                            View Iternary Titles
+                        </button>
+                        <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . '-label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="' . $modalId . '-label">Itinerary Titles</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ' . $fullTitles . '
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                })
+                ->addColumn('itinerary_descriptions', function ($row) {
+                    $modalId = "modal-itinerary-descriptions-{$row->id}";
+                    $shortDescriptions = Str::limit(strip_tags(implode(', ', $row->itinerary_descriptions)), 50, '...');
+                    $fullDescriptions = nl2br(e(implode('<br>', $row->itinerary_descriptions)));
+                
+                    return '
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#' . $modalId . '">
+                            View Iternary Descriptions
+                        </button>
+                        <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . '-label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="' . $modalId . '-label">Itinerary Descriptions</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ' . $fullDescriptions . '
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                })              
+                ->rawColumns(['package_image', 'description', 'itinerary_titles', 'itinerary_descriptions', 'package_external_link', 'action'])
                 ->make(true);
-        } catch (Exception $exception) {
-            report($exception);
-            return response()->json(['error' => $exception->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    /**
-     * Upload multiple images.
-     */
-    private function uploadMultipleImages(Request $request, $fieldName)
+
+    public function addCity(Request $request)
     {
-        $images = [];
-        if ($request->hasFile($fieldName)) {
-            foreach ($request->file($fieldName) as $file) {
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('website/uploads/package_images', $filename, 'public');
-                $images[] = $path;
+        try {
+            $validate = Validator::make($request->all(), [
+                "city_name" => "required|string|max:255"
+            ]);
+            if ($validate->fails()) {
+                $return = ["status" => false, "message" => $validate->getMessageBag()->first(), "data" => null];
+            } else {
+                $check = CityMaster::where(CityMaster::CITY_NAME, $request->{CityMaster::CITY_NAME})->first();
+
+                if (empty($check)) {
+                    $city = new CityMaster();
+                    $city->{CityMaster::CITY_NAME} = $request->{CityMaster::CITY_NAME};
+                    $city->{CityMaster::STATUS} = 1;
+                    $city->{CityMaster::CREATED_BY} = Auth::user()->id;
+                    $city->save();
+                    $return = ["status" => true, "message" => "Saved successfully", "data" => CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID])];
+                } else {
+                    $return = ["status" => false, "message" => "City name duplicate", "data" => null];
+                }
+            }
+
+        } catch (Exception $exception) {
+            report($exception);
+            $return = ["status" => false, "message" => "Exception occurred", "data" => null];
+        }
+        return response()->json($return);
+    }
+
+    public function validateDuration(FormRequest $request)
+    {
+        $return = ["status" => true, "message" => "Success."];
+        $days = $request->days;
+        if (count($days)) {
+            $total_Days = 0;
+            foreach ($days as $d) {
+                $total_Days += $d;
+            }
+            if ($total_Days > $request->package_duration_days) {
+                $return = ["status" => false, "message" => "Total Package duration days is less than itinerary days."];
             }
         }
-        return $images;
+        return $return;
+    }
+    public function saveUpdatePackageItinerary(FormRequest $request, $id)
+    {
+        $days = $request->days;
+        $city_ids = $request->city_id;
+        if (count($days)) {
+            PackageItinerary::where(PackageItinerary::PACKAGE_MASTER_ID, $id)
+                ->update([PackageItinerary::STATUS => 0, PackageItinerary::UPDATED_BY => Auth::user()->id]);
+
+            $check = PackageItinerary::where(PackageItinerary::PACKAGE_MASTER_ID, $id)->get();
+            $insertData = [];
+
+            foreach ($days as $key => $val) {
+                if (!empty($check)) {
+                    $checkItem = $check->where(PackageItinerary::CITY_ID, $city_ids[$key])->first();
+                    if ($checkItem) {
+                        PackageItinerary::where(PackageItinerary::ID, $checkItem->id)->update([
+                            PackageItinerary::STATUS => 1,
+                            PackageItinerary::UPDATED_BY => Auth::user()->id,
+                            PackageItinerary::DAYS => $val
+                        ]);
+                    } else {
+                        $insertData[] = [
+                            PackageItinerary::STATUS => 1,
+                            PackageItinerary::CREATED_BY => Auth::user()->id,
+                            PackageItinerary::DAYS => $val,
+                            PackageItinerary::PACKAGE_MASTER_ID => $id,
+                            PackageItinerary::CITY_ID => $city_ids[$key]
+                        ];
+                    }
+                } else {
+                    $insertData[] = [
+                        PackageItinerary::STATUS => 1,
+                        PackageItinerary::CREATED_BY => Auth::user()->id,
+                        PackageItinerary::DAYS => $val,
+                        PackageItinerary::PACKAGE_MASTER_ID => $id,
+                        PackageItinerary::CITY_ID => $city_ids[$key]
+                    ];
+                }
+            }
+
+            if (count($insertData)) {
+                PackageItinerary::insert($insertData);
+            }
+        }
+    }
+
+    public function getActivePackages()
+    {
+        $packageData = "";//Cache::get(self::ACTIVE_PACKAGES,null);
+        if (empty($packageData)) {
+            $packages = PackageMaster::where(PackageMaster::STATUS, 1)
+                ->with(["itinerary", "itinerary.city"])->get();
+            if (count($packages)) {
+                $packageData = collect($packages)->groupBy(PackageMaster::PACKAGE_TYPE);
+
+                Cache::rememberForever(self::ACTIVE_PACKAGES, function () use ($packageData) {
+                    return $packageData;
+                });
+            }
+        }
+        return $packageData;
+
+    }
+    public function enableDisablePackage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "action" => "required|in:enable,disable",
+            "id" => "required"
+        ]);
+        if ($validator->fails()) {
+            return $this->returnMessage($validator->getMessageBag()->first());
+        }
+        $check = PackageMaster::where(PackageMaster::ID, $request->input(PackageMaster::ID))->first();
+        if ($check) {
+            if ($request->action == "disable") {
+                $check->{PackageMaster::STATUS} = 0;
+                $check->{PackageMaster::UPDATED_BY} = Auth::user()->id;
+                $check->save();
+                Cache::forget(self::ACTIVE_PACKAGES);
+                $return = $this->returnMessage("Disabled successfully.", true);
+            } elseif ($request->action == "enable") {
+                $check->{PackageMaster::STATUS} = 1;
+                $check->{PackageMaster::UPDATED_BY} = Auth::user()->id;
+                $check->save();
+                Cache::forget(self::ACTIVE_PACKAGES);
+                $return = $this->returnMessage("Enabled successfully.", true);
+            } else {
+                $return = $this->returnMessage("Undefined action.");
+            }
+
+        } else {
+            $return = $this->returnMessage("Details not found.");
+        }
+        return $return;
     }
 }

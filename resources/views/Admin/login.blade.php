@@ -1,5 +1,5 @@
 @extends("layouts.webSiteInner")
-@section("title","Vyapar Kranti Backend")
+@section("title","Parivartan Welfare Association")
 @section("page_title",$page_title??"")
 @section("content")
 

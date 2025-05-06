@@ -23,13 +23,10 @@ class GalleryItem extends Model
     const LOCAL_IMAGE = 'local_image';
     const IMAGE_LINK = 'image_link';
     const ALTERNATE_TEXT = 'alternate_text';
-    const LOCAL_VIDEO = 'local_video';
-    // const VIDEO_LINK = 'video_link';
     const TITLE = 'title';
-    // const DESCRIPTION = 'description';
     const POSITION = 'position';
     const VIEW_STATUS = 'view_status';
-    const FILTER_CATEGORY = "filter_category";
+     
     const STATUS = 'status';
     const CREATED_BY = 'created_by';
     const CREATED_AT = 'created_at';
@@ -44,13 +41,10 @@ class GalleryItem extends Model
         try{
             $insert = [
                 self::IMAGE_LINK=>$request->input(self::IMAGE_LINK),
-                // self::VIDEO_LINK=>$request->input(self::VIDEO_LINK),
                 self::ALTERNATE_TEXT=>$request->input(self::ALTERNATE_TEXT),
                 self::TITLE=>$request->input(self::TITLE),
-                // self::DESCRIPTION=>$request->input(self::DESCRIPTION),
                 self::POSITION=>$request->input(self::POSITION),
                 self::VIEW_STATUS=>$request->input(self::VIEW_STATUS),
-                self::FILTER_CATEGORY=>$request->input(self::FILTER_CATEGORY),
                 self::STATUS=>1,
                 self::CREATED_BY=>Auth::user()->id,
             ];
@@ -70,20 +64,7 @@ class GalleryItem extends Model
                     GalleryItem::insert($insert);
                     $maxId++;
                 }
-            }
-            if($request->file(self::LOCAL_VIDEO)){
-                $insert[self::LOCAL_IMAGE] = null;
-                $video = $request->file(self::LOCAL_VIDEO);
-                $fileName = $video->getClientOriginalName();
-                $fileName = "Video_$maxId".preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
-                $video->move(public_path().self::VIDEO_UPLOAD_PATH, $fileName);
-                $insert[self::LOCAL_VIDEO] = self::VIDEO_UPLOAD_PATH.$fileName;
-                GalleryItem::insert($insert);
-            }
-            // if($request->input(self::VIDEO_LINK)){
-            //     $insert[self::VIDEO_LINK] = $request->input(self::VIDEO_LINK);
-            //     GalleryItem::insert($insert);
-            // }
+            } 
             Cache::forget("galleryImages");
             return ["status"=>true,"message"=>"Gallery Item saved.","data"=>"null"];
 
@@ -101,13 +82,10 @@ class GalleryItem extends Model
             if($check){
                 $update = [
                     self::IMAGE_LINK=>$request->input(self::IMAGE_LINK),
-                    // self::VIDEO_LINK=>$request->input(self::VIDEO_LINK),
                     self::ALTERNATE_TEXT=>$request->input(self::ALTERNATE_TEXT),
                     self::TITLE=>$request->input(self::TITLE),
-                    // self::DESCRIPTION=>$request->input(self::DESCRIPTION),
                     self::POSITION=>$request->input(self::POSITION),
                     self::VIEW_STATUS=>$request->input(self::VIEW_STATUS),
-                    self::FILTER_CATEGORY=>$request->input(self::FILTER_CATEGORY),
                     self::STATUS=>1,
                     self::UPDATED_BY=>Auth::user()->id,
                 ];
@@ -144,21 +122,6 @@ class GalleryItem extends Model
                         $i++;
                     }
                 }
-                
-
-                if($request->file(self::LOCAL_VIDEO)){
-                    $insert[self::LOCAL_IMAGE] = null;
-                    $video = $request->file(self::LOCAL_VIDEO);
-                    $fileName = $video->getClientOriginalName();
-                    $fileName = "Video_$maxId".preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
-                    $video->move(public_path().self::VIDEO_UPLOAD_PATH, $fileName);
-                    $update[self::LOCAL_VIDEO] = self::VIDEO_UPLOAD_PATH.$fileName;
-                    if($check->{self::LOCAL_VIDEO}){
-                        File::delete(app_path($check->{self::LOCAL_VIDEO}));
-                    }
-                    $update[self::UPDATED_BY] = Auth::user()->id;
-                    GalleryItem::where(self::ID,$check->{self::ID})->update($update);
-                }
                 $return = ["status"=>true,"message"=>"Updated.","data"=>"null"];  
             }else{
                 $return = ["status"=>false,"message"=>"Not found.","data"=>"null"];
@@ -181,8 +144,7 @@ class GalleryItem extends Model
             [self::VIEW_STATUS,self::VIEW_STATUS_VISIBLE]
         ])->select(self::LOCAL_IMAGE,
         self::IMAGE_LINK,self::ALTERNATE_TEXT,self::TITLE)
-        ->whereNULL(self::VIDEO_LINK)
-        ->whereNULL(self::LOCAL_VIDEO)->orderBy(self::POSITION,'asc')->get();
+        ->orderBy(self::POSITION,'asc')->get();
     }
     
     /**
@@ -217,5 +179,12 @@ class GalleryItem extends Model
      *
      * @return void
      */
-   
+    public function getAllGalleryVideos(){
+        return self::where([
+            [self::STATUS,1],
+            [self::VIEW_STATUS,self::VIEW_STATUS_VISIBLE]
+        ])->select(self::ALTERNATE_TEXT,self::TITLE)
+        ->whereNULL(self::IMAGE_LINK)
+        ->whereNULL(self::LOCAL_IMAGE)->orderBy(self::POSITION,'asc')->get();
+    }
 }

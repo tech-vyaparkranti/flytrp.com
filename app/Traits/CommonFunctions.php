@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 trait CommonFunctions{
 
@@ -25,8 +23,6 @@ trait CommonFunctions{
         ]);
     }
 
-
-
     public function uploadLocalFile(FormRequest $fileObject,$key_name,$upload_path,$file_name = "",int $height = null,int $width = null):array{
         try{
             $uploadFile = $fileObject->file($key_name);
@@ -37,11 +33,8 @@ trait CommonFunctions{
             $fileExtension = $uploadFile->extension();
             $timeString = strtotime($this->timeNow());
             $fileName = "file_$timeString".$file_name.preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
-            
             $fileUploaded = $uploadFile->move(public_path().$upload_path, $fileName);
-            $path = $upload_path.$fileName;
-            $data = config('app.url').$path;
-            // $data = url($path);
+            $data = $upload_path.$fileName;
             if($height && $width){
                 $newName = $upload_path.$fileNameWithoutExtension."img_$timeString"."_cropped.$fileExtension";
                 $resizeImage = Image::make(public_path().$upload_path.$fileName);
@@ -65,66 +58,6 @@ trait CommonFunctions{
         return $return;
     }
 
-    public function uploadMultipleLocalFiles(FormRequest $fileObject, string $key_name, string $upload_path, string $file_name_suffix = "", int $height = null, int $width = null): array
-    {
-        $results = [];
-
-        try {
-            $uploadFiles = $fileObject->file($key_name);
-
-            foreach ($uploadFiles as $uploadFile) {
-                $fileName = $uploadFile->getClientOriginalName();
-                $fileNameWithoutExtension = pathinfo($fileName, PATHINFO_FILENAME);
-                $fileExtension = $uploadFile->extension();
-                $timeString = strtotime($this->timeNow());
-
-                $generatedFileName = "file_{$timeString}_{$file_name_suffix}_" . preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
-                $fullUploadPath = public_path() . $upload_path;
-
-                // Ensure directory exists
-                if (!file_exists($fullUploadPath)) {
-                    mkdir($fullUploadPath, 0755, true);
-                }
-
-                $fileUploaded = $uploadFile->move($fullUploadPath, $generatedFileName);
-                $fullFilePath = $upload_path . $generatedFileName;
-                $fileUrl = config('app.url') . $fullFilePath;
-
-                // Optional resize/crop
-                if ($height && $width) {
-                    $newName = $upload_path . $fileNameWithoutExtension . "_img_{$timeString}_cropped.{$fileExtension}";
-
-                    $resizeImage = Image::make(public_path() . $fullFilePath);
-                    $resizeImage->resize($width, $height, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->crop($width, $height)->save(public_path() . $newName, 100, $fileExtension);
-
-                    if (file_exists(public_path() . $newName)) {
-                        $fileUrl = config('app.url') . $newName;
-                    }
-                }
-
-                $results[] = [
-                    "status" => $fileUploaded ? true : false,
-                    "message" => $fileUploaded ? "Success" : "Failed",
-                    "data" => $fileUrl
-                ];
-            }
-
-        } catch (Exception $exception) {
-            $this->reportException($exception);
-
-            return [[
-                "status" => false,
-                "message" => $exception->getMessage(),
-                "data" => null
-            ]];
-        }
-
-        return $results;
-    }
-
-
     public function timeNow(){
         return Carbon::now();
     }
@@ -133,16 +66,22 @@ trait CommonFunctions{
     }
 
     public function getCachedGalleryItems(){
-        return Cache::rememberForever('galleryImages', function () {
-            return GalleryItem::where([
+        $galleryImages = Cache::get("galleryImages");
+        if(empty($galleryImages)){
+            
+            $galleryImages = GalleryItem::where([
                 [GalleryItem::STATUS,1],
                 [GalleryItem::VIEW_STATUS,GalleryItem::VIEW_STATUS_VISIBLE]
             ])->select(GalleryItem::LOCAL_IMAGE,
-            GalleryItem::IMAGE_LINK,GalleryItem::ALTERNATE_TEXT,GalleryItem::TITLE,
-            GalleryItem::FILTER_CATEGORY)
-            // ->whereNULL(GalleryItem::VIDEO_LINK)
-            ->whereNULL(GalleryItem::IMAGE_LINK)->orderBy(GalleryItem::POSITION,'asc')->get();
-        });
+            GalleryItem::IMAGE_LINK,GalleryItem::ALTERNATE_TEXT,GalleryItem::TITLE)
+            ->orderBy(GalleryItem::POSITION,'asc')->get();
+            if(count($galleryImages)){
+                Cache::rememberForever('galleryImages', function () use($galleryImages) {
+                    return $galleryImages;
+                });
+            }
+        }
+        return $galleryImages;
     }
 
     public function sendContactUsEmail(ContactUsModel $contactUsModel){
@@ -171,6 +110,15 @@ trait CommonFunctions{
     public function addDiv($item,$class="row",$id=""){
         return '<div class="'.$class.'" id="'.$id.'">'.$item.'</div>';
     }
+
+    public function forgetWebSiteElements(){
+        Cache::forget('webSiteElements');
+    }
+    public function getWebSiteElements(){
+        return Cache::rememberForever('webSiteElements', function () {
+            return WebSiteElements::where(WebSiteElements::STATUS,1)->get();
+        });
+    }
     public function forgetSlides(){
         Cache::forget('slides');
     }
@@ -198,13 +146,5 @@ trait CommonFunctions{
   </div>
 </div>';
     }
-    public function forgetWebSiteElements(){
-        Cache::forget('webSiteElements');
-    }
-    public function getWebSiteElements(){
-        return Cache::rememberForever('webSiteElements', function () {
-            return WebSiteElements::where(WebSiteElements::STATUS,1)->get();
-        });
-    }
-    
+
 }

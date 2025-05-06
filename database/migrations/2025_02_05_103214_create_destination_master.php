@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('package_categories', function (Blueprint $table) {
+        Schema::create('destination_master', function (Blueprint $table) {
             $table->id();
-            $table->string("category_name")->index("category_name");
-            $table->string("package_id")->index("package_id_index");
-            $table->integer("position")->default(10);
+            $table->string("destination_name",255)->nullable(false)->index("index_destination");
+            $table->text("destination_details")->nullable(true);
+            $table->text("destination_image")->nullable(false);
+            $table->string('destination_slug', 255)->nullable(false);
+            $table->integer("position")->nullable(true)->index("index_position");
             $table->tinyInteger("status")->nullable(false)->default("1");
             $table->bigInteger("created_by")->nullable(true);
             $table->bigInteger("updated_by")->nullable(true);
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('package_categories');
+        Schema::dropIfExists('destination_master');
     }
 };

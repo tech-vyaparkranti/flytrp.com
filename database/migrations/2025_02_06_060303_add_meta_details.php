@@ -9,7 +9,7 @@ class AddMetaDetails extends Migration
     public function up()
     {
         Schema::table('package_master', function (Blueprint $table) {
-            $table->string('meta_title', 500)->nullable(true)->default(null)->after('description');
+            $table->string('meta_title', 500)->nullable(true)->default(null)->after('itinerary_descriptions');
             $table->text('meta_keyword')->nullable(true)->after('meta_title');
             $table->text('meta_description')->nullable(true)->after('meta_keyword');
         });

@@ -51,7 +51,7 @@ class SliderRequest extends FormRequest
             "slide_status.required_if"=>"Slide status is requried.",
             "slide_status.in"=>"Slide status can be live or disabled.",
             "image.max"=>"Max image size should be 2 mb.",
-            // "image.dimensions"=>"Dimensions should be in aspect ratio 16:9 or pixels w*h 1920*1080"
+            "image.dimensions"=>"Dimensions should be in aspect ratio 16:9 or pixels w*h 1920*1080"
         ];
     }
     /**

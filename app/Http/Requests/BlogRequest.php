@@ -58,33 +58,31 @@ class BlogRequest extends FormRequest
 
             case 'insert':
                 return [
-                    Blog::TITLE => 'required|string',
+                    Blog::TITLE => 'required|string|max:255',
                     Blog::CONTENT => 'required|string',
                     Blog::BLOG_DATE => 'required|date',
-                    Blog::BLOG_CATEGORY => 'required|string',
+                    Blog::BLOG_CATEGORY => 'required|string|max:255',
                     Blog::META_KEYWORD => 'bail|nullable',
                     Blog::META_TITLE => 'bail|nullable',
                     Blog::META_DESCRIPTION => 'bail|nullable',
                     Blog::BLOG_SORTING => 'nullable|integer',
                     Blog::BLOG_STATUS => 'required|in:live,disabled',
-                    Blog::IMAGE => 'nullable|image|mimes:jpeg,png,jpg',
-                    'blog_images' => 'required|array',
-                    'blog_images.*' => 'image',                                   
+                    Blog::IMAGE => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 ];
 
             case 'update':
                 return [
                     Blog::ID => 'required|exists:blogs,' . Blog::ID,
-                    Blog::TITLE => 'required|string',
+                    Blog::TITLE => 'required|string|max:255',
                     Blog::CONTENT => 'required|string',
                     Blog::BLOG_DATE => 'required|date',
-                    Blog::BLOG_CATEGORY => 'required|string',
+                    Blog::BLOG_CATEGORY => 'required|string|max:255',
                     Blog::META_KEYWORD => 'bail|nullable',
                     Blog::META_TITLE => 'bail|nullable',
                     Blog::META_DESCRIPTION => 'bail|nullable',
                     Blog::BLOG_SORTING => 'nullable|integer',
                     Blog::BLOG_STATUS => 'required|in:live,disabled',
-                    Blog::IMAGE => 'nullable|image|mimes:jpeg,png,jpg',
+                    Blog::IMAGE => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 ];
 
             default:

@@ -84,7 +84,7 @@
                             let image = '';
                             if (row.element_type=="Image") {
 
-                                image += '<img alt="Image Link" src="'+ data + '" class="img-thumbnail">';
+                                image += '<img alt="Image Link" src="'+site_url + data + '" class="img-thumbnail">';
                             }else{
                                 console.log(data);
                                 image = row.element_details;

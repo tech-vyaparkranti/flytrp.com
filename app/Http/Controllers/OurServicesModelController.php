@@ -54,17 +54,8 @@ class OurServicesModelController extends Controller
         $maxId += 1;
         $timeNow = strtotime($this->timeNow());
         $maxId .= "_$timeNow";
-        return $this->uploadLocalFile($request, OurServicesModel::BANNER_IMAGE, "/images/service_banner/", "service_image_$maxId");
+        return $this->uploadLocalFile($request, OurServicesModel::SERVICE_IMAGE, "/website/uploads/service_images/", "service_image_$maxId");
     }
-    public function multipleImage(OurServicesRequest $request)
-    {
-        $maxId = OurServicesModel::max(OurServicesModel::ID);
-        $maxId += 1;
-        $timeNow = strtotime($this->timeNow());
-        $maxId .= "_$timeNow";
-        return $this->uploadMultipleLocalFiles($request, OurServicesModel::SERVICE_IMAGE, "/images/service_images/", "service_image_$maxId");
-    }
-
     public function insertData(OurServicesRequest $request)
     {
         $checkDuplicate = OurServicesModel::where(OurServicesModel::SERVICE_NAME, $request->input(OurServicesModel::SERVICE_NAME))->first();
@@ -73,24 +64,17 @@ class OurServicesModelController extends Controller
             $return = $this->returnMessage("Service name is already taken");
         } else {
             $image_url = "";
-            $bannerImage = $this->ImageUpload($request);
-            $serviceImages = $this->multipleImage($request);
-            $serviceImageUrls = array_column($serviceImages, 'data');
-
-            if ($bannerImage["status"]) {
-                $image_url = $bannerImage["data"];
+            $imageUpload = $this->ImageUpload($request);
+            if ($imageUpload["status"]) {
+                $image_url = $imageUpload["data"];
             } else {
-                return $bannerImage;
-            }           
-            
+                return $imageUpload;
+            }
             $createNewRow = new OurServicesModel();
             $createNewRow->{OurServicesModel::SERVICE_NAME} = $request->input(OurServicesModel::SERVICE_NAME);
-            $createNewRow->{OurServicesModel::BANNER_IMAGE} = $image_url;
-            $createNewRow->{OurServicesModel::SERVICE_IMAGE} = json_encode($serviceImageUrls);
+            $createNewRow->{OurServicesModel::SERVICE_IMAGE} = $image_url;
             $createNewRow->{OurServicesModel::SERVICE_DETAILS} = $request->input(OurServicesModel::SERVICE_DETAILS);
-            $createNewRow->{OurServicesModel::SHORT_DESC} = $request->input(OurServicesModel::SHORT_DESC);
             $createNewRow->{OurServicesModel::POSITION} = $request->input(OurServicesModel::POSITION);
-            $createNewRow->{OurServicesModel::CATEGORY} = $request->input(OurServicesModel::CATEGORY);
             $createNewRow->{OurServicesModel::STATUS} = 1;
             $createNewRow->{OurServicesModel::CREATED_BY} = Auth::user()->id;
             $createNewRow->save();
@@ -99,7 +83,7 @@ class OurServicesModelController extends Controller
         return $return;
     }
 
-    public function updateData(OurServicesRequest $request)
+    public function  updateData(OurServicesRequest $request)
     {
         $checkDuplicate = OurServicesModel::where([
             [OurServicesModel::SERVICE_NAME, $request->input(OurServicesModel::SERVICE_NAME)],
@@ -110,33 +94,21 @@ class OurServicesModelController extends Controller
             $return = $this->returnMessage("Service name is already taken");
         } else {
             $updateModel = OurServicesModel::find($request->input(OurServicesModel::ID));
-            $image_url = $updateModel->{OurServicesModel::BANNER_IMAGE};
-            if($request->file(OurServicesModel::BANNER_IMAGE)){
-                $bannerImage = $this->ImageUpload($request);
-                if ($bannerImage["status"]) {
-                    $image_url = $bannerImage["data"];
-                } else {
-                    return $bannerImage;
-                }
-            }  
-
-            $serviceImageUrls = $updateModel->{OurServicesModel::SERVICE_IMAGE};
+            $image_url = $updateModel->{OurServicesModel::SERVICE_IMAGE};
             if($request->file(OurServicesModel::SERVICE_IMAGE)){
-                $serviceImages = $this->multipleImage($request);
-                 if ($serviceImages["status"]) {
-                    $serviceImageUrls = array_column($serviceImages, 'data');
+                $imageUpload = $this->ImageUpload($request);
+                if ($imageUpload["status"]) {
+                    $image_url = $imageUpload["data"];
                 } else {
-                    return $serviceImages;
+                    return $imageUpload;
                 }
-            }  
+            }          
             
             
             $updateModel->{OurServicesModel::SERVICE_NAME} = $request->input(OurServicesModel::SERVICE_NAME);
-            $updateModel->{OurServicesModel::BANNER_IMAGE} = $image_url;
-            $updateModel->{OurServicesModel::SERVICE_IMAGE} = $serviceImageUrls; 
+            $updateModel->{OurServicesModel::SERVICE_IMAGE} = $image_url;
             $updateModel->{OurServicesModel::SERVICE_DETAILS} = $request->input(OurServicesModel::SERVICE_DETAILS);
             $updateModel->{OurServicesModel::POSITION} = $request->input(OurServicesModel::POSITION);
-            $updateModel->{OurServicesModel::CATEGORY} = $request->input(OurServicesModel::CATEGORY);
             $updateModel->{OurServicesModel::STATUS} = 1;
             $updateModel->{OurServicesModel::UPDATED_BY} = Auth::user()->id;
             $updateModel->save();
@@ -184,10 +156,7 @@ class OurServicesModelController extends Controller
             OurServicesModel::SERVICE_DETAILS,
             OurServicesModel::POSITION,
             OurServicesModel::STATUS,
-            OurServicesModel::ID,
-            OurServicesModel::BANNER_IMAGE,
-            OurServicesModel::SHORT_DESC,
-            OurServicesModel::CATEGORY,
+            OurServicesModel::ID
         );
         return DataTables::of($query)
             ->addIndexColumn()
@@ -221,29 +190,5 @@ class OurServicesModelController extends Controller
             OurServicesModel::SERVICE_DETAILS,OurServicesModel::ID)->orderBy(OurServicesModel::POSITION,"asc")
             ->get();
         });
-    }
-
-    public function getService()
-    {
-        $services = OurServicesModel::where('status',1)->get();
-        $data = [
-            'status' => true,
-            'success' => true,
-            'services' => $services,
-        ];
-
-        return response()->json($services, 200);
-    }
-
-    public function serviceDetail($id)
-    {
-        $service = OurServicesModel::where('id',$id)->first();
-        $data = [
-            'status' => true,
-            'success' => true,
-            'service' => $service,
-        ];
-
-        return response()->json($data, 200);
     }
 }

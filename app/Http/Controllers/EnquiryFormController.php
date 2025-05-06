@@ -27,9 +27,14 @@ class EnquiryFormController extends Controller
             } else {
                 $newEnquiry = new EnquiryForm();
                 $newEnquiry->{EnquiryForm::NAME} = $request->input(EnquiryForm::NAME);
+                // $newEnquiry->{EnquiryForm::EMAIL} = $request->input(EnquiryForm::EMAIL);
                 $newEnquiry->{EnquiryForm::PHONE_NUMBER} = $request->input(EnquiryForm::PHONE_NUMBER);
                 $newEnquiry->{EnquiryForm::MESSAGE} = $request->input(EnquiryForm::MESSAGE);
+                // $newEnquiry->{EnquiryForm::PACKAGE_NAME} = $request->input(EnquiryForm::PACKAGE_NAME);
+                // $newEnquiry->{EnquiryForm::TRAVEL_DATE} = $request->input(EnquiryForm::TRAVEL_DATE);
+                // $newEnquiry->{EnquiryForm::TRAVELLER_COUNT} = $request->input(EnquiryForm::TRAVELLER_COUNT);
                 $newEnquiry->save();
+
                 $response = $this->success("Thank you for your message. We will contact you shortly.",[]);
             }
         }catch(Exception $exception){

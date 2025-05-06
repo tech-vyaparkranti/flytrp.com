@@ -38,7 +38,6 @@ class AdminController extends Controller
         }
     }
     
-    
     public function Login()
     {
          
@@ -175,12 +174,10 @@ class AdminController extends Controller
                 GalleryItem::IMAGE_LINK=>"bail|nullable|url|required_without_all:local_image",
                 GalleryItem::ALTERNATE_TEXT=>"bail|string",
                 GalleryItem::TITLE=>"bail|nullable|string",
-                GalleryItem::FILTER_CATEGORY=>"required",
                 GalleryItem::POSITION=>"bail|nullable|numeric",
                 GalleryItem::VIEW_STATUS=>"required|in:visible,hidden",
                 "action"=>"required|in:insert,delete,update",
-                GalleryItem::ID=>"required_if:action,delete,update",
-                GalleryItem::FILTER_CATEGORY=>"required_if:action,insert,update"
+                GalleryItem::ID=>"required_if:action,delete,update"
             ];
             if($request->input("action")=="update"){
                 $validation = [
@@ -188,7 +185,6 @@ class AdminController extends Controller
                     GalleryItem::LOCAL_IMAGE.".*"=>"image",
                     GalleryItem::IMAGE_LINK=>"bail|nullable|url",
                     GalleryItem::ALTERNATE_TEXT=>"bail|string",
-                    
                     GalleryItem::TITLE=>"bail|nullable|string",
                     GalleryItem::POSITION=>"bail|nullable|numeric",
                     GalleryItem::VIEW_STATUS=>"required|in:visible,hidden",
@@ -236,7 +232,6 @@ class AdminController extends Controller
             GalleryItem::IMAGE_LINK,
             GalleryItem::ALTERNATE_TEXT,
             GalleryItem::TITLE,
-            GalleryItem::FILTER_CATEGORY,
             GalleryItem::POSITION,
             GalleryItem::VIEW_STATUS,
         )->where(GalleryItem::STATUS,1);
