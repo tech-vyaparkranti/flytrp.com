@@ -3,7 +3,7 @@
     <div class="container">
         <!-- <div class="footer-top pt-100 pb-30">
             <div class="row justify-content-between">
-                
+
                 <div class="newsletter col-xl-5 col-lg-6" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1500" data-aos-offset="50">
                     <div class="section-title counter-text-wrap mb-35">
                         <h2>Subscribe Newsletter</h2>
@@ -17,7 +17,7 @@
                             <i class="fal fa-arrow-right"></i>
                         </button>
                       </form>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div> -->
@@ -42,10 +42,10 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                     <div class="footer-widget footer-text">
                         <div class="footer-logo mb-25">
-                            <a href="{{ url('/') }}"><img src="{{asset($Logo ?? 'assets/images/logo.png')}}" alt="Logo"></a>
+                            <a href="{{ url('/') }}"><img src="{{asset($Logo ?? 'assets/images/flytrp.png')}}" alt="Logo"></a>
                         </div>
                         <p>{!! $footer_content ?? 'We make your dream more beautiful & enjoyful with lots of happiness.' !!}</p>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-2 col-small" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1500" data-aos-offset="50">
@@ -62,7 +62,7 @@
                         <li><a href="{{ route('blogpage') }}">Blog</a></li>
                         <li><a href="{{ route(name: 'galleryPages') }}">Gallery</a></li>
                         <li><a href="{{ route(name: 'privacyPolicy') }}">Privacy Policy</a></li>
-                        <li><a href="{{ route(name: 'CancellationRefundPolicy') }}">Cancellation Policy</a></li> 
+                        <li><a href="{{ route(name: 'CancellationRefundPolicy') }}">Cancellation Policy</a></li>
                         <li><a href="{{ route(name: 'contactUs') }}">Contact Us</a></li>
                         </ul>
                     </div>

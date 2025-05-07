@@ -18,7 +18,7 @@
                                             <img src="assets/images/logos/logo.png" alt="Logo" title="Logo">
                                        </a>
                                    </div>
-                                   
+
                                     <!-- Toggle Button -->
                                     <button type="button" class="navbar-toggle" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                                         <span class="icon-bar"></span>
@@ -34,7 +34,7 @@
                             </nav>
                             <!-- Main Menu End-->
                         </div>
-                        
+
                         <!-- Nav Search -->
                         <div class="nav-search">
                             <button class="far fa-search"></button>
@@ -43,7 +43,7 @@
                                 <button type="submit" class="searchbutton far fa-search"></button>
                             </form>
                         </div>
-                        
+
                         <!-- Menu Button -->
                         <div class="menu-btns py-10">
                             <a href="contact.php" class="theme-btn style-two bgc-secondary">
@@ -62,6 +62,6 @@
                     </div>
                 </div>
             </div>
-            
+
             <!--End Header Upper-->
         </header>

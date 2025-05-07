@@ -2,7 +2,7 @@
 
 @section('title', 'About Us')
 
-@section('content') 
+@section('content')
 
 {{-- @include('parts.home3.hidden') --}}
 <!-- Hidden Sidebar -->

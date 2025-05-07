@@ -101,7 +101,7 @@
                     <div class="filter-item clearfix" style="position: relative;">
                         <div class="icon"><i class="fal fa-calendar-alt"></i></div>
                         <span class="title" id="calendarTrigger" style="cursor: pointer;">Departure Date</span>
-                        <input type="date" name="departure_date" id="departure_date" 
+                        <input type="date" name="departure_date" id="departure_date"
                             style="display: none; position: absolute; top: 30px; left: 0; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
                         <p id="selectedDate" style="margin-top: 10px; font-size: 14px; color: #555;"></p>
                     </div>
@@ -113,9 +113,9 @@
                 </form>
             </div>             --}}
             <div class="search-filter-inner mb-9" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
-                <form action="{{ route('filterPackages') }}" method="POST" style="display: contents;">
+                {{-- <form action="{{ route('filterPackages') }}" method="POST" style="display: contents;">
                     @csrf
-            
+
                     <!-- Name Field -->
                     <div class="filter-item clearfix mb-3" style="position: relative;">
                         <div class="icon"><i class="fal fa-user"></i></div>
@@ -123,7 +123,7 @@
                         <input type="text" name="name" id="name"
                             style="display: block; width: 100%;height:40px; margin-top: 8px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-            
+
                     <!-- City Dropdown -->
                     <div class="filter-item clearfix mb-3">
                         <div class="icon"><i class="fal fa-map-marker-alt"></i></div>
@@ -138,8 +138,8 @@
                             @endforeach
                         </select>
                     </div>
-                    
-            
+
+
                     <!-- Mobile Number -->
                     <div class="filter-item clearfix mb-3" style="position: relative;">
                         <div class="icon"><i class="fal fa-phone-alt"></i></div>
@@ -147,7 +147,7 @@
                         <input type="text" name="mobile_no" id="mobile_no"
                             style="display: block; width: 100%; margin-top: 8px;height:40px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-            
+
                     <!-- Departure Date -->
                     <div class="filter-item clearfix mb-3" style="position: relative;">
                         <div class="icon"><i class="fal fa-calendar-alt"></i></div>
@@ -155,16 +155,210 @@
                         <input type="date" name="departure_date" id="departure_date"
                             style="display: block; width: 100%; margin-top: 8px;height:40px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-            
+
                     <!-- Submit Button -->
                     <div class="search-button">
                         <button type="submit" class="theme-btn">
                             <span data-hover="Submit">Submit</span>
                         </button>
                     </div>
-                </form>
+                </form> --}}
+
+                {{-- new correction start 5/07 --}}
+
+                  <form action="{{ route('filterPackages') }}" method="POST" style="display: contents;">
+    @csrf
+
+    <style>
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            color: #888;
+            font-size: 16px;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            width: 90%;
+            height: 45px;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 15px;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .theme-btn {
+            background-color: #7BBE47;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .theme-btn:hover {
+            background-color: #68a53e;
+        }
+
+         .nice-select  {
+    width: 100%;
+    height: 46px !important;
+    border-radius: 5px;
+    font-weight: 400;
+    border-radius: 5px !important;
+    font-size: 16px;
+    padding: 3px 30px !important;
+    /* background-color: grey; */
+    border: 1px solid #d3cece !important;
+    font-family: var(--heading-font);
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+
+}
+
+/* Small devices (phones, less than 600px) */
+@media screen and (max-width: 599px) {
+    .nice-select {
+         width: 92% !important;
+    }
+}
+
+/* Medium devices (tablets, 600px to 991px) */
+@media screen and (min-width: 600px) and (max-width: 991px) {
+    .nice-select {
+
+          width: 91% !important;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media screen and (min-width: 992px) {
+    .nice-select {
+            width: 91% !important;
+    }
+}
+
+
+
+
+
+    </style>
+
+    <style>
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center ;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    font-size: 16px;
+    z-index: 1;
+}
+
+.input-wrapper select {
+    width: 100%;
+    height: 45px;
+    padding: 0 12px 0 36px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 45px;
+    text-align: center;
+    text-align-last: center; /* for Firefox */
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+</style>
+
+
+
+
+    <!-- Name Field -->
+    <div class="input-wrapper">
+        <i class="fal fa-user"></i>
+        <input type="text" name="name" id="name" placeholder="Your Name">
+    </div>
+
+    <!-- City Dropdown -->
+    {{-- <div class="input-wrapper">
+        <i class="fal fa-map-marker-alt"></i>
+        <select name="city" id="city">
+            <option value=""  >City or Region</option>
+            @foreach ($destinations as $destination)
+                <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
+                    {{ $destination }}
+                </option>
+            @endforeach
+        </select>
+    </div> --}}
+
+    <div class="input-wrapper" style="padding-right: 5px">
+    <i class="fal fa-map-marker-alt"></i>
+    <select name="city" id="city" >
+        <option value=""   >Destinations</option>
+        @foreach ($destinations as $destination)
+            <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
+                {{ $destination }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+    <!-- Mobile Number -->
+    <div class="input-wrapper">
+        <i class="fal fa-phone-alt"></i>
+        <input type="text" name="mobile_no" id="mobile_no" placeholder="Mobile Number">
+    </div>
+
+    <!-- Departure Date -->
+    <div class="input-wrapper">
+        <i class="fal fa-calendar-alt"></i>
+        <input type="date" name="departure_date" id="departure_date" placeholder="Departure Date">
+    </div>
+
+    <!-- Submit Button -->
+    <div class="search-button">
+        <button type="submit" class="theme-btn">
+            <span data-hover="Submit">Submit</span>
+        </button>
+    </div>
+</form>
+
+
+
+                {{-- new correction end here  --}}
             </div>
-            
+
         </div>
     </section>
     <!-- Hero Area End -->
@@ -340,11 +534,11 @@
                                         $images = is_string($item->destination_image)
                                             ? json_decode($item->destination_image, true)
                                             : $item->destination_image;
-        
+
                                         // Check if images is a valid array and get the first image
                                         $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
                                     @endphp
-        
+
                                     @if ($displayImage)
                                         <img src="{{ asset('storage/' . $displayImage) }}" alt="{{ $item->destination_name }}"
                                             class="hotel-image" style="margin-right: 10px;">
@@ -438,7 +632,7 @@
     </section>
     <!-- Destinations Area end -->
 
-  
+
     <!-- Features Area start -->
     <section class="features-area pt-100 pb-45 rel z-1">
         <div class="container">
@@ -742,8 +936,8 @@
                     // Disable past dates
                     const isPast = currentDate < today.setHours(0, 0, 0, 0);
                     calendarHTML += `
-                        <td style="padding: 5px; border: 1px solid #ddd; cursor: ${isPast ? 'not-allowed' : 'pointer'}; 
-                                   background-color: ${isPast ? '#f0f0f0' : 'transparent'}; 
+                        <td style="padding: 5px; border: 1px solid #ddd; cursor: ${isPast ? 'not-allowed' : 'pointer'};
+                                   background-color: ${isPast ? '#f0f0f0' : 'transparent'};
                                    color: ${isPast ? '#ccc' : '#000'};"
                             data-date="${isPast ? '' : `${year}-${month + 1}-${day}`}">
                             ${day}
@@ -790,12 +984,12 @@
             const calendarTrigger = document.getElementById('calendarTrigger');
             const departureDateInput = document.getElementById('departure_date');
             const selectedDateText = document.getElementById('selectedDate');
-    
+
             // Set the min attribute of the date input to today's date
             const today = new Date();
             const formattedDate = today.toISOString().split('T')[0]; // Format as YYYY-MM-DD
             departureDateInput.setAttribute('min', formattedDate);
-    
+
             // Toggle visibility of the date input on clicking the calendar trigger
             calendarTrigger.addEventListener('click', function () {
                 if (departureDateInput.style.display === 'none') {
@@ -804,7 +998,7 @@
                     departureDateInput.style.display = 'none';
                 }
             });
-    
+
             // Update selected date text when a date is chosen
             departureDateInput.addEventListener('change', function () {
                 const selectedDate = departureDateInput.value;
@@ -812,6 +1006,6 @@
             });
         });
     </script>
-    
+
 
 @endsection
