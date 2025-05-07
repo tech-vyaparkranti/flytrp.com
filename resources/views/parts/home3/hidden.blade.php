@@ -35,5 +35,5 @@
                     <a href="#"><i class="fab fa-pinterest-p"></i></a>
                 </div>
             </div>
-        </section>
+</section>
         <!--End Hidden Sidebar -->

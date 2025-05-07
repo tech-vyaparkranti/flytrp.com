@@ -18,6 +18,8 @@ use App\Http\Controllers\WebSiteElementsController;
 use App\Http\Controllers\HomeRecognitionsController;
 use App\Http\Controllers\OurServicesModelController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\TourTypeController;
+
 
 Route::get("login",[AdminController::class,"Login"])->name("login");
 Route::post("AdminUserLogin",[AdminController::class,"AdminLoginUser"])->name("AdminLogin");
@@ -98,4 +100,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get("testimonial-admin", [TestimonialController::class, "testimonialSlider"])->name("testimonialSlider");
     Route::post("testimonial-services", [TestimonialController::class, "testimonialSaveSlide"])->name("testimonialSaveSlide");
     Route::post("testimonial-data", [TestimonialController::class, "testimonialData"])->name("testimonialData");
+
+    Route::get("tour-admin", [TourTypeController::class, "tourSlider"])->name("tourSlider");
+    Route::post("tour-service", [TourTypeController::class, "saveTour"])->name("saveTour");
+    Route::post("tour-data", [TourTypeController::class, "tourData"])->name("tourData");
+
 });

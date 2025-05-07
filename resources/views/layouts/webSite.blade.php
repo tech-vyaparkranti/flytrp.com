@@ -12,7 +12,8 @@
     <div class="page-wrapper">
         <!-- Preloader -->
         <div class="preloader"><div class="custom-loader"></div></div>
-        @include('include.navigation')
+        @include('include.navigation')   
+        {{-- @include('parts.header/menu') --}}
 
         @yield('content')
 

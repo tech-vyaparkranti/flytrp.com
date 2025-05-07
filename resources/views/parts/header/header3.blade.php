@@ -37,7 +37,7 @@
                         
                         <!-- Menu Button -->
                         <div class="menu-btns py-10">
-                            <a href="{{route('contact')}}" class="theme-btn style-two bgc-secondary">
+                            <a href="{{route('contactUs')}}" class="theme-btn style-two bgc-secondary">
                                 <span data-hover="Book Now">Book Now</span>
                                 <i class="fal fa-arrow-right"></i>
                             </a>

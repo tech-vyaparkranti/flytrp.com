@@ -121,6 +121,12 @@
                 </a>
               </li>
               <li class="menu-item">
+                <a href="{{route("tourSlider")}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-notepad"></i>
+                  <div data-i18n="Analytics">Manage Tours</div>
+                </a>
+              </li>
+              <li class="menu-item">
                 <a href="{{route("manageHomeFaq")}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-images"></i>
                   <div data-i18n="Analytics">Manage FAQ</div>

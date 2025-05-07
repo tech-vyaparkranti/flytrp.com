@@ -39,6 +39,7 @@ class DestinationMasterRequest extends FormRequest
             DestinationsModel::META_KEYWORD => "bail|nullable",
             DestinationsModel::META_DESCRIPTION => "bail|nullable",
             DestinationsModel::POSITION => "required_if:action,update,insert|numeric|gt:0",
+            DestinationsModel::TOUR_ID => "bail|required_if:action,update,insert|nullable",
             // DestinationsModel::SORTING_NUMBER => "required_if:action,update,insert|numeric|gt:0", // Uncomment if needed
             "action" => "bail|required|in:insert,update,enable,disable"
         ];

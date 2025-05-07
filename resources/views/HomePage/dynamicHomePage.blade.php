@@ -112,13 +112,24 @@
                     </div>
                 </form>
             </div>             --}}
-            <div class="search-filter-inner" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
+            <div class="search-filter-inner mb-9" data-aos="zoom-out-down" data-aos-duration="1500" data-aos-offset="50">
                 <form action="{{ route('filterPackages') }}" method="POST" style="display: contents;">
                     @csrf
-                    <div class="filter-item clearfix">
+            
+                    <!-- Name Field -->
+                    <div class="filter-item clearfix mb-3" style="position: relative;">
+                        <div class="icon"><i class="fal fa-user"></i></div>
+                        <span class="title">Your Name</span>
+                        <input type="text" name="name" id="name"
+                            style="display: block; width: 100%;height:40px; margin-top: 8px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </div>
+            
+                    <!-- City Dropdown -->
+                    <div class="filter-item clearfix mb-3">
                         <div class="icon"><i class="fal fa-map-marker-alt"></i></div>
                         <span class="title">Destinations</span>
-                        <select name="city" id="city">
+                        <select name="city" id="city"
+                            style="display: block; width: 100%; height: 45px;margin-top:10px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 0 12px; font-size: 15px; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
                             <option value="">City or Region</option>
                             @foreach ($destinations as $destination)
                                 <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
@@ -127,36 +138,128 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="filter-item clearfix">
-                        <div class="icon"><i class="fal fa-flag"></i></div>
-                        <span class="title">All Categories</span>
-                        <select name="activity" id="activity">
-                            <option value="">Travel Category</option>
-                            @foreach ($travelCategories as $category)
-                                <option value="{{ $category }}" {{ request('activity') == $category ? 'selected' : '' }}>
-                                    {{ $category }}
-                                </option>
-                            @endforeach
-                        </select>
+                    
+            
+                    <!-- Mobile Number -->
+                    <div class="filter-item clearfix mb-3" style="position: relative;">
+                        <div class="icon"><i class="fal fa-phone-alt"></i></div>
+                        <span class="title">Mobile Number</span>
+                        <input type="text" name="mobile_no" id="mobile_no"
+                            style="display: block; width: 100%; margin-top: 8px;height:40px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
-                    <div class="filter-item clearfix" style="position: relative;">
+            
+                    <!-- Departure Date -->
+                    <div class="filter-item clearfix mb-3" style="position: relative;">
                         <div class="icon"><i class="fal fa-calendar-alt"></i></div>
-                        <span class="title" id="calendarTrigger" style="cursor: pointer;">Departure Date</span>
-                        <input type="date" name="departure_date" id="departure_date" 
-                            style="display: none; position: absolute; top: 30px; left: 0; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
-                        <p id="selectedDate" style="margin-top: 10px; font-size: 14px; color: #555;"></p>
+                        <span class="title">Departure Date</span>
+                        <input type="date" name="departure_date" id="departure_date"
+                            style="display: block; width: 100%; margin-top: 8px;height:40px; background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
+            
+                    <!-- Submit Button -->
                     <div class="search-button">
                         <button type="submit" class="theme-btn">
-                            <span data-hover="Search">Search</span>
+                            <span data-hover="Submit">Submit</span>
                         </button>
                     </div>
                 </form>
             </div>
+            
         </div>
     </section>
     <!-- Hero Area End -->
 
+      <!-- Popular Packages Area start -->
+      <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section-title text-white text-center counter-text-wrap mb-70" data-aos="fade-up"
+                        data-aos-duration="1500" data-aos-offset="50">
+                        <!-- <h2>Discover the World's Treasures with FLYTRP Holidays</h2> -->
+                        <h2 class="popular-destination mt-5" data-aos="fade-up">Explore Popular Packages</h2>
+                        <p>One site many popular experience you’ll remember</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="swiper packages mt-4">
+                    <div class="swiper-wrapper">
+                        @if (isset($packages) && count($packages) > 0)
+                            @foreach ($packages as $item)
+                                @php
+                                    // Ensure package_image is a valid JSON string before decoding
+                                    $images = is_string($item->package_image)
+                                        ? json_decode($item->package_image, true)
+                                        : $item->package_image;
+
+                                    // Check if images is a valid array and get the first image
+                                    $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
+                                @endphp
+                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
+                                    <a href="{{ route('tourDetailpage', ['slug' => $item->slug]) }}">
+                                        <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
+                                            data-aos-offset="50">
+                                            <div class="image">
+                                                @if ($displayImage)
+                                                    {{-- <figure class="images"> --}}
+                                                    <img src="{{ asset('storage/' . $displayImage) }}"
+                                                        alt="{{ $item->package_name }}" class="gallery-image">
+                                                    {{-- </figure> --}}
+                                                @else
+                                                    {{-- <figure class="images"> --}}
+                                                    <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
+                                                    {{-- </figure> --}}
+                                                @endif
+
+                                                <div class="ratting">{{ $item->package_type }}</div>
+                                            </div>
+                                            <div class="content tourpackage">
+                                                <span class="location">
+                                                    <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
+                                                </span>
+                                                <h5 class="card-heading">
+                                                    {!! $item->package_name !!}
+                                                </h5>
+                                                <span class="time">
+                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!} Nights
+                                                </span>
+                                            </div>
+                                            <div class="destination-footer price">
+                                                <span class="offer-price">
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {!! IND_money_format($item->package_offer_price) !!}
+                                                </span>
+                                                <span class="sale-price">
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {!! IND_money_format($item->package_price) !!}
+                                                </span>
+                                                <span class="offer-amount">
+                                                    Save <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {{ IND_money_format($item->package_price - $item->package_offer_price) }}
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+                        <p>NO Data Available</p>
+                    @endif
+                    </div>
+                </div>
+            </div>
+            <div class="view-more-buttons" style="display:block; text-align:center;">
+                <a class="service-view-buttons" style="color:white;" href="{{ route('tourpage') }}"><button
+                        type="submit" class="theme-btn style-two text-center col-4 ">
+                        <span data-hover="Send Comments">Explore More</span>
+                        <i class="fal fa-arrow-right"></i></a>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Popular Packages Area end -->
     <!-- About Us Area start -->
     <section class="about-us-area py-100 rpb-90 rel z-1">
         <div class="container">
@@ -165,7 +268,7 @@
                 <div class="col-xl-5 col-lg-6">
                     <div class="about-us-content rmb-55" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
                         <div class="section-title mb-25">
-                            <h2>{!! $home_aboutus_content_heading ?? 'Travel with Confidence Top Reasons to Choose AIS Holidays' !!}</h2>
+                            <h2>{!! $home_aboutus_content_heading ?? 'Travel with Confidence Top Reasons to Choose FLYTRP Holidays' !!}</h2>
                         </div>
                         <p>{!! $home_aboutus_content_subheading ?? 'We go above and beyond to make your travel dreams reality hidden gems and must-see attractions' !!}
                         </p>
@@ -216,7 +319,7 @@
                 <div class="col-lg-12">
                     <div class="section-title text-white text-center counter-text-wrap mb-70" data-aos="fade-up"
                         data-aos-duration="1500" data-aos-offset="50">
-                        <!-- <h2>Discover the World's Treasures with Ais Holidays</h2> -->
+                        <!-- <h2>Discover the World's Treasures with FLYTRP Holidays</h2> -->
                         <h2 class="popular-destination" data-aos="fade-up"> Popular Destinations</h2>
                         <p>One site many popular experience you’ll remember</p>
                     </div>
@@ -335,97 +438,7 @@
     </section>
     <!-- Destinations Area end -->
 
-    <!-- Popular Destinations Area start -->
-    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="section-title text-white text-center counter-text-wrap mb-70" data-aos="fade-up"
-                        data-aos-duration="1500" data-aos-offset="50">
-                        <!-- <h2>Discover the World's Treasures with Ais Holidays</h2> -->
-                        <h2 class="popular-destination" data-aos="fade-up">Explore Popular Packages</h2>
-                        <p>One site many popular experience you’ll remember</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="swiper packages mt-4">
-                    <div class="swiper-wrapper">
-                        @if (isset($packages) && count($packages) > 0)
-                            @foreach ($packages as $item)
-                                @php
-                                    // Ensure package_image is a valid JSON string before decoding
-                                    $images = is_string($item->package_image)
-                                        ? json_decode($item->package_image, true)
-                                        : $item->package_image;
-
-                                    // Check if images is a valid array and get the first image
-                                    $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
-                                @endphp
-                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
-                                    <a href="{{ route('tourDetailpage', ['slug' => $item->slug]) }}">
-                                        <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
-                                            data-aos-offset="50">
-                                            <div class="image">
-                                                @if ($displayImage)
-                                                    {{-- <figure class="images"> --}}
-                                                    <img src="{{ asset('storage/' . $displayImage) }}"
-                                                        alt="{{ $item->package_name }}" class="gallery-image">
-                                                    {{-- </figure> --}}
-                                                @else
-                                                    {{-- <figure class="images"> --}}
-                                                    <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
-                                                    {{-- </figure> --}}
-                                                @endif
-
-                                                <div class="ratting">{{ $item->package_type }}</div>
-                                            </div>
-                                            <div class="content tourpackage">
-                                                <span class="location">
-                                                    <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
-                                                </span>
-                                                <h5 class="card-heading">
-                                                    {!! $item->package_name !!}
-                                                </h5>
-                                                <span class="time">
-                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!} Nights
-                                                </span>
-                                            </div>
-                                            <div class="destination-footer price">
-                                                <span class="offer-price">
-                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                    {!! IND_money_format($item->package_offer_price) !!}
-                                                </span>
-                                                <span class="sale-price">
-                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                    {!! IND_money_format($item->package_price) !!}
-                                                </span>
-                                                <span class="offer-amount">
-                                                    Save <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                    {{ IND_money_format($item->package_price - $item->package_offer_price) }}
-                                                </span>
-
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        @else
-                        <p>NO Data Available</p>
-                    @endif
-                    </div>
-                </div>
-            </div>
-            <div class="view-more-buttons" style="display:block; text-align:center;">
-                <a class="service-view-buttons" style="color:white;" href="{{ route('tourpage') }}"><button
-                        type="submit" class="theme-btn style-two text-center col-4 ">
-                        <span data-hover="Send Comments">Explore More</span>
-                        <i class="fal fa-arrow-right"></i></a>
-                </button>
-            </div>
-        </div>
-    </section>
-    <!-- Popular Destinations Area end -->
+  
     <!-- Features Area start -->
     <section class="features-area pt-100 pb-45 rel z-1">
         <div class="container">

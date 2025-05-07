@@ -25,6 +25,7 @@ class DestinationsModel extends Model
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
     const STATUS_ALIAS = "destination_master.status";
+    const TOUR_ID = "tour_id";
     const ID_ALIAS = "destination_master.id";
     protected static function boot()
     {

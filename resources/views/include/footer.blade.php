@@ -101,8 +101,8 @@
                             <h5>Get In Touch</h5>
                         </div>
                         <ul class="list-style-one">
-                            <li><i class="fal fa-map-marked-alt"></i>{!! $Address ?? 'AiS Tower, Metro Station, 11C/1, opp. Najafgarh, Naya Bazar, Najafgarh, New Delhi, Delhi, 110043' !!}</li>
-                            <li><i class="fal fa-envelope"></i> <a href="mailto:{!! $Email ?? 'info@aisholidays.com' !!}">{!! $Email ?? 'info@aisholidays.com' !!}</a></li>
+                            <li><i class="fal fa-map-marked-alt"></i>{!! $Address ?? 'FLYTRP, Metro Station, 11C/1, opp. Najafgarh, Naya Bazar, Najafgarh, New Delhi, Delhi, 110043' !!}</li>
+                            <li><i class="fal fa-envelope"></i> <a href="mailto:{!! $Email ?? 'info@FLYTRP.com' !!}">{!! $Email ?? 'info@FLYTRP.com' !!}</a></li>
                             <!-- <li><i class="fal fa-clock"></i> Mon - Fri, 08am - 05pm</li> -->
                             <li><i class="fal fa-phone-volume"></i>  <a href="tel:{!! $Phone_number1 ?? '+91 7838602000' !!}">{!! $Phone_number1 ?? '91 7838602000' !!}</a></li>
 
@@ -139,7 +139,7 @@
             <div class="row">
                <div class="col-lg-5">
                     <div class="copyright-text text-center text-lg-start mb -5">
-                        <p>© 2024 Ais Holidays Pvt. Ltd. Design by <a href="https://www.vyaparkranti.com/">VyaparKranti.</a></p>
+                        <p>© 2024 FLYTRP Holidays Pvt. Ltd. Design by <a href="https://www.vyaparkranti.com/">VyaparKranti.</a></p>
                     </div>
                </div>
                <div class="col-lg-7 text-center text-lg-end">

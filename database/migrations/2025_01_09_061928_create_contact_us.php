@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('contact_us')) {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
             // $table->string("first_name",50)->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->tinyInteger("status")->nullable(false)->default("1");
             $table->timestamps();
         });
+    }
     }
 
     /**

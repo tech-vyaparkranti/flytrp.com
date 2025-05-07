@@ -43,7 +43,7 @@
                             <div class="content">
                                 <h5>Need Help & Support</h5>
                                 <div class="text"><i class="far fa-envelope"></i> <a
-                                        href="mailto:{!! $Email ?? 'info@aisholidays.com' !!}">{!! $Email ?? 'info@aisholidays.com' !!}</a></div>
+                                        href="mailto:{!! $Email ?? 'info@flytrp.com' !!}">{!! $Email ?? 'info@flytrp.com' !!}</a></div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="content">
                                 <h5>Address</h5>
-                                <div class="text"><i class="fal fa-map-marker-alt"></i>{!! $Address ?? ' AiS Tower, Metro Station, 11C/1, opp. Najafgarh, New Bhagat Singh Market, Naya Bazar, Najafgarh, New Delhi, Delhi, 110043' !!}</div>
+                                <div class="text"><i class="fal fa-map-marker-alt"></i>{!! $Address ?? 'FLYTRP, Metro Station, 11C/1, opp. Najafgarh, New Bhagat Singh Market, Naya Bazar, Najafgarh, New Delhi, Delhi, 110043' !!}</div>
                             </div>
                         </div>
                     </div>

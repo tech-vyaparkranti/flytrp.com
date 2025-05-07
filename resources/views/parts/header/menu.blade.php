@@ -7,8 +7,8 @@
 		</ul>
 	</li> --}}
 	<li><a href="/">Home</a></li>
-	<li><a href="{{route('about')}}">About</a></li>
-	<li><a href="{{route('tour')}}">Tours</a>
+	<li><a href="{{route('aboutUs')}}">About</a></li>
+	<li><a href="{{route('tourpage')}}">Tours</a>
 		{{-- <ul>
 			<li><a href="tour-list.php">Tour List</a></li>
 			<li><a href="tour-grid.php">Tour Grid</a></li>
@@ -17,7 +17,7 @@
 			<li><a href="tour-guide.php">Tour Guide</a></li>
 		</ul> --}}
 	</li>
-	<li><a href="{{route('destination')}}">Destinations</a>
+	<li><a href="{{route('destinations')}}">Destinations</a>
 		{{-- <ul>
 			<li><a href="destination1.php">Destination 01</a></li>
 			<li><a href="destination2.php">Destination 01</a></li>
@@ -46,7 +46,7 @@
 	</li> --}}
 	<li><a href="#">Packages</a></li>
 
-	<li><a href="{{route('gallery')}}">Gallery Slider</a></li>
+	<li><a href="{{route('galleryPages')}}">Gallery Slider</a></li>
 
 	{{-- <li class="dropdown"><a href="#">blog</a>
 		<ul>

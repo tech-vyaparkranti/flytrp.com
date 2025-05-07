@@ -100,7 +100,7 @@
                     <div class="col-xl-5 col-lg-6">
                         <div class="about-us-content rmb-55" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
                             <div class="section-title mb-25">
-                                <h2>{!! $about_us_image_3_heading ?? 'Travel with Confidence Top Reasons to Choose AIS Holidays' !!}</h2>
+                                <h2>{!! $about_us_image_3_heading ?? 'Travel with Confidence Top Reasons to Choose FLYTRP Holidays' !!}</h2>
                             </div>
                             <p>{!! $about_us_image_3_subheading ?? 'We work closely with our clients to understand challenges and objectives, providing customized solutions to enhance efficiency boost profitability, and foster sustainable growth.' !!}</p>
                             <div class="row pt-25">

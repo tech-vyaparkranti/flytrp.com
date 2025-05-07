@@ -33,6 +33,11 @@ use Inertia\Inertia;
 // });
 
 Route::get("/",[HomePageController::class,"homePage"]);
+// Route::get("/",function ()
+// {
+//     return view("frontend.index3");
+// });
+
 // Route::get("comingsoon",[HomePageController::class,function(){
 //     return view("HomePage.ComingSoon");
 // }]);

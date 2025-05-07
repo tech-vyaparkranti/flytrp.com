@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DestinationMasterRequest;
 use App\Models\DestinationsModel;
+use App\Models\Tour;
 use App\Traits\CommonFunctions;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,8 @@ class DestinationController extends Controller
 
     public function destinationMaster()
     {
-        return view("Dashboard.Pages.destinationsAdmin");
+        $tourTypes = Tour::where("status",1)->get();
+        return view("Dashboard.Pages.destinationsAdmin",compact('tourTypes'));
     }
 
     public function saveDestinations(DestinationMasterRequest $request)
@@ -72,6 +74,7 @@ class DestinationController extends Controller
         $createNewDestination->{DestinationsModel::META_TITLE} = $request->input(DestinationsModel::META_TITLE);
         $createNewDestination->{DestinationsModel::META_KEYWORD} = $request->input(DestinationsModel::META_KEYWORD);
         $createNewDestination->{DestinationsModel::META_DESCRIPTION} = $request->input(DestinationsModel::META_DESCRIPTION);
+        $createNewDestination->{DestinationsModel::TOUR_ID} = json_encode($request->tour_id);
         $createNewDestination->{DestinationsModel::STATUS} = 1;
         $createNewDestination->{DestinationsModel::CREATED_BY} = Auth::user()->id;
         $createNewDestination->save();
@@ -124,6 +127,7 @@ class DestinationController extends Controller
             $updateModel->{DestinationsModel::META_TITLE} = $request->input(DestinationsModel::META_TITLE);
             $updateModel->{DestinationsModel::META_KEYWORD} = $request->input(DestinationsModel::META_KEYWORD);
             $updateModel->{DestinationsModel::META_DESCRIPTION} = $request->input(DestinationsModel::META_DESCRIPTION);
+            $updateModel->{DestinationsModel::TOUR_ID} = json_encode($request->tour_id);
             $updateModel->{DestinationsModel::STATUS} = 1;
             $updateModel->{DestinationsModel::UPDATED_BY} = Auth::user()->id;
             $updateModel->save();
@@ -164,61 +168,62 @@ class DestinationController extends Controller
     }
 
     public function destinationsData()
-{
-    try {
-        $query = DestinationsModel::select(
-            DestinationsModel::DESTINATION_NAME,
-            DestinationsModel::DESTINATION_IMAGE,
-            DestinationsModel::DESTINATION_DETAILS,
-            DestinationsModel::META_TITLE,
-            DestinationsModel::META_KEYWORD,
-            DestinationsModel::META_DESCRIPTION,
-            DestinationsModel::POSITION,
-            DestinationsModel::STATUS,
-            DestinationsModel::ID
-        );
+    {
+        try {
+            $query = DestinationsModel::select(
+                DestinationsModel::DESTINATION_NAME,
+                DestinationsModel::DESTINATION_IMAGE,
+                DestinationsModel::DESTINATION_DETAILS,
+                DestinationsModel::META_TITLE,
+                DestinationsModel::META_KEYWORD,
+                DestinationsModel::META_DESCRIPTION,
+                DestinationsModel::POSITION,
+                DestinationsModel::STATUS,
+                DestinationsModel::ID,
+                DestinationsModel::TOUR_ID
+            );
 
-        return DataTables::of($query)
-            ->addIndexColumn()
+            return DataTables::of($query)
+                ->addIndexColumn()
 
-            // Handle image rendering
-            ->addColumn('destination_image', function ($row) {
-                $images = is_string($row->destination_image)
-                    ? json_decode($row->destination_image, true)
-                    : $row->destination_image;
+                // Handle image rendering
+                ->addColumn('destination_image', function ($row) {
+                    $images = is_string($row->destination_image)
+                        ? json_decode($row->destination_image, true)
+                        : $row->destination_image;
 
-                if (is_array($images) && !empty($images)) {
-                    $html = '';
-                    foreach ($images as $image) {
-                        $html .= '<img alt="Destination Image" src="' . asset('storage/' . $image) . '" class="img-thumbnail" style="max-width: 100px;"> ';
+                    if (is_array($images) && !empty($images)) {
+                        $html = '';
+                        foreach ($images as $image) {
+                            $html .= '<img alt="Destination Image" src="' . asset('storage/' . $image) . '" class="img-thumbnail" style="max-width: 100px;"> ';
+                        }
+                        return $html;
                     }
-                    return $html;
-                }
-                return 'No Image Available';
-            })
+                    return 'No Image Available';
+                })
 
-            // Handle any array field formatting like destination details, if needed
-            ->addColumn('destination_details', function ($row) {
-                return nl2br(e($row->destination_details)); // Convert newlines to <br> in destination details
-            })
+                // Handle any array field formatting like destination details, if needed
+                ->addColumn('destination_details', function ($row) {
+                    return nl2br(e($row->destination_details)); // Convert newlines to <br> in destination details
+                })
 
-            // Action Buttons (Edit, Enable/Disable)
-            ->addColumn('action', function ($row) {
-                $btn_edit = '<a data-row="' . base64_encode(json_encode($row)) . '" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
-                $btn_disable = ' <a href="javascript:void(0)" onclick="Disable(' . $row->{DestinationsModel::ID} . ')" class="btn btn-danger btn-sm">Disable Destination</a>';
-                $btn_enable = ' <a href="javascript:void(0)" onclick="Enable(' . $row->{DestinationsModel::ID} . ')" class="btn btn-primary btn-sm">Enable Destination</a>';
-                if ($row->{DestinationsModel::STATUS} == 1) {
-                    return $btn_edit . $btn_disable;
-                } else {
-                    return $btn_edit . $btn_enable;
-                }
-            })
-            ->rawColumns(['destination_image', 'destination_details', 'action'])
-            ->make(true);
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
+                // Action Buttons (Edit, Enable/Disable)
+                ->addColumn('action', function ($row) {
+                    $btn_edit = '<a data-row="' . base64_encode(json_encode($row)) . '" href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn_disable = ' <a href="javascript:void(0)" onclick="Disable(' . $row->{DestinationsModel::ID} . ')" class="btn btn-danger btn-sm">Disable Destination</a>';
+                    $btn_enable = ' <a href="javascript:void(0)" onclick="Enable(' . $row->{DestinationsModel::ID} . ')" class="btn btn-primary btn-sm">Enable Destination</a>';
+                    if ($row->{DestinationsModel::STATUS} == 1) {
+                        return $btn_edit . $btn_disable;
+                    } else {
+                        return $btn_edit . $btn_enable;
+                    }
+                })
+                ->rawColumns(['destination_image', 'destination_details', 'action'])
+                ->make(true);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
-}
 
 
     public function getHomePageDestinations()
