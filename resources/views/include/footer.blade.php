@@ -54,16 +54,16 @@
                             <h5>Company</h5>
                         </div>
                         <ul class="list-style-three">
-                        <li class="current"><a href="{{ url('/') }}">Home</a></li>
-                        <li><a href="{{ route('aboutUs') }}">About</a></li>
-                        <li><a href="{{ route('tourpage') }}">Tour</a></li>
-                        <li><a href="{{ route('destinationpage') }}">Destination</a></li>
-                        <li><a href="{{ route('servicePages') }}">Services</a></li>
+                        {{-- <li class="current"><a href="{{ url('/') }}">Home</a></li> --}}
+                        {{-- <li><a href="{{ route('aboutUs') }}">About</a></li> --}}
+                        {{-- <li><a href="{{ route('tourpage') }}">Tour</a></li> --}}
+                        {{-- <li><a href="{{ route('destinationpage') }}">Destination</a></li> --}}
+                        {{-- <li><a href="{{ route('servicePages') }}">Services</a></li> --}}
                         <li><a href="{{ route('blogpage') }}">Blog</a></li>
-                        <li><a href="{{ route(name: 'galleryPages') }}">Gallery</a></li>
+                        {{-- <li><a href="{{ route(name: 'galleryPages') }}">Gallery</a></li> --}}
                         <li><a href="{{ route(name: 'privacyPolicy') }}">Privacy Policy</a></li>
                         <li><a href="{{ route(name: 'CancellationRefundPolicy') }}">Cancellation Policy</a></li>
-                        <li><a href="{{ route(name: 'contactUs') }}">Contact Us</a></li>
+                        {{-- <li><a href="{{ route(name: 'contactUs') }}">Contact Us</a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -106,13 +106,13 @@
                             <!-- <li><i class="fal fa-clock"></i> Mon - Fri, 08am - 05pm</li> -->
                             <li><i class="fal fa-phone-volume"></i>  <a href="tel:{!! $Phone_number1 ?? '+91 7838602000' !!}">{!! $Phone_number1 ?? '91 7838602000' !!}</a></li>
 
-                            <li><i class="fal fa-phone-volume"></i><a href="tel:{!! $Phone_number2 ?? '+91 7838502000' !!}">{!! $Phone_number2 ?? '+91 7838502000' !!}</a></li>
+                            {{-- <li><i class="fal fa-phone-volume"></i><a href="tel:{!! $Phone_number2 ?? '+91 7838502000' !!}">{!! $Phone_number2 ?? '+91 7838502000' !!}</a></li>
                             <li><i class="fal fa-phone-volume"></i><a href="tel:{!! $Phone_number3 ?? '+91 7428280000' !!}">
                                 {!! $Phone_number3 ?? '+91 7428280000' !!}</a></li>
 
                             <li><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number4 ?? '+91 7831003500' !!}">{!! $Phone_number4 ?? '+91 7831003500' !!}</a></li>
 
-                            <li><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number5 ?? '+01 141004080' !!}">{!! $Phone_number5 ?? '+01 141004080' !!}</a></li>
+                            <li><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number5 ?? '+01 141004080' !!}">{!! $Phone_number5 ?? '+01 141004080' !!}</a></li> --}}
 
                         </ul>
                     </div>
