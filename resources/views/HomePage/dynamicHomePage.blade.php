@@ -165,7 +165,7 @@
                 </form> --}}
 
                 {{-- new correction start 5/07 --}}
-                @if(session('success'))
+                {{-- @if(session('success'))
                 <script>
                     alert("{{ session('success') }}");
                 </script>
@@ -175,8 +175,8 @@
                 <script>
                     alert("{{ session('error') }}");
                 </script>
-            @endif
-                <form action="{{ route('bookingEnquiry') }}" method="POST" style="display: contents;">
+            @endif --}}
+                <form method="POST" style="display: contents;" id="bookingEnquiryForm">
                     @csrf
 
                     <style>
@@ -357,6 +357,37 @@
                         </button>
                     </div>
                 </form>
+
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('bookingEnquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch("{{ route('bookingEnquiry') }}", {
+        method: "POST",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(async res => {
+        const json = await res.json();
+        if (json.status) {
+            Swal.fire('Success', json.message, 'success');
+            form.reset(); 
+        } else {
+            Swal.fire('Error', json.message, 'error');
+        }
+    })
+    .catch(err => {
+        Swal.fire('Error', 'Unexpected error occurred.', 'error');
+        console.error(err);
+    });
+});
+</script>
 
 
 

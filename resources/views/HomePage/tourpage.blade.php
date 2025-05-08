@@ -14,7 +14,7 @@
             
             <hr class="mb-50">
             <div class="row">
-                <h2 class="text-center pb-20"> Popular Destinations</h2>
+                <h2 class="text-center pb-20"> Popular Tour</h2>
                 @if (!empty($getTours) && count($getTours))
                             @foreach ($getTours as $item)
                         <div class="col-xl-4 col-md-6">

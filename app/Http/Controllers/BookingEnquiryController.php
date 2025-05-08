@@ -23,12 +23,15 @@ class BookingEnquiryController extends Controller
                 'destination' => $request->destination,
                 'destination_date' => $request->destination_date,
             ]);
-            return redirect()->back()->with('success', 'Thank you for your message. We will contact you shortly.');
-        
+            return response()->json([
+                'status' => true,
+                'message' => 'Thank you for your message. We will contact you shortly.'
+            ]);        
         }catch(Exception $exception){
-            report($exception);
-            return redirect()->back()->with('error', 'Something went wrong: ' . $exception->getMessage());
-        }
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong: ' . $exception->getMessage()
+            ]);        }
     }
 
     public function bookingEnquiryPage(){
