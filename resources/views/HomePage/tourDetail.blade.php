@@ -2,15 +2,30 @@
 
 @section('title', 'Tours Details')
 @section('content')
+
+
+
     <section class="tour-grid-page py-100 rel z-2">
-        <div class="blog-banner" style="margin-bottom:50px; ">
+
+
+
+        {{-- <div class="blog-banner" style="margin-bottom:50px; ">
             <img src="./assets/images/Banner_HD.png" alt="" style="max-height:200px;width:100%; object-fit:cover;">
-        </div>
+        </div> --}}
+        {{-- <div class="blog-banner">
+            <img src="./assets/images/Banner_HD.png" alt="Blog Banner"  >
+        </div> --}}
         <div id="about">
+            {{-- <div style="padding: 30px ; background-color: #3498db;"> hello </div> --}}
+
             <div class="default-content pt-4  our-service-page">
+
+                 <div class="blog-banner" style="padding: 0; margin-bottom: 30px;">
+            <img src="{{ asset('assets/images/Banner_HD.png') }}" alt="Tour Banner" style=" height:350px; max-height:350px; width:100%; object-fit:cover; border-radius: 0px !important;">
+        </div>
                 <div class="custom-container">
 
-                    <div class="main-container">
+                    {{-- <div class="main-container">
                         <div class="detail-blog-container pb-4 mb-4">
                             <div class="blog-left-container">
                                 <div class="blog-left-item">
@@ -39,7 +54,196 @@
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+
+
+        <style>
+        .blog-banner {
+            margin-bottom: 50px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .detail-blog-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+        }
+
+        .blog-left-container {
+            flex: 1;
+        }
+
+        .blog-left-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .blog-left-content {
+            padding: 15px 0;
+        }
+
+        .blog-left-content h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .blog-left-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .blog-right-container {
+            width: 100%;
+        }
+
+        .recent-posts {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .recent-posts h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e8ed;
+            color: #2c3e50;
+        }
+
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+
+        .post-cards {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-cards:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-cards img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .post-cards h5 {
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .post-cards h5 a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .post-cards h5 a:hover {
+            color: #3498db;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (min-width: 768px) {
+            .detail-blog-container {
+                flex-direction: row;
+            }
+
+            .blog-left-container {
+                flex: 2;
+                padding-right: 25px;
+            }
+
+            .blog-right-container {
+                flex: 1;
+                min-width: 300px;
+            }
+
+            .posts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .posts {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .detail-blog-container {
+                padding: 15px;
+            }
+
+            .blog-left-content h3 {
+                font-size: 22px;
+            }
+
+            .recent-posts {
+                padding: 15px;
+            }
+        }
+    </style>
+
+    <div class="main-container">
+        <div class="detail-blog-container">
+            <div class="blog-left-container">
+                <div class="blog-left-item">
+                    <img src="{{ asset($tours->image) }}" alt="{{ $tours->title }}">
+                    <div class="blog-left-content">
+                        <h3>{{ $tours->title }}</h3>
+                        <div class="text-justify">{!! $tours->content !!}</div>
                     </div>
+                </div>
+            </div>
+            <div class="blog-right-container">
+                <div class="recent-posts">
+                    <h4>Our Recent Posts</h4>
+                    <div class="posts">
+                        @foreach ($otherTours as $otherTour)
+                            <div class="post-cards">
+                                <img src="{{ asset($otherTour->image) }}" alt="{{ $otherTour->title }}">
+                                <h5>
+                                    <a href="{{ route('tourDetail', ['tour_slug' => $otherTour->slug]) }}">
+                                        {{ $otherTour->title }}
+                                    </a>
+                                </h5>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
                     {{-- <h4 class="text-center mb-2 mt-2">Similar Packages</h4>
             @if (isset($packages) && count($packages) > 0)
@@ -251,7 +455,7 @@
                 </div>
             </div>
         </section>
-        
+
             @endsection
 
         @section('pageScript')

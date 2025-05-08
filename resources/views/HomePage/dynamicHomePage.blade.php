@@ -170,7 +170,7 @@
                     alert("{{ session('success') }}");
                 </script>
             @endif
-            
+
             @if(session('error'))
                 <script>
                     alert("{{ session('error') }}");
@@ -377,7 +377,7 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
         const json = await res.json();
         if (json.status) {
             Swal.fire('Success', json.message, 'success');
-            form.reset(); 
+            form.reset();
         } else {
             Swal.fire('Error', json.message, 'error');
         }
@@ -900,6 +900,1334 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
         </div>
     </section>
     <!-- Blog Area end -->
+
+
+    {{-- offer section start --}}
+
+
+    <!-- Bootstrap CSS -->
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet"> --}}
+
+    <style>
+        :root {
+            --promo-primary: #ff6b6b;
+            --promo-secondary: #1e3799;
+            --promo-accent: #feca57;
+            --promo-dark: #222f3e;
+            --promo-light: #f5f6fa;
+        }
+       /*
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        } */
+
+        /* Main offer banner section */
+        .promo-banner-section {
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--promo-light);
+        }
+
+        /* Main banner container */
+        .promo-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Banner background shapes */
+        .promo-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .promo-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .promo-shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--promo-primary);
+            top: -100px;
+            right: -50px;
+        }
+
+        .promo-shape-2 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--promo-accent);
+            bottom: -50px;
+            left: 10%;
+        }
+
+        .promo-shape-3 {
+            width: 150px;
+            height: 150px;
+            background-color: var(--promo-secondary);
+            top: 40%;
+            right: 15%;
+        }
+
+        /* Primary offer banner */
+        .promo-banner-primary {
+            background: linear-gradient(135deg, var(--promo-secondary) 0%, #4a69bd 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .promo-banner-content {
+            padding: 40px;
+            color: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .promo-subtitle {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: var(--promo-accent);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .promo-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .promo-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .promo-timer {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .promo-timer-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-right: 15px;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .promo-timer-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .promo-timer-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .promo-btn {
+            background-color: var(--promo-accent);
+            color: var(--promo-dark);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(254, 202, 87, 0.4);
+            border: none;
+        }
+
+        .promo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(254, 202, 87, 0.6);
+            background-color: #ffdb7e;
+        }
+
+        .promo-btn i {
+            margin-left: 8px;
+        }
+
+        .promo-discount-badge {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background-color: var(--promo-primary);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-direction: column;
+            transform: rotate(10deg);
+            box-shadow: 0 8px 15px rgba(255, 107, 107, 0.5);
+            animation: pulse-discount 2s infinite;
+        }
+
+        .promo-discount-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .promo-discount-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .promo-decoration {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .promo-decoration-1 {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            top: 25%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .promo-decoration-2 {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            bottom: 15%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .promo-decoration-3 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            top: 15%;
+            right: 25%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        /* Secondary offer banner cards */
+        .promo-banner-secondary {
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--promo-primary) 0%, #e84118 100%);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .promo-banner-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .promo-banner-secondary .promo-banner-content {
+            padding: 25px;
+        }
+
+        .promo-banner-secondary .promo-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .promo-banner-secondary .promo-description {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .promo-banner-secondary .promo-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .promo-banner-secondary .promo-discount-badge {
+            width: 70px;
+            height: 70px;
+            top: 20px;
+            right: 20px;
+        }
+
+        .promo-banner-secondary .promo-discount-text {
+            font-size: 1.2rem;
+        }
+
+        .promo-banner-secondary .promo-discount-label {
+            font-size: 0.7rem;
+        }
+
+        /* Alternate secondary banner */
+        .promo-banner-alternate {
+            background: linear-gradient(135deg, var(--promo-accent) 0%, #ff9f43 100%);
+        }
+
+        .promo-banner-alternate .promo-subtitle {
+            color: white;
+        }
+
+        .promo-banner-alternate .promo-btn {
+            background-color: var(--promo-secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.4);
+        }
+
+        .promo-banner-alternate .promo-btn:hover {
+            background-color: #334f92;
+            box-shadow: 0 8px 20px rgba(30, 55, 153, 0.6);
+        }
+
+        .promo-banner-alternate .promo-discount-badge {
+            background-color: white;
+            color: var(--promo-dark);
+            box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse-discount {
+            0% {
+                transform: scale(1) rotate(10deg);
+            }
+            50% {
+                transform: scale(1.05) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(10deg);
+            }
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1200px) {
+            .promo-title {
+                font-size: 2.5rem;
+            }
+
+            .promo-banner-secondary .promo-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .promo-title {
+                font-size: 2.2rem;
+            }
+
+            .promo-description {
+                font-size: 1rem;
+            }
+
+            .promo-timer-item {
+                min-width: 60px;
+                padding: 8px 12px;
+            }
+
+            .promo-timer-number {
+                font-size: 1.5rem;
+            }
+
+            .promo-discount-badge {
+                width: 90px;
+                height: 90px;
+            }
+
+            .promo-banner-secondary .promo-banner-content {
+                padding: 20px;
+            }
+
+            .promo-banner-secondary .promo-title {
+                font-size: 1.5rem;
+            }
+
+            .secondary-banner-container {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .promo-banner-content {
+                padding: 30px;
+            }
+
+            .promo-title {
+                font-size: 2rem;
+            }
+
+            .promo-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .promo-discount-badge {
+                width: 80px;
+                height: 80px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .promo-discount-text {
+                font-size: 1.4rem;
+            }
+
+            .promo-discount-label {
+                font-size: 0.8rem;
+            }
+
+            .promo-banner-secondary {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .promo-banner-section {
+                padding: 30px 0;
+            }
+
+            .promo-banner-content {
+                padding: 25px;
+            }
+
+            .promo-title {
+                font-size: 1.8rem;
+            }
+
+            .promo-description {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .promo-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+
+            .promo-timer {
+                margin-bottom: 20px;
+            }
+
+            .promo-timer-item {
+                min-width: 55px;
+                padding: 8px 10px;
+                margin-right: 10px;
+            }
+
+            .promo-timer-number {
+                font-size: 1.3rem;
+            }
+
+            .promo-timer-label {
+                font-size: 0.7rem;
+            }
+
+            .promo-discount-badge {
+                width: 70px;
+                height: 70px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .promo-discount-text {
+                font-size: 1.2rem;
+            }
+
+            .promo-discount-label {
+                font-size: 0.7rem;
+            }
+
+            .promo-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .promo-title {
+                font-size: 1.6rem;
+            }
+
+            .promo-description {
+                font-size: 0.85rem;
+            }
+
+            .promo-timer-item {
+                min-width: 50px;
+                padding: 6px 8px;
+                margin-right: 8px;
+            }
+
+            .promo-timer-number {
+                font-size: 1.2rem;
+            }
+
+            .promo-discount-badge {
+                width: 60px;
+                height: 60px;
+            }
+
+            .promo-discount-text {
+                font-size: 1rem;
+            }
+
+            .promo-discount-label {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+
+
+<section class="promo-banner-section">
+    <!-- Background shapes -->
+    <div class="promo-shapes">
+        <div class="promo-shape promo-shape-1"></div>
+        <div class="promo-shape promo-shape-2"></div>
+        <div class="promo-shape promo-shape-3"></div>
+    </div>
+
+    <div class="container promo-container">
+        <div class="row">
+            <!-- Main offer banner -->
+            <div class="col-lg-12">
+                <div class="promo-banner-primary animate__animated animate__fadeIn">
+                    <!-- Decorative elements -->
+                    <div class="promo-decoration promo-decoration-1"></div>
+                    <div class="promo-decoration promo-decoration-2"></div>
+                    <div class="promo-decoration promo-decoration-3"></div>
+
+                    <div class="promo-banner-content">
+                        <span class="promo-subtitle animate__animated animate__fadeInUp animate__delay-1s">Limited Time Offer</span>
+                        <h2 class="promo-title animate__animated animate__fadeInUp animate__delay-1s">Summer Sale<br>Up to 50% Off</h2>
+                        <p class="promo-description animate__animated animate__fadeInUp animate__delay-2s">
+                            Grab our hottest deals on summer essentials before they're gone!
+                            Exclusive discounts on top destinations, tours, and travel packages.
+                        </p>
+
+                        <!-- Countdown timer -->
+                        <div class="promo-timer animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="promo-timer-item">
+                                <span class="promo-timer-number" id="days">03</span>
+                                <span class="promo-timer-label">Days</span>
+                            </div>
+                            <div class="promo-timer-item">
+                                <span class="promo-timer-number" id="hours">21</span>
+                                <span class="promo-timer-label">Hours</span>
+                            </div>
+                            <div class="promo-timer-item">
+                                <span class="promo-timer-number" id="minutes">45</span>
+                                <span class="promo-timer-label">Mins</span>
+                            </div>
+                            <div class="promo-timer-item">
+                                <span class="promo-timer-number" id="seconds">19</span>
+                                <span class="promo-timer-label">Secs</span>
+                            </div>
+                        </div>
+
+                        <button class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                            Book Now <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Discount badge -->
+                    <div class="promo-discount-badge">
+                        <span class="promo-discount-text">50%</span>
+                        <span class="promo-discount-label">OFF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary offer banners -->
+        <div class="row secondary-banner-container">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="promo-banner-secondary animate__animated animate__fadeInLeft animate__delay-3s">
+                    <div class="promo-banner-content">
+                        <span class="promo-subtitle">New Arrivals</span>
+                        <h3 class="promo-title">Adventure Gear</h3>
+                        <p class="promo-description">
+                            Highest quality equipment for your next outdoor expedition.
+                        </p>
+                        <button class="promo-btn">
+                            Explore <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="promo-discount-badge">
+                        <span class="promo-discount-text">30%</span>
+                        <span class="promo-discount-label">OFF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="promo-banner-secondary promo-banner-alternate animate__animated animate__fadeInRight animate__delay-3s">
+                    <div class="promo-banner-content">
+                        <span class="promo-subtitle">Flash Deal</span>
+                        <h3 class="promo-title">Weekend Getaways</h3>
+                        <p class="promo-description">
+                            Book your spontaneous weekend escape at unbeatable prices.
+                        </p>
+                        <button class="promo-btn">
+                            Book Now <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="promo-discount-badge">
+                        <span class="promo-discount-text">25%</span>
+                        <span class="promo-discount-label">OFF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Countdown timer functionality
+    function updateCountdown() {
+        // Set the target date (3 days from now for demo purposes)
+        const now = new Date();
+        const targetDate = new Date();
+        targetDate.setDate(now.getDate() + 3);
+        targetDate.setHours(23, 59, 59, 0);
+
+        // Calculate remaining time
+        const currentTime = now.getTime();
+        const targetTime = targetDate.getTime();
+        const remainingTime = targetTime - currentTime;
+
+        // Calculate days, hours, minutes, seconds
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+        // Update the HTML
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+        // Continue the countdown
+        if (remainingTime > 0) {
+            setTimeout(updateCountdown, 1000);
+        } else {
+            // If countdown is over
+            document.getElementById('days').textContent = "00";
+            document.getElementById('hours').textContent = "00";
+            document.getElementById('minutes').textContent = "00";
+            document.getElementById('seconds').textContent = "00";
+        }
+    }
+
+    // Start the countdown when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCountdown();
+
+        // Additional animation for elements when they come into view
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.promo-banner-primary, .promo-banner-secondary');
+
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+
+                // If element is in viewport
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    if(!element.classList.contains('animate__animated')) {
+                        element.classList.add('animate__animated', 'animate__fadeIn');
+                    }
+                }
+            });
+        }
+
+        // Run on scroll
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Run once on page load
+        animateOnScroll();
+    });
+</script>
+
+
+
+
+    {{-- offer section end here --}}
+
+
+    {{-- gallery start --}}
+
+
+    <!-- Bootstrap CSS -->
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <!-- AOS Animation CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Slick Carousel CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"> --}}
+
+    <style>
+        /* :root {
+            --wanderlust-primary: #3498db;
+            --wanderlust-secondary: #2c3e50;
+            --wanderlust-accent: #e74c3c;
+            --wanderlust-light: #ecf0f1;
+            --wanderlust-dark: #2c3e50;
+        } */
+
+        /* .a{
+            text-decoration: none !important;
+        } */
+
+        .wanderlust-gallery-section {
+            padding: 80px 0;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wanderlust-section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .wanderlust-section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--wanderlust-accent);
+            margin: 15px auto;
+        }
+
+        .wanderlust-subtitle {
+            color: var(--wanderlust-primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .wanderlust-gallery-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--wanderlust-dark);
+        }
+
+        .wanderlust-featured-gallery {
+            margin-bottom: 40px;
+        }
+
+        .wanderlust-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            position: relative;
+            transition: all 0.4s ease;
+            height: 350px;
+        }
+
+        .wanderlust-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .wanderlust-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .wanderlust-card:hover .wanderlust-img {
+            transform: scale(1.1);
+        }
+
+        .wanderlust-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 20px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .wanderlust-card:hover .wanderlust-overlay {
+            background: linear-gradient(to top, rgba(52, 152, 219, 0.9), transparent);
+        }
+
+        .wanderlust-location {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .wanderlust-location i {
+            margin-right: 5px;
+            color: var(--wanderlust-accent);
+        }
+
+        .wanderlust-rating {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .wanderlust-rating i {
+            color: #f1c40f;
+            margin-right: 2px;
+            font-size: 0.8rem;
+        }
+
+        .wanderlust-rating span {
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .wanderlust-slider {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .wanderlust-slick-carousel .slick-slide {
+            margin: 0 10px;
+        }
+
+        .wanderlust-slick-carousel .slick-list {
+            margin: 0 -10px;
+        }
+
+        .wanderlust-controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .wanderlust-controls button {
+            background: var(--wanderlust-primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: all 0.3s;
+            opacity: 0.7;
+        }
+
+        .wanderlust-controls button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Responsive styles for all screen sizes */
+        @media (max-width: 1200px) {
+            .wanderlust-card {
+                height: 330px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .wanderlust-card {
+                height: 320px;
+            }
+
+            .wanderlust-gallery-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wanderlust-gallery-section {
+                padding: 60px 0;
+            }
+
+            .wanderlust-card {
+                height: 300px;
+                margin: 10px;
+            }
+
+            .wanderlust-gallery-title {
+                font-size: 2rem;
+            }
+
+            .wanderlust-section-title::after {
+                width: 60px;
+            }
+
+            .wanderlust-overlay {
+                padding: 15px;
+            }
+
+            .wanderlust-overlay h4 {
+                font-size: 1.1rem;
+            }
+
+            .wanderlust-overlay p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .wanderlust-gallery-section {
+                padding: 40px 0;
+            }
+
+            .wanderlust-card {
+                height: 250px;
+                margin: 8px;
+            }
+
+            .wanderlust-gallery-title {
+                font-size: 1.8rem;
+            }
+
+            .wanderlust-section-title {
+                margin-bottom: 30px;
+            }
+
+            .wanderlust-overlay {
+                padding: 12px;
+            }
+
+            .wanderlust-overlay h4 {
+                font-size: 1rem;
+                margin-bottom: 5px;
+            }
+
+            .wanderlust-overlay p {
+                font-size: 0.8rem;
+                margin-bottom: 5px;
+            }
+
+            .wanderlust-rating i {
+                font-size: 0.7rem;
+            }
+
+            .wanderlust-controls button {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .wanderlust-card {
+                height: 220px;
+            }
+
+            .wanderlust-overlay {
+                padding: 10px;
+            }
+
+            .wanderlust-overlay p {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+
+        /* Animation classes with unique names */
+        .wanderlust-fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .wanderlust-fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wanderlust-zoom-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .wanderlust-zoom-in.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Delay classes for animations */
+        .wanderlust-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .wanderlust-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .wanderlust-delay-3 {
+            transition-delay: 0.3s;
+        }
+    </style>
+
+
+<section class="wanderlust-gallery-section">
+    <div class="container">
+        <div class="wanderlust-section-title" data-aos="fade-up">
+
+            {{-- <h2 class="wanderlust-gallery-title">Discover Amazing Destinations</h2>
+            <span class="wanderlust-subtitle">Explore Our Gallery</span> --}}
+             <h2>Explore Our Gallery</h2>
+                        <p>Discover Amazing Destinations</p>
+        </div>
+
+        <div class="row wanderlust-featured-gallery">
+            <!-- First 3 static cards with different animations -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
+                <div class="wanderlust-card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Santorini, Greece" class="wanderlust-img">
+                    <div class="wanderlust-overlay">
+                        <h4>Santorini, Greece</h4>
+                        <div class="wanderlust-location">
+                            <i class="fas fa-map-marker-alt"></i> Mediterranean
+                        </div>
+                        {{-- <p>Experience the stunning white buildings and blue domes overlooking the sea</p>
+                        <div class="wanderlust-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.8 (320 reviews)</span>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="wanderlust-card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Bali, Indonesia" class="wanderlust-img">
+                    <div class="wanderlust-overlay">
+                        <h4>Bali, Indonesia</h4>
+                        <div class="wanderlust-location">
+                            <i class="fas fa-map-marker-alt"></i> Southeast Asia
+                        </div>
+                        {{-- <p>Explore the tropical paradise with beautiful beaches and ancient temples</p>
+                        <div class="wanderlust-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (412 reviews)</span>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-left" data-aos-delay="400">
+                <div class="wanderlust-card">
+                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Machu Picchu, Peru" class="wanderlust-img">
+                    <div class="wanderlust-overlay">
+                        <h4>Machu Picchu, Peru</h4>
+                        <div class="wanderlust-location">
+                            <i class="fas fa-map-marker-alt"></i> South America
+                        </div>
+                        {{-- <p>Visit the ancient Incan citadel set high in the Andes Mountains</p>
+                        <div class="wanderlust-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>5.0 (290 reviews)</span>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto Slider Gallery -->
+        <div class="wanderlust-slider" data-aos="fade-up" data-aos-delay="300">
+            <div class="wanderlust-slick-carousel">
+                <!-- Slider Item 1 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Kyoto, Japan" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Kyoto, Japan</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> East Asia
+                            </div>
+                            {{-- <p>Discover traditional temples, gardens and geisha districts</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7 (356 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Item 2 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Venice, Italy" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Venice, Italy</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Europe
+                            </div>
+                            {{-- <p>Explore the unique city built on canals with historic architecture</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.5 (278 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Item 3 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Maldives" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Maldives Islands</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Indian Ocean
+                            </div>
+                            {{-- <p>Enjoy crystal clear waters, white beaches and luxury overwater bungalows</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (410 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Item 4 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="New York, USA" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>New York City, USA</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> North America
+                            </div>
+                            {{-- <p>Experience the iconic cityscape, culture, and energy of the Big Apple</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.8 (520 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Item 5 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Cape Town, South Africa" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Cape Town, South Africa</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Africa
+                            </div>
+                            {{-- <p>Visit this stunning coastal city with Table Mountain as a backdrop</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.6 (245 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Item 6 -->
+                <div>
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Great Barrier Reef, Australia" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Great Barrier Reef, Australia</h4>
+                            <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Oceania
+                            </div>
+                            {{-- <p>Explore the world's largest coral reef system with amazing marine life</p>
+                            <div class="wanderlust-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7 (330 reviews)</span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- <div class="wanderlust-controls">
+                <button class="wanderlust-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="wanderlust-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div> --}}
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 1000,
+            once: true,
+            mirror: false,
+            disable: window.innerWidth < 768 // Disable animations on mobile for better performance
+        });
+
+        // Initialize the slick carousel with improved responsive settings
+        $('.wanderlust-slick-carousel').slick({
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            prevArrow: $('.wanderlust-prev'),
+            nextArrow: $('.wanderlust-next'),
+            rtl: false,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplaySpeed: 2500
+                    }
+                }
+            ]
+        });
+
+        // Custom animations with new class names
+        setTimeout(function() {
+            $('.wanderlust-fade-up').addClass('active');
+        }, 300);
+
+        setTimeout(function() {
+            $('.wanderlust-zoom-in').addClass('active');
+        }, 600);
+
+        // Better responsive handling - adjust slider height on window resize
+        $(window).on('resize', function() {
+            setTimeout(function() {
+                $('.wanderlust-slick-carousel').slick('refresh');
+            }, 100);
+        });
+
+        // Pause autoplay on hover
+        $('.wanderlust-slider').hover(
+            function() {
+                $('.wanderlust-slick-carousel').slick('slickPause');
+            },
+            function() {
+                $('.wanderlust-slick-carousel').slick('slickPlay');
+            }
+        );
+    });
+</script>
+
+
+
+    {{-- gallery end  --}}
+
+
     <style>
         .service-view-button button {
             color: white;

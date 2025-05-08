@@ -9,7 +9,7 @@
     <div class="destination-gallery pt-100">
         <div class="blog-banner" style="margin-bottom:50px; ">
             <img src="{{ asset('./assets/images/bannerblog.jpg') }}" alt=""
-                style="max-height:200px;width:100%; object-fit:cover;">
+                style="height:350px; max-height:350px; width:100%; object-fit:cover; border-radius: 0px !important;">
         </div>
         <div class="container-fluid">
             <div class="row gap-10 justify-content-center rel">
@@ -43,7 +43,7 @@
                                         : $homedestination->destination_image;
                                     $images = is_array($images) ? $images : [];
                                 @endphp
-                    
+
                                 @if (isset($images[0]))
                                     <img src="{{ asset('storage/' . $images[0]) }}" alt="Destination" class="img-fluid ">
                                 @endif
@@ -81,7 +81,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
             </div>
         </div>
     </div>
@@ -130,7 +130,7 @@
                                 style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
-                        </div>                        
+                        </div>
                 </div>
             </div>
         </div>
@@ -149,7 +149,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            
+
             <div class="swiper packages mt-4">
                 <div class="swiper-wrapper">
                     @if (isset($packages) && count($packages) > 0)
@@ -363,7 +363,7 @@
                             $images = is_string($package->destination_image)
                                 ? json_decode($package->destination_image, true)
                                 : $package->destination_image;
-            
+
                             // Use the first image if available; otherwise, set a default image
                             $displayImage = is_array($images) && !empty($images) ? $images[0] : 'path/to/default/image.jpg';
                         @endphp
@@ -381,8 +381,8 @@
                     <p>No destinations available at the moment.</p>
                 @endif
             </div>
-            
-            
+
+
         </div>
     </section>
     <!-- Destinations Area end -->

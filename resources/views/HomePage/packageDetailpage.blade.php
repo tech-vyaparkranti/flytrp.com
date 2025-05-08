@@ -8,7 +8,7 @@
 <div class="tour-gallery mt-5 pt-100">
     <div class="blog-banner" style="margin-bottom:50px; ">
         <img src="{{ asset('assets/images/Banner_HD.png') }}" alt=""
-            style="max-height:200px;width:100%; object-fit:cover;">
+            style="height: 350px; max-height:350px; width:100%; object-fit:cover;">
     </div>
     <div class="container-fluid">
         <div class="row gap-10 justify-content-center rel">
@@ -937,7 +937,7 @@
         background: #fff;
         padding: 20px;
         border-radius: 10px;
-       
+
     }
 
     .form-container h2 {

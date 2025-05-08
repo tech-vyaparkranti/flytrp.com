@@ -3,13 +3,13 @@
 @section('meta_description', $blogs->meta_description)
 @section('meta_keywords', $blogs->meta_keyword)
 @section('content')
-       
 
-        
+
+
         <!-- Blog Detaisl Area start -->
         <section class="blog-detaisl-page py-100 rel z-1">
                 <div class="blog-banner" style="margin-bottom:50px; ">
-                    <img src="./assets/images/bannerblog.jpg" alt="" style="max-height:200px;width:100%; object-fit:cover;" >
+                    <img src="./assets/images/bannerblog.jpg" alt="" style=" height:350px; max-height:350px; width:100%; object-fit:cover; border-radius: 0px !important;" >
                 </div>
             <div class="container">
                 <div class="row">
@@ -64,7 +64,7 @@
                                 <li>Build relationships with hotels, airlines, transport companies, and other service providers.</li>
                             </ul> --}}
                         </div>
-                            
+
                         {{-- <hr class="mb-45"> --}}
 
                         {{-- <div class="tag-share mb-50">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div> -->
-                           
+
                         {{-- <div class="next-prev-blog pt-70 pb-15">
                             <div class="item" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
                                 <div class="image">
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                        
+
                         {{-- <form id="comment-form" class="comment-form bgc-lighter z-1 rel mt-25" name="review-form" action="#" method="post" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                             <h5>Leave A Comments</h5>
                             <p>Your email address will not be published. Required fields are marked *</p>
@@ -161,18 +161,18 @@
                                 </div>
                             </div>
                         </form> --}}
-                            
+
                     </div>
                     <div class="col-lg-4 col-md-8 col-sm-10 rmt-75">
                         <div class="blog-sidebar">
-                            
+
                             {{-- <div class="widget widget-search" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <form action="#" class="default-search-form">
                                     <input type="text" placeholder="Search" required="">
                                     <button type="submit" class="searchbutton far fa-search"></button>
                                 </form>
                             </div> --}}
-                            
+
                             <!-- <div class="widget widget-category" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <h5 class="widget-title">Category</h5>
                                 <ul class="list-style-three">
@@ -185,7 +185,7 @@
                                     <li><a href="blog.php">Coastal Paragliding</a></li>
                                 </ul>
                             </div> -->
-                            
+
                             <div class="widget widget-news" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <h5 class="widget-title">Recent Blogs</h5>
                                 <ul>
@@ -229,7 +229,7 @@
                                     </li> --}}
                                 </ul>
                             </div>
-                            
+
                             <div class="widget widget-gallery" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <h5 class="widget-title">Gallery</h5>
                                 {{-- <div class="gallery">
@@ -298,9 +298,9 @@
                                     </a>
                                     @endif
                                 </div>
-                                
+
                             </div>
-                            
+
                             <div class="widget widget-cta" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                 <div class="content text-white">
                                     <span class="h6">Explore The World</span>
@@ -315,15 +315,14 @@
                                 </div>
                                 <!-- <div class="cta-shape"><img src="assets/images/widgets/cta-shape.png" alt="Shape"></div> -->
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Blog Detaisl Area end -->
-        
-@endsection
-        
 
-    
+@endsection
+
+

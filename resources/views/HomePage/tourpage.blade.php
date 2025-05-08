@@ -7,11 +7,11 @@
     <!-- Destinations Area start -->
     <section class="tour-grid-page py-100 rel z-2">
         <div class="blog-banner" style="margin-bottom:50px; ">
-            <img src="./assets/images/Banner_HD.png" alt="" style="max-height:200px;width:100%; object-fit:cover;">
+            <img src="./assets/images/Banner_HD.png" alt="" style="height:350px; max-height:350px;width:100%; object-fit:cover;">
         </div>
         <div class="container">
 
-            
+
             <hr class="mb-50">
             <div class="row">
                 <h2 class="text-center pb-20"> Popular Tour</h2>
@@ -26,11 +26,11 @@
                                         $images = is_string($item->image)
                                             ? json_decode($item->image, true)
                                             : $item->image;
-        
+
                                         // Check if images is a valid array and get the first image
                                         $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
                                     @endphp --}}
-        
+
                                     {{-- @if ($displayImage) --}}
                                         <img src="{{ asset($item->image) }}" alt="{{ $item->title }}"
                                             class="hotel-image" style="margin-right: 10px;">
@@ -289,9 +289,9 @@
                         </div>
                     </div>
                 @endif
-                
+
             </div>
         </div>
     </section>
-    
+
 @endsection

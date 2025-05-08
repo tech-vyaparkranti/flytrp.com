@@ -7,7 +7,7 @@
     <section class="gallery-two-area py-100 pt-120 rel z-1">
     <div class="blog-banner" style="margin-bottom:50px; ">
             <img src="{{ asset('./assets/images/bg-contact).jpg') }}" alt=""
-                style="max-height:300px;width:100%; object-fit:cover;">
+                style="height: 350px; max-height:350px;width:100%; object-fit:cover;">
         </div>
         <div class="container">
             <div class="row justify-content-center">
@@ -92,13 +92,13 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="gallery-two-item" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                             <div class="image">
-                            
+
                                 <img src="./assets/images/gallery4.jpg" alt="Gallery">
                                 <a data-fancybox="gallery" href="./assets/images/gallery4.jpg" class="link">
                                     <i class="fal fa-arrow-right"></i>
                                 </a>
                             </div>
-                        
+
                             <div class="content">
                                 {{-- <span class="category">Tour & Travel</span> --}}
                                 <h5><a>Cliff near shore beach</a></h5>

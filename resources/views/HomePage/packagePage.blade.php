@@ -8,7 +8,7 @@
     <!-- Tour Grid Area start -->
     <section class="tour-grid-page py-100 rel z-2">
         <div class="blog-banner" style="margin-bottom:50px; ">
-            <img src="./assets/images/Banner_HD.png" alt="" style="max-height:200px;width:100%; object-fit:cover;">
+            <img src="./assets/images/Banner_HD.png" alt="" style="height: 350px; max-height:350px;width:100%; object-fit:cover;">
         </div>
         <div class="container">
             <!-- <div class="shop-shorter rel z-3 mb-20">
