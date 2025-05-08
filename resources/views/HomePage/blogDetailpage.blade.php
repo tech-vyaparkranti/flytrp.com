@@ -305,7 +305,7 @@
                                 <div class="content text-white">
                                     <span class="h6">Explore The World</span>
                                     <h3>Best Tourist Place</h3>
-                                    <a href="{{ route('tourpage') }}" class="theme-btn style-two bgc-secondary">
+                                    <a href="{{ route('packagePage') }}" class="theme-btn style-two bgc-secondary">
                                         <span data-hover="Explore Now">Explore Now</span>
                                         <i class="fal fa-arrow-right"></i>
                                     </a>

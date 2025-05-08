@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="destination-footer">
                                         <span class="price"><span class="span-time">Rs. 6300</span>/per person</span>
-                                        <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
                                                 class="fal fa-angle-right"></i></a>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@
                                     </div>
                                     <div class="destination-footer">
                                         <span class="price"><span class="span-time">Rs. 4200</span>/per person</span>
-                                        <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
                                                 class="fal fa-angle-right"></i></a>
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@
                                     </div>
                                     <div class="destination-footer">
                                         <span class="price"><span class="span-time">Rs. 5200</span>/per person</span>
-                                        <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
                                                 class="fal fa-angle-right"></i></a>
                                     </div>
                                 </div>

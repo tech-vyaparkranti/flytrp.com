@@ -114,7 +114,7 @@
                             </div>
                             <p>Bali, Indonesia, is a tropical paradise renowned for breathtaking beaches, vibrant culture, and lush landscapes. Located at the westernmost end of the Lesser Sunda Islands, Bali boasts a warm, tropical climate that is year-round destination visitors are drawn to its picturesque beaches</p>
                             <p>The island's rich cultural heritage is evident in numerous temples, including the iconic Tanah Lot and Uluwatu Temple, as well as the cultural</p>
-                            <a href="{{ route('tourpage') }}" class="theme-btn mt-25 style-two">
+                            <a href="{{ route('packagePage') }}" class="theme-btn mt-25 style-two">
                                 <span data-hover="Explore Destinations">Explore Destinations</span>
                                 <i class="fal fa-arrow-right"></i>
                             </a>
@@ -228,7 +228,7 @@
                         </div>
                         <div class="destination-footer">
                             <span class="price"><span class="span-time">Rs. 6300</span>/per person</span>
-                            <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                            <a href="{{ route('packagePage') }}" class="read-more">Book Now <i
                                     class="fal fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="destination-footer">
                             <span class="price"><span class="span-time">Rs. 4200</span>/per person</span>
-                            <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                            <a href="{{ route('packagePage') }}" class="read-more">Book Now <i
                                     class="fal fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="destination-footer">
                             <span class="price"><span class="span-time">Rs. 5200</span>/per person</span>
-                            <a href="{{ route('tourpage') }}" class="read-more">Book Now <i
+                            <a href="{{ route('packagePage') }}" class="read-more">Book Now <i
                                     class="fal fa-angle-right"></i></a>
                         </div>
                     </div>
