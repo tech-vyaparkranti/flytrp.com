@@ -7,6 +7,7 @@ use App\Http\Controllers\EnquiryFormController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\OurServicesModelController;
+use App\Http\Controllers\BookingEnquiryController;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,8 @@ Route::post('enquiry-form',[EnquiryFormController::class,"enquiryDetails"])->nam
 
 Route::get("tours",[HomePageController::class,"tourPage"])->name("tourPage");
 Route::get("tourDetail/{tour_slug}",[HomePageController::class,"tourDetailPage"])->name("tourDetail");
+
+Route::post("booking-enquiry",[BookingEnquiryController::class,"bookingEnquiry"])->name("bookingEnquiry");
 
 // require __DIR__.'/auth.php';
 

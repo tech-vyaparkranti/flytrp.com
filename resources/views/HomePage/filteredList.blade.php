@@ -83,7 +83,7 @@
                                                 {{ $item->package_duration_nights }} Nights</li>
                                         </ul>
                                         <div class="destination-footers">
-                                            <a href="{{ route('tourpage', ['slug' => $item->slug]) }}"
+                                            <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}"
                                                 class="theme-btn style-two style-three">
                                                 <span data-hover="View More">View More</span>
                                                 <i class="fal fa-arrow-right"></i>

@@ -165,194 +165,198 @@
                 </form> --}}
 
                 {{-- new correction start 5/07 --}}
+                @if(session('success'))
+                <script>
+                    alert("{{ session('success') }}");
+                </script>
+            @endif
+            
+            @if(session('error'))
+                <script>
+                    alert("{{ session('error') }}");
+                </script>
+            @endif
+                <form action="{{ route('bookingEnquiry') }}" method="POST" style="display: contents;">
+                    @csrf
 
-                  <form action="{{ route('filterPackages') }}" method="POST" style="display: contents;">
-    @csrf
+                    <style>
+                        .input-wrapper {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            margin-bottom: 1rem;
+                        }
 
-    <style>
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 1rem;
-        }
+                        .input-wrapper i {
+                            position: absolute;
+                            left: 12px;
+                            color: #888;
+                            font-size: 16px;
+                        }
 
-        .input-wrapper i {
-            position: absolute;
-            left: 12px;
-            color: #888;
-            font-size: 16px;
-        }
+                        .input-wrapper input,
+                        .input-wrapper select {
+                            width: 90%;
+                            height: 45px;
+                            padding: 10px 12px 10px 36px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                            background: #fff;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                            font-size: 15px;
+                        }
 
-        .input-wrapper input,
-        .input-wrapper select {
-            width: 90%;
-            height: 45px;
-            padding: 10px 12px 10px 36px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            font-size: 15px;
-        }
+                        .search-button {
+                            display: flex;
+                            align-items: center;
+                            margin-left: 15px;
+                        }
 
-        .search-button {
-            display: flex;
-            align-items: center;
-            margin-left: 15px;
-        }
+                        .theme-btn {
+                            background-color: #7BBE47;
+                            color: #fff;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 25px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        }
 
-        .theme-btn {
-            background-color: #7BBE47;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+                        .theme-btn:hover {
+                            background-color: #68a53e;
+                        }
 
-        .theme-btn:hover {
-            background-color: #68a53e;
-        }
+                        .nice-select {
+                            width: 100%;
+                            height: 46px !important;
+                            border-radius: 5px;
+                            font-weight: 400;
+                            border-radius: 5px !important;
+                            font-size: 16px;
+                            padding: 3px 30px !important;
+                            /* background-color: grey; */
+                            border: 1px solid #d3cece !important;
+                            font-family: var(--heading-font);
+                            -webkit-transition: 0.3s;
+                            -o-transition: 0.3s;
+                            transition: 0.3s;
 
-         .nice-select  {
-    width: 100%;
-    height: 46px !important;
-    border-radius: 5px;
-    font-weight: 400;
-    border-radius: 5px !important;
-    font-size: 16px;
-    padding: 3px 30px !important;
-    /* background-color: grey; */
-    border: 1px solid #d3cece !important;
-    font-family: var(--heading-font);
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
+                        }
 
-}
+                        /* Small devices (phones, less than 600px) */
+                        @media screen and (max-width: 599px) {
+                            .nice-select {
+                                width: 92% !important;
+                            }
+                        }
 
-/* Small devices (phones, less than 600px) */
-@media screen and (max-width: 599px) {
-    .nice-select {
-         width: 92% !important;
-    }
-}
+                        /* Medium devices (tablets, 600px to 991px) */
+                        @media screen and (min-width: 600px) and (max-width: 991px) {
+                            .nice-select {
 
-/* Medium devices (tablets, 600px to 991px) */
-@media screen and (min-width: 600px) and (max-width: 991px) {
-    .nice-select {
+                                width: 91% !important;
+                            }
+                        }
 
-          width: 91% !important;
-    }
-}
+                        /* Large devices (desktops, 992px and up) */
+                        @media screen and (min-width: 992px) {
+                            .nice-select {
+                                width: 91% !important;
+                            }
+                        }
+                    </style>
 
-/* Large devices (desktops, 992px and up) */
-@media screen and (min-width: 992px) {
-    .nice-select {
-            width: 91% !important;
-    }
-}
+                    <style>
+                        .input-wrapper {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            margin-bottom: 1rem;
+                        }
 
+                        .input-wrapper i {
+                            position: absolute;
+                            left: 12px;
+                            color: #888;
+                            font-size: 16px;
+                            z-index: 1;
+                        }
 
-
-
-
-    </style>
-
-    <style>
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center ;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-.input-wrapper i {
-    position: absolute;
-    left: 12px;
-    color: #888;
-    font-size: 16px;
-    z-index: 1;
-}
-
-.input-wrapper select {
-    width: 100%;
-    height: 45px;
-    padding: 0 12px 0 36px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    line-height: 45px;
-    text-align: center;
-    text-align-last: center; /* for Firefox */
-    color: #333;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-
-</style>
+                        .input-wrapper select {
+                            width: 100%;
+                            height: 45px;
+                            padding: 0 12px 0 36px;
+                            border: 1px solid #ccc;
+                            border-radius: 10px;
+                            background: #fff;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                            font-size: 16px;
+                            line-height: 45px;
+                            text-align: center;
+                            text-align-last: center;
+                            /* for Firefox */
+                            color: #333;
+                            appearance: none;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                        }
+                    </style>
 
 
 
 
-    <!-- Name Field -->
-    <div class="input-wrapper">
-        <i class="fal fa-user"></i>
-        <input type="text" name="name" id="name" placeholder="Your Name">
-    </div>
+                    <!-- Name Field -->
+                    <div class="input-wrapper">
+                        <i class="fal fa-user"></i>
+                        <input type="text" name="name" id="name" placeholder="Your Name">
+                    </div>
 
-    <!-- City Dropdown -->
-    {{-- <div class="input-wrapper">
-        <i class="fal fa-map-marker-alt"></i>
-        <select name="city" id="city">
-            <option value=""  >City or Region</option>
-            @foreach ($destinations as $destination)
-                <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
-                    {{ $destination }}
-                </option>
-            @endforeach
-        </select>
-    </div> --}}
+                    <!-- City Dropdown -->
+                    {{-- <div class="input-wrapper">
+                        <i class="fal fa-map-marker-alt"></i>
+                        <select name="city" id="city">
+                            <option value=""  >City or Region</option>
+                            @foreach ($destinations as $destination)
+                                <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
+                                    {{ $destination }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div> --}}
 
-    <div class="input-wrapper" style="padding-right: 5px">
-    <i class="fal fa-map-marker-alt"></i>
-    <select name="city" id="city" >
-        <option value="">Destinations</option>
-        @foreach ($destinations as $destination)
-            <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
-                {{ $destination }}
-            </option>
-        @endforeach
-    </select>
-</div>
+                    <div class="input-wrapper" style="padding-right: 5px">
+                        <i class="fal fa-map-marker-alt"></i>
+                        <select name="destination" id="city">
+                            <option value="">Destinations</option>
+                            @foreach ($destinations as $destination)
+                                <option value="{{ $destination }}" {{ request('destination') == $destination ? 'selected' : '' }}>
+                                    {{ $destination }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-    <!-- Mobile Number -->
-    <div class="input-wrapper">
-        <i class="fal fa-phone-alt"></i>
-        <input type="text" name="mobile_no" id="mobile_no" placeholder="Mobile Number">
-    </div>
+                    <!-- Mobile Number -->
+                    <div class="input-wrapper">
+                        <i class="fal fa-phone-alt"></i>
+                        <input type="text" name="phone" id="mobile_no" placeholder="Mobile Number">
+                    </div>
 
-    <!-- Departure Date -->
-    <div class="input-wrapper">
-        <i class="fal fa-calendar-alt"></i>
-        <input type="date" name="departure_date" id="departure_date" placeholder="Departure Date">
-    </div>
+                    <!-- Departure Date -->
+                    <div class="input-wrapper">
+                        <i class="fal fa-calendar-alt"></i>
+                        <input type="date" name="destination_date" id="departure_date" placeholder="=travel Date">
+                    </div>
 
-    <!-- Submit Button -->
-    <div class="search-button">
-        <button type="submit" class="theme-btn">
-            <span data-hover="Submit">Submit</span>
-        </button>
-    </div>
-</form>
+                    <!-- Submit Button -->
+                    <div class="search-button">
+                        <button type="submit" class="theme-btn">
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </form>
 
 
 
@@ -363,8 +367,8 @@
     </section>
     <!-- Hero Area End -->
 
-      <!-- Popular Packages Area start -->
-      <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
+    <!-- Popular Packages Area start -->
+    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -402,7 +406,8 @@
                                                     {{-- </figure> --}}
                                                 @else
                                                     {{-- <figure class="images"> --}}
-                                                    <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
+                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
+                                                        alt="Default Image">
                                                     {{-- </figure> --}}
                                                 @endif
 
@@ -439,8 +444,8 @@
                                 </div>
                             @endforeach
                         @else
-                        <p>NO Data Available</p>
-                    @endif
+                            <p>NO Data Available</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -460,25 +465,30 @@
             <div class="row align-items-center">
                 <h2 class="text-center mb-4">About Us </h2>
                 <div class="col-xl-5 col-lg-6">
-                    <div class="about-us-content rmb-55" data-aos="fade-left" data-aos-duration="1500" data-aos-offset="50">
+                    <div class="about-us-content rmb-55" data-aos="fade-left" data-aos-duration="1500"
+                        data-aos-offset="50">
                         <div class="section-title mb-25">
                             <h2>{!! $home_aboutus_content_heading ?? 'Travel with Confidence Top Reasons to Choose FLYTRP Holidays' !!}</h2>
                         </div>
-                        <p>{!! $home_aboutus_content_subheading ?? 'We go above and beyond to make your travel dreams reality hidden gems and must-see attractions' !!}
+                        <p>{!! $home_aboutus_content_subheading ??
+                            'We go above and beyond to make your travel dreams reality hidden gems and must-see attractions' !!}
                         </p>
-                        <div class="divider counter-text-wrap mt-45 mb-55"><span>We have <span><span class="count-text plus"
-                                        data-speed="3000" data-stop="{!! $years_of_experience ?? '15' !!}">0</span> Years</span> of
+                        <div class="divider counter-text-wrap mt-45 mb-55"><span>We have <span><span
+                                        class="count-text plus" data-speed="3000"
+                                        data-stop="{!! $years_of_experience ?? '15' !!}">0</span> Years</span> of
                                 experience</span></div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="counter-item counter-text-wrap">
-                                    <span class="count-text k-plus" data-speed="3000" data-stop="{!! $home_aboutus_content_popular_destination_no ?? '3' !!}">0</span>
+                                    <span class="count-text k-plus" data-speed="3000"
+                                        data-stop="{!! $home_aboutus_content_popular_destination_no ?? '3' !!}">0</span>
                                     <span class="counter-title">Popular Destination</span>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="counter-item counter-text-wrap">
-                                    <span class="count-text m-plus" data-speed="3000" data-stop="{!! $home_aboutus_content_satisfied_clients_no ?? '9' !!}">0</span>
+                                    <span class="count-text m-plus" data-speed="3000"
+                                        data-stop="{!! $home_aboutus_content_satisfied_clients_no ?? '9' !!}">0</span>
                                     <span class="counter-title">Satisfied Clients</span>
                                 </div>
                             </div>
@@ -498,7 +508,8 @@
                         <div class="shape"><img src="assets/images/about/shape5.png" alt="Shape"></div>
                         <div class="shape"><img src="assets/images/about/shape6.png" alt="Shape"></div>
                         <div class="shape"><img src="assets/images/about/shape7.png" alt="Shape"></div>
-                        <img src="{{ asset($home_aboutus_content_image ?? './assets/images/confidence.png') }}" alt="About">
+                        <img src="{{ asset($home_aboutus_content_image ?? './assets/images/confidence.png') }}"
+                            alt="About">
                     </div>
                 </div>
             </div>
@@ -523,28 +534,32 @@
                 <div class="swiper packages mt-4">
                     <div class="swiper-wrapper">
                         @if (isset($homedestinations) && count($homedestinations) > 0)
-                        @foreach ($homedestinations as $item)
+                            @foreach ($homedestinations as $item)
                                 <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
-                                    <a href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">
+                                    <a
+                                        href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">
                                         <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
                                             data-aos-offset="50">
                                             <div class="image">
                                                 @php
-                                        // Ensure package_image is a valid JSON string before decoding
-                                        $images = is_string($item->destination_image)
-                                            ? json_decode($item->destination_image, true)
-                                            : $item->destination_image;
+                                                    // Ensure package_image is a valid JSON string before decoding
+                                                    $images = is_string($item->destination_image)
+                                                        ? json_decode($item->destination_image, true)
+                                                        : $item->destination_image;
 
-                                        // Check if images is a valid array and get the first image
-                                        $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
-                                    @endphp
+                                                    // Check if images is a valid array and get the first image
+                                                    $displayImage =
+                                                        is_array($images) && !empty($images) ? $images[0] : null;
+                                                @endphp
 
-                                    @if ($displayImage)
-                                        <img src="{{ asset('storage/' . $displayImage) }}" alt="{{ $item->destination_name }}"
-                                            class="hotel-image" style="margin-right: 10px;">
-                                    @else
-                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image" class="hotel-image">
-                                    @endif
+                                                @if ($displayImage)
+                                                    <img src="{{ asset('storage/' . $displayImage) }}"
+                                                        alt="{{ $item->destination_name }}" class="hotel-image"
+                                                        style="margin-right: 10px;">
+                                                @else
+                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
+                                                        alt="Default Image" class="hotel-image">
+                                                @endif
                                             </div>
                                             <div class="content">
                                                 {{-- <span class="location">
@@ -562,61 +577,65 @@
                                 </div>
                             @endforeach
                         @else
-                        <div class="col-xxl-3 col-xl-4 col-md-6">
-                            <div class="destination-item" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                                <div class="image">
-                                    <img src="./assets/images/destination1.jpg" alt="Destination">
-                                </div>
-                                <div class="content">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Tours, France</span>
-                                    <h5><a href="{{ route('destinationpage') }}">Brown Concrete Building Basilica St
-                                            Martin</a>
-                                    </h5>
-                                    <span class="time">3 days 2 nights</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-xl-4 col-md-6">
-                            <div class="destination-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1500"
-                                data-aos-offset="50">
-                                <div class="image">
-                                    <img src="./assets/images/destination2.jpg" alt="Destination">
-                                </div>
-                                <div class="content">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Wildest, Italy</span>
-                                    <h5><a href="{{ route('destinationpage') }}">Blue lake water view taken travel with
-                                            daytime</a>
-                                    </h5>
-                                    <span class="time">3 days 2 night</span>
+                            <div class="col-xxl-3 col-xl-4 col-md-6">
+                                <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
+                                    data-aos-offset="50">
+                                    <div class="image">
+                                        <img src="./assets/images/destination1.jpg" alt="Destination">
+                                    </div>
+                                    <div class="content">
+                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Tours, France</span>
+                                        <h5><a href="{{ route('destinationpage') }}">Brown Concrete Building Basilica St
+                                                Martin</a>
+                                        </h5>
+                                        <span class="time">3 days 2 nights</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xxl-3 col-xl-4 col-md-6">
-                            <div class="destination-item" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1500"
-                                data-aos-offset="50">
-                                <div class="image">
-                                    <img src="./assets/images/destination4.jpg" alt="Destination">
-                                </div>
-                                <div class="content">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
-                                    <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum, Rome</a></h5>
-                                    <span class="time">3 days 2 nights</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-xl-4 col-md-6">
-                            <div class="destination-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1500"
-                                data-aos-offset="50">
-                                <div class="image">
-                                    <img src="./assets/images/destination3.jpg" alt="Destination">
-                                </div>
-                                <div class="content">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
-                                    <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum, Rome</a></h5>
-                                    <span class="time">3 days 2 nights</span>
+                            <div class="col-xxl-3 col-xl-4 col-md-6">
+                                <div class="destination-item" data-aos="fade-up" data-aos-delay="100"
+                                    data-aos-duration="1500" data-aos-offset="50">
+                                    <div class="image">
+                                        <img src="./assets/images/destination2.jpg" alt="Destination">
+                                    </div>
+                                    <div class="content">
+                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Wildest, Italy</span>
+                                        <h5><a href="{{ route('destinationpage') }}">Blue lake water view taken travel
+                                                with
+                                                daytime</a>
+                                        </h5>
+                                        <span class="time">3 days 2 night</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-xxl-3 col-xl-4 col-md-6">
+                                <div class="destination-item" data-aos="fade-up" data-aos-delay="200"
+                                    data-aos-duration="1500" data-aos-offset="50">
+                                    <div class="image">
+                                        <img src="./assets/images/destination4.jpg" alt="Destination">
+                                    </div>
+                                    <div class="content">
+                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
+                                        <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum,
+                                                Rome</a></h5>
+                                        <span class="time">3 days 2 nights</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-4 col-md-6">
+                                <div class="destination-item" data-aos="fade-up" data-aos-delay="300"
+                                    data-aos-duration="1500" data-aos-offset="50">
+                                    <div class="image">
+                                        <img src="./assets/images/destination3.jpg" alt="Destination">
+                                    </div>
+                                    <div class="content">
+                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
+                                        <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum,
+                                                Rome</a></h5>
+                                        <span class="time">3 days 2 nights</span>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -646,12 +665,14 @@
                         </div>
                         <div class="features-customer-box">
                             <div class="image">
-                                <img src="{{ asset($home_other_services_image ?? './assets/images/features-box.jpg') }}" alt="Features">
+                                <img src="{{ asset($home_other_services_image ?? './assets/images/features-box.jpg') }}"
+                                    alt="Features">
                             </div>
                             <div class="content">
                                 <h6>{!! $home_other_services_happy_customer_no ?? '850K+ Happy Customer' !!}</h6>
                                 <div class="divider style-two counter-text-wrap my-25"><span><span class="count-text plus"
-                                            data-speed="3000" data-stop="{!! $years_of_experience ?? '15' !!}">0</span> Years</span></div>
+                                            data-speed="3000" data-stop="{!! $years_of_experience ?? '15' !!}">0</span> Years</span>
+                                </div>
                                 <p>{!! $home_other_services_content_subheading ?? 'We pride ourselves offering personalized itineraries' !!}</p>
                             </div>
                         </div>
@@ -664,8 +685,9 @@
                                 <div class="icon"><i class="fa-solid fa-umbrella-beach fs-1 text-primary"></i></div>
                                 <div class="content">
                                     <h5><a href="{{ route('packagePage') }}">Holidays</a></h5>
-                                    <p>{!! $home_other_services_holidays_content ?? 'We are Casting Moments & Creating Memories lifelong Your ideal leaves are staying for
-                                        you.' !!}</p>
+                                    <p>{!! $home_other_services_holidays_content ??
+                                        'We are Casting Moments & Creating Memories lifelong Your ideal leaves are staying for
+                                                                            you.' !!}</p>
                                 </div>
                             </div>
                             <div class="feature-item">
@@ -681,16 +703,18 @@
                                 <div class="icon"><i class="fa-solid fa-hand-holding-hand fs-1 text-primary"></i></div>
                                 <div class="content">
                                     <h5><a href="{{ route('packagePage') }}">Weddings</a></h5>
-                                    <p>{!! $home_other_services_weddings_content ?? 'Love in Every Detail Creating Your Perfect Day, Your Dream marriage, Our violent
-                                        Hand.' !!}</p>
+                                    <p>{!! $home_other_services_weddings_content ??
+                                        'Love in Every Detail Creating Your Perfect Day, Your Dream marriage, Our violent
+                                                                            Hand.' !!}</p>
                                 </div>
                             </div>
                             <div class="feature-item">
                                 <div class="icon"><i class="fa-solid fa-headset fs-1 text-primary"></i></div>
                                 <div class="content">
                                     <h5><a href="{{ route('packagePage') }}">Friendly Support</a></h5>
-                                    <p>{!! $home_other_services_friendly_support_content ?? 'Trip Support Beyond Boundaries Leading Your peregrination, trip Support Beyond
-                                        Boundaries.' !!}</p>
+                                    <p>{!! $home_other_services_friendly_support_content ??
+                                        'Trip Support Beyond Boundaries Leading Your peregrination, trip Support Beyond
+                                                                            Boundaries.' !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -714,23 +738,26 @@
                     <h4 class="style" style="color:#022f5d;">Who Believe in Us</h4>
                 </div>
                 <div class="client-logo-active">
-                    @if(isset($home_recognitions) && count($home_recognitions)>0)
+                    @if (isset($home_recognitions) && count($home_recognitions) > 0)
                         @foreach ($home_recognitions as $item)
-                        <div class="client-logo-item" data-aos="flip-up" data-aos-duration="1500" data-aos-offset="50">
-                            <a href="#"><img src="{{ asset($item->image) }}" alt="Client Logo"></a>
-                        </div>
+                            <div class="client-logo-item" data-aos="flip-up" data-aos-duration="1500"
+                                data-aos-offset="50">
+                                <a href="#"><img src="{{ asset($item->image) }}" alt="Client Logo"></a>
+                            </div>
                         @endforeach
                     @else
-                    <div class="client-logo-item" data-aos="flip-up" data-aos-duration="1500" data-aos-offset="50">
-                        <a href="#"><img src="assets/images/mytrip.png" alt="Client Logo"></a>
-                    </div>
-                    <div class="client-logo-item" data-aos="flip-up" data-aos-delay="50" data-aos-duration="1500" data-aos-offset="50">
-                        <a href="#"><img src="assets/images/goibibo.png" alt="Client Logo"></a>
-                    </div>
-                    <div class="client-logo-item" data-aos="flip-up" data-aos-delay="100" data-aos-duration="1500" data-aos-offset="50">
-                        <a href="#"><img src="assets/images/tripadv.png" alt="Client Logo"></a>
-                    </div>
-                @endif
+                        <div class="client-logo-item" data-aos="flip-up" data-aos-duration="1500" data-aos-offset="50">
+                            <a href="#"><img src="assets/images/mytrip.png" alt="Client Logo"></a>
+                        </div>
+                        <div class="client-logo-item" data-aos="flip-up" data-aos-delay="50" data-aos-duration="1500"
+                            data-aos-offset="50">
+                            <a href="#"><img src="assets/images/goibibo.png" alt="Client Logo"></a>
+                        </div>
+                        <div class="client-logo-item" data-aos="flip-up" data-aos-delay="100" data-aos-duration="1500"
+                            data-aos-offset="50">
+                            <a href="#"><img src="assets/images/tripadv.png" alt="Client Logo"></a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -782,9 +809,9 @@
                                         with Ravelo
                                         Travel Agency</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                    <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                    <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                </ul> -->
+                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                    </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -804,9 +831,9 @@
                                 <h5><a>Unforgettable Adventures Travel Agency Bucket List
                                         Experiences</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                    <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                    <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                </ul> -->
+                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                    </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -826,9 +853,9 @@
                                 <h5><a>Exploring Culture and way Cuisine Travel Agency's they Best
                                         Foodie Destinations</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                    <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                    <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                </ul> -->
+                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                    </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -874,20 +901,20 @@
         }
 
         /* .fade {
-                          animation: fadeInOut 4.7s infinite;
-                        }
+                              animation: fadeInOut 4.7s infinite;
+                            }
 
-                        @keyframes fadeInOut {
-                          0% {
-                            opacity: 0.5;
-                          }
-                          50% {
-                            opacity: 0.8;
-                          }
-                          100% {
-                            opacity: 1;
-                          }
-                        } */
+                            @keyframes fadeInOut {
+                              0% {
+                                opacity: 0.5;
+                              }
+                              50% {
+                                opacity: 0.8;
+                              }
+                              100% {
+                                opacity: 1;
+                              }
+                            } */
         .text-primary {
             --bs-text-opacity: 1;
             color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
@@ -980,7 +1007,7 @@
         });
     </script> --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const calendarTrigger = document.getElementById('calendarTrigger');
             const departureDateInput = document.getElementById('departure_date');
             const selectedDateText = document.getElementById('selectedDate');
@@ -991,7 +1018,7 @@
             departureDateInput.setAttribute('min', formattedDate);
 
             // Toggle visibility of the date input on clicking the calendar trigger
-            calendarTrigger.addEventListener('click', function () {
+            calendarTrigger.addEventListener('click', function() {
                 if (departureDateInput.style.display === 'none') {
                     departureDateInput.style.display = 'block';
                 } else {
@@ -1000,7 +1027,7 @@
             });
 
             // Update selected date text when a date is chosen
-            departureDateInput.addEventListener('change', function () {
+            departureDateInput.addEventListener('change', function() {
                 const selectedDate = departureDateInput.value;
                 selectedDateText.textContent = `Selected Date: ${selectedDate}`;
             });

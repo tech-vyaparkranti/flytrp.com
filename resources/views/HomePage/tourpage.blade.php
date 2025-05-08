@@ -91,7 +91,7 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                 </div>
-                                <h5><a href="{{ route('tourpage') }}">Bay Cruise lake trip by Boat in Bali,
+                                <h5><a href="{{ route('tourPage') }}">Bay Cruise lake trip by Boat in Bali,
                                         Indonesia</a></h5>
                                 <p>Bali, Indonesia, is tropical paradise renowned breathtaking beaches and landscapes</p>
                                 <ul class="blog-meta">
@@ -100,7 +100,7 @@
                                 </ul>
                                 <div class="destination-footers">
                                     <!-- <span class="price"><span>$58.00</span>/person</span> -->
-                                    <a href="{{ route('tourpage') }}" class="theme-btn style-two style-three">
+                                    <a href="{{ route('tourPage') }}" class="theme-btn style-two style-three">
                                         <span data-hover="Book Now text-center">View More</span>
                                         <i class="fal fa-arrow-right"></i>
                                     </a>
