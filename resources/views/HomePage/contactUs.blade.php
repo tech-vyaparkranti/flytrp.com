@@ -6,8 +6,8 @@
 <!-- Contact Info Area start -->
 <section class="contact-info-area pt-100 rel z-1">
      <div class="contact-banner">
-       <img src="./assets/images/bg-contact.jpg" alt=""> 
-       </div>      
+       <img src="./assets/images/bg-contact.jpg" alt="">
+       </div>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4">
@@ -53,11 +53,11 @@
                             <div class="icon"><i class="fas fa-phone"></i></div>
                             <div class="content">
                                 <h5>Need Any Urgent</h5>
-                                <div class="text"><i class="fal fa-phone-volume"></i> 
-                                    <a href="tel:{!! $Phone_number1 ?? '+91 7838602000' !!}">{!! $Phone_number1 ?? '91 7838602000' !!}</a>&nbsp; |&nbsp; 
+                                <div class="text"><i class="fal fa-phone-volume"></i>
+                                    <a href="tel:{!! $Phone_number1 ?? '+91 7838602000' !!}">{!! $Phone_number1 ?? '91 7838602000' !!}</a>&nbsp; |&nbsp;
                                     <a href="tel:{!! $Phone_number2 ?? '+91 7838502000' !!}">{!! $Phone_number2 ?? '+91 7838502000' !!}</a></div>
                                 <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number3 ?? '+91 7428280000' !!}">
-                                    {!! $Phone_number3 ?? '+91 7428280000' !!}</a>&nbsp; |&nbsp; 
+                                    {!! $Phone_number3 ?? '+91 7428280000' !!}</a>&nbsp; |&nbsp;
                                     <a href="tel:{!! $Phone_number4 ?? '+91 7831003500' !!}">{!! $Phone_number4 ?? '+91 7831003500' !!}</a></div>
                                 <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number5 ?? '+01 141004080' !!}">{!! $Phone_number5 ?? '+01 141004080' !!}</a></div>
 
@@ -176,7 +176,7 @@
                         </div>
                     </div>
                     <div class="circle-logo">
-                        <img src="{{ asset($Logo ?? './assets/images/logo.png' ) }}" alt="Logo">
+                        <img src="{{ asset($Logo ?? './assets/images/flytrp.png' ) }}" alt="Logo">
                         <!-- <span class="title h2">Ravelo</span> -->
                     </div>
                 </div>
