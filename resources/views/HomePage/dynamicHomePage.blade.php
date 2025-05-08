@@ -165,13 +165,13 @@
                 </form> --}}
 
                 {{-- new correction start 5/07 --}}
-                {{-- @if(session('success'))
+                {{-- @if (session('success'))
                 <script>
                     alert("{{ session('success') }}");
                 </script>
             @endif
 
-            @if(session('error'))
+            @if (session('error'))
                 <script>
                     alert("{{ session('error') }}");
                 </script>
@@ -331,7 +331,8 @@
                         <select name="destination" id="city">
                             <option value="">Destinations</option>
                             @foreach ($destinations as $destination)
-                                <option value="{{ $destination }}" {{ request('destination') == $destination ? 'selected' : '' }}>
+                                <option value="{{ $destination }}"
+                                    {{ request('destination') == $destination ? 'selected' : '' }}>
                                     {{ $destination }}
                                 </option>
                             @endforeach
@@ -359,35 +360,35 @@
                 </form>
 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-document.getElementById('bookingEnquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+                <script>
+                    document.getElementById('bookingEnquiryForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const form = e.target;
+                        const formData = new FormData(form);
 
-    fetch("{{ route('bookingEnquiry') }}", {
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json'
-        },
-        body: formData
-    })
-    .then(async res => {
-        const json = await res.json();
-        if (json.status) {
-            Swal.fire('Success', json.message, 'success');
-            form.reset();
-        } else {
-            Swal.fire('Error', json.message, 'error');
-        }
-    })
-    .catch(err => {
-        Swal.fire('Error', 'Unexpected error occurred.', 'error');
-        console.error(err);
-    });
-});
-</script>
+                        fetch("{{ route('bookingEnquiry') }}", {
+                                method: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
+                                },
+                                body: formData
+                            })
+                            .then(async res => {
+                                const json = await res.json();
+                                if (json.status) {
+                                    Swal.fire('Success', json.message, 'success');
+                                    form.reset();
+                                } else {
+                                    Swal.fire('Error', json.message, 'error');
+                                }
+                            })
+                            .catch(err => {
+                                Swal.fire('Error', 'Unexpected error occurred.', 'error');
+                                console.error(err);
+                            });
+                    });
+                </script>
 
 
 
@@ -718,7 +719,7 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                     <h5><a href="{{ route('packagePage') }}">Holidays</a></h5>
                                     <p>{!! $home_other_services_holidays_content ??
                                         'We are Casting Moments & Creating Memories lifelong Your ideal leaves are staying for
-                                                                            you.' !!}</p>
+                                                                                                                                                    you.' !!}</p>
                                 </div>
                             </div>
                             <div class="feature-item">
@@ -736,7 +737,7 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                     <h5><a href="{{ route('packagePage') }}">Weddings</a></h5>
                                     <p>{!! $home_other_services_weddings_content ??
                                         'Love in Every Detail Creating Your Perfect Day, Your Dream marriage, Our violent
-                                                                            Hand.' !!}</p>
+                                                                                                                                                    Hand.' !!}</p>
                                 </div>
                             </div>
                             <div class="feature-item">
@@ -745,7 +746,7 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                     <h5><a href="{{ route('packagePage') }}">Friendly Support</a></h5>
                                     <p>{!! $home_other_services_friendly_support_content ??
                                         'Trip Support Beyond Boundaries Leading Your peregrination, trip Support Beyond
-                                                                            Boundaries.' !!}</p>
+                                                                                                                                                    Boundaries.' !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -840,9 +841,9 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                         with Ravelo
                                         Travel Agency</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                    </ul> -->
+                                                                <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                                <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                            </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -862,9 +863,9 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <h5><a>Unforgettable Adventures Travel Agency Bucket List
                                         Experiences</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                    </ul> -->
+                                                                <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                                <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                            </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -884,9 +885,9 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <h5><a>Exploring Culture and way Cuisine Travel Agency's they Best
                                         Foodie Destinations</a></h5>
                                 <!-- <ul class="blog-meta">
-                                                        <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
-                                                        <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
-                                                    </ul> -->
+                                                                <li><i class="far fa-calendar-alt"></i> <a href="#">25 February 2024</a></li>
+                                                                <li><i class="far fa-comments"></i> <a href="#">Comments (5)</a></li>
+                                                            </ul> -->
                             </div>
 
                             <a href="{{ route('blogpage') }}" class="theme-btn">
@@ -922,11 +923,12 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
             --promo-dark: #222f3e;
             --promo-light: #f5f6fa;
         }
-       /*
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        } */
+
+        /*
+                body {
+                    font-family: 'Poppins', sans-serif;
+                    background-color: #f8f9fa;
+                } */
 
         /* Main offer banner section */
         .promo-banner-section {
@@ -1221,9 +1223,11 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
             0% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-20px);
             }
+
             100% {
                 transform: translateY(0px);
             }
@@ -1233,9 +1237,11 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
             0% {
                 transform: scale(1) rotate(10deg);
             }
+
             50% {
                 transform: scale(1.05) rotate(10deg);
             }
+
             100% {
                 transform: scale(1) rotate(10deg);
             }
@@ -1417,179 +1423,161 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
         }
     </style>
 
-
-<section class="promo-banner-section">
-    <!-- Background shapes -->
-    <div class="promo-shapes">
-        <div class="promo-shape promo-shape-1"></div>
-        <div class="promo-shape promo-shape-2"></div>
-        <div class="promo-shape promo-shape-3"></div>
-    </div>
-
-    <div class="container promo-container">
-        <div class="row">
-            <!-- Main offer banner -->
-            <div class="col-lg-12">
-                <div class="promo-banner-primary animate__animated animate__fadeIn">
-                    <!-- Decorative elements -->
-                    <div class="promo-decoration promo-decoration-1"></div>
-                    <div class="promo-decoration promo-decoration-2"></div>
-                    <div class="promo-decoration promo-decoration-3"></div>
-
-                    <div class="promo-banner-content">
-                        <span class="promo-subtitle animate__animated animate__fadeInUp animate__delay-1s">Limited Time Offer</span>
-                        <h2 class="promo-title animate__animated animate__fadeInUp animate__delay-1s">Summer Sale<br>Up to 50% Off</h2>
-                        <p class="promo-description animate__animated animate__fadeInUp animate__delay-2s">
-                            Grab our hottest deals on summer essentials before they're gone!
-                            Exclusive discounts on top destinations, tours, and travel packages.
-                        </p>
-
-                        <!-- Countdown timer -->
-                        <div class="promo-timer animate__animated animate__fadeInUp animate__delay-2s">
-                            <div class="promo-timer-item">
-                                <span class="promo-timer-number" id="days">03</span>
-                                <span class="promo-timer-label">Days</span>
-                            </div>
-                            <div class="promo-timer-item">
-                                <span class="promo-timer-number" id="hours">21</span>
-                                <span class="promo-timer-label">Hours</span>
-                            </div>
-                            <div class="promo-timer-item">
-                                <span class="promo-timer-number" id="minutes">45</span>
-                                <span class="promo-timer-label">Mins</span>
-                            </div>
-                            <div class="promo-timer-item">
-                                <span class="promo-timer-number" id="seconds">19</span>
-                                <span class="promo-timer-label">Secs</span>
-                            </div>
-                        </div>
-
-                        <button class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
-                            Book Now <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- Discount badge -->
-                    <div class="promo-discount-badge">
-                        <span class="promo-discount-text">50%</span>
-                        <span class="promo-discount-label">OFF</span>
-                    </div>
-                </div>
+    @if ($offerPackage->isNotEmpty())
+        <section class="promo-banner-section">
+            <!-- Background shapes -->
+            <div class="promo-shapes">
+                <div class="promo-shape promo-shape-1"></div>
+                <div class="promo-shape promo-shape-2"></div>
+                <div class="promo-shape promo-shape-3"></div>
             </div>
-        </div>
+            <div class="container promo-container">
 
-        <!-- Secondary offer banners -->
-        <div class="row secondary-banner-container">
-            <div class="col-md-6 mb-4 mb-md-0">
-                <div class="promo-banner-secondary animate__animated animate__fadeInLeft animate__delay-3s">
-                    <div class="promo-banner-content">
-                        <span class="promo-subtitle">New Arrivals</span>
-                        <h3 class="promo-title">Adventure Gear</h3>
-                        <p class="promo-description">
-                            Highest quality equipment for your next outdoor expedition.
-                        </p>
-                        <button class="promo-btn">
-                            Explore <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                    <div class="promo-discount-badge">
-                        <span class="promo-discount-text">30%</span>
-                        <span class="promo-discount-label">OFF</span>
-                    </div>
+
+                @php $first = true; @endphp
+                <div class="row">
+                    @foreach ($offerPackage as $index => $item)
+                        @php
+                            $package = $item->package;
+                            $original = $package->package_price;
+                            $offer = $package->package_offer_price;
+                            $discount = $original > 0 ? round((($original - $offer) / $original) * 100) : 0;
+                            $desc = Str::limit(strip_tags($package->description), 200);
+                        @endphp
+
+                        @if ($first)
+                            {{-- First full-width primary banner --}}
+                            <div class="col-lg-12">
+                                <div class="promo-banner-primary animate__animated animate__fadeIn">
+                                    <div class="promo-decoration promo-decoration-1"></div>
+                                    <div class="promo-decoration promo-decoration-2"></div>
+                                    <div class="promo-decoration promo-decoration-3"></div>
+
+                                    <div class="promo-banner-content">
+                                        <span class="promo-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                                            {{ $item->category_name }}
+                                        </span>
+                                        <h2 class="promo-title animate__animated animate__fadeInUp animate__delay-1s">
+                                            {{ $package->package_name }}
+                                        </h2>
+                                        <p class="promo-description animate__animated animate__fadeInUp animate__delay-2s">
+                                            {{ $desc }}
+                                        </p>
+                                        {{-- <button class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                            Book Now <i class="fas fa-arrow-right"></i>
+                                        </button> --}}
+                                        <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                            Book Now <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="promo-discount-badge">
+                                        <span class="promo-discount-text">{{ $discount }}%</span>
+                                        <span class="promo-discount-label">OFF</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @php $first = false; @endphp
+                        @else
+                            {{-- Secondary banners (2-column split) --}}
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <div
+                                    class="promo-banner-secondary animate__animated animate__fadeInLeft animate__delay-3s">
+                                    <div class="promo-banner-content">
+                                        <span class="promo-subtitle">{{ $item->category_name }}</span>
+                                        <h3 class="promo-title">{{ $package->package_name }}</h3>
+                                        <p class="promo-description">{{ $desc }}</p>
+                                        {{-- <button class="promo-btn">
+                                            Book Now <i class="fas fa-arrow-right"></i>
+                                        </button> --}}
+                                        <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                            Book Now <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                    <div class="promo-discount-badge">
+                                        <span class="promo-discount-text">{{ $discount }}%</span>
+                                        <span class="promo-discount-label">OFF</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
+
+
             </div>
+        </section>
+    @endif
 
-            <div class="col-md-6">
-                <div class="promo-banner-secondary promo-banner-alternate animate__animated animate__fadeInRight animate__delay-3s">
-                    <div class="promo-banner-content">
-                        <span class="promo-subtitle">Flash Deal</span>
-                        <h3 class="promo-title">Weekend Getaways</h3>
-                        <p class="promo-description">
-                            Book your spontaneous weekend escape at unbeatable prices.
-                        </p>
-                        <button class="promo-btn">
-                            Book Now <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                    <div class="promo-discount-badge">
-                        <span class="promo-discount-text">25%</span>
-                        <span class="promo-discount-label">OFF</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Countdown timer functionality
+        function updateCountdown() {
+            // Set the target date (3 days from now for demo purposes)
+            const now = new Date();
+            const targetDate = new Date();
+            targetDate.setDate(now.getDate() + 3);
+            targetDate.setHours(23, 59, 59, 0);
 
-<script>
-    // Countdown timer functionality
-    function updateCountdown() {
-        // Set the target date (3 days from now for demo purposes)
-        const now = new Date();
-        const targetDate = new Date();
-        targetDate.setDate(now.getDate() + 3);
-        targetDate.setHours(23, 59, 59, 0);
+            // Calculate remaining time
+            const currentTime = now.getTime();
+            const targetTime = targetDate.getTime();
+            const remainingTime = targetTime - currentTime;
 
-        // Calculate remaining time
-        const currentTime = now.getTime();
-        const targetTime = targetDate.getTime();
-        const remainingTime = targetTime - currentTime;
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-        // Calculate days, hours, minutes, seconds
-        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+            // Update the HTML
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
 
-        // Update the HTML
-        document.getElementById('days').textContent = days.toString().padStart(2, '0');
-        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-
-        // Continue the countdown
-        if (remainingTime > 0) {
-            setTimeout(updateCountdown, 1000);
-        } else {
-            // If countdown is over
-            document.getElementById('days').textContent = "00";
-            document.getElementById('hours').textContent = "00";
-            document.getElementById('minutes').textContent = "00";
-            document.getElementById('seconds').textContent = "00";
+            // Continue the countdown
+            if (remainingTime > 0) {
+                setTimeout(updateCountdown, 1000);
+            } else {
+                // If countdown is over
+                document.getElementById('days').textContent = "00";
+                document.getElementById('hours').textContent = "00";
+                document.getElementById('minutes').textContent = "00";
+                document.getElementById('seconds').textContent = "00";
+            }
         }
-    }
 
-    // Start the countdown when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        updateCountdown();
+        // Start the countdown when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
 
-        // Additional animation for elements when they come into view
-        const animateOnScroll = function() {
-            const elements = document.querySelectorAll('.promo-banner-primary, .promo-banner-secondary');
+            // Additional animation for elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.promo-banner-primary, .promo-banner-secondary');
 
-            elements.forEach(element => {
-                const position = element.getBoundingClientRect();
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect();
 
-                // If element is in viewport
-                if(position.top < window.innerHeight && position.bottom >= 0) {
-                    if(!element.classList.contains('animate__animated')) {
-                        element.classList.add('animate__animated', 'animate__fadeIn');
+                    // If element is in viewport
+                    if (position.top < window.innerHeight && position.bottom >= 0) {
+                        if (!element.classList.contains('animate__animated')) {
+                            element.classList.add('animate__animated', 'animate__fadeIn');
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        // Run on scroll
-        window.addEventListener('scroll', animateOnScroll);
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
 
-        // Run once on page load
-        animateOnScroll();
-    });
-</script>
+            // Run once on page load
+            animateOnScroll();
+        });
+    </script>
 
 
 
@@ -1612,16 +1600,16 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
 
     <style>
         /* :root {
-            --wanderlust-primary: #3498db;
-            --wanderlust-secondary: #2c3e50;
-            --wanderlust-accent: #e74c3c;
-            --wanderlust-light: #ecf0f1;
-            --wanderlust-dark: #2c3e50;
-        } */
+                    --wanderlust-primary: #3498db;
+                    --wanderlust-secondary: #2c3e50;
+                    --wanderlust-accent: #e74c3c;
+                    --wanderlust-light: #ecf0f1;
+                    --wanderlust-dark: #2c3e50;
+                } */
 
         /* .a{
-            text-decoration: none !important;
-        } */
+                    text-decoration: none !important;
+                } */
 
         .wanderlust-gallery-section {
             padding: 80px 0;
@@ -1914,48 +1902,82 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
     </style>
 
 
-<section class="wanderlust-gallery-section">
-    <div class="container">
-        <div class="wanderlust-section-title" data-aos="fade-up">
+    <section class="wanderlust-gallery-section">
+        <div class="container">
+            <div class="wanderlust-section-title" data-aos="fade-up">
 
-            {{-- <h2 class="wanderlust-gallery-title">Discover Amazing Destinations</h2>
+                {{-- <h2 class="wanderlust-gallery-title">Discover Amazing Destinations</h2>
             <span class="wanderlust-subtitle">Explore Our Gallery</span> --}}
-             <h2>Explore Our Gallery</h2>
-                        <p>Discover Amazing Destinations</p>
-        </div>
-
-        <div class="row wanderlust-featured-gallery">
-            <!-- First 3 static cards with different animations -->
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
-                <div class="wanderlust-card">
-                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Santorini, Greece" class="wanderlust-img">
-                    <div class="wanderlust-overlay">
-                        <h4>Santorini, Greece</h4>
-                        <div class="wanderlust-location">
-                            <i class="fas fa-map-marker-alt"></i> Mediterranean
-                        </div>
-                        {{-- <p>Experience the stunning white buildings and blue domes overlooking the sea</p>
-                        <div class="wanderlust-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.8 (320 reviews)</span>
-                        </div> --}}
-                    </div>
-                </div>
+                <h2>Explore Our Gallery</h2>
+                <p>Discover Amazing Destinations</p>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="wanderlust-card">
-                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Bali, Indonesia" class="wanderlust-img">
-                    <div class="wanderlust-overlay">
-                        <h4>Bali, Indonesia</h4>
-                        <div class="wanderlust-location">
-                            <i class="fas fa-map-marker-alt"></i> Southeast Asia
+            
+            @if ($galleryItems->isNotEmpty())
+            <div class="row wanderlust-featured-gallery">
+                @foreach($galleryItems as $index => $item)
+                    @if($index < 3)
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="{{ $index == 0 ? 'fade-up' : ($index == 1 ? 'zoom-in' : 'fade-left') }}" data-aos-delay="{{ $index * 200 }}">
+                            <div class="wanderlust-card">
+                                <img src="{{ $item->image_link ?? asset($item->local_image) }}" alt="{{ $item->alternate_text }}" class="wanderlust-img">
+                                <div class="wanderlust-overlay">
+                                    <h4>{{ $item->title }}</h4>
+                                    
+                                </div>
+                            </div>
                         </div>
-                        {{-- <p>Explore the tropical paradise with beautiful beaches and ancient temples</p>
+                    @endif
+                @endforeach
+            </div>
+            
+            <!-- Slider Section -->
+            @if(count($galleryItems) > 3)
+            <div class="wanderlust-slider" data-aos="fade-up" data-aos-delay="300">
+                <div class="wanderlust-slick-carousel">
+                    @foreach($galleryItems as $index => $item)
+                        @if($index >= 3)
+                            <div>
+                                <div class="wanderlust-card">
+                                    <img src="{{ $item->image_link ?? asset($item->local_image) }}" alt="{{ $item->alternate_text }}" class="wanderlust-img">
+                                    <div class="wanderlust-overlay">
+                                        <h4>{{ $item->title }}</h4>
+                                        {{-- <div class="wanderlust-location">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            @else
+            <div class="row wanderlust-featured-gallery">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up">
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                            alt="Santorini, Greece" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Santorini, Greece</h4>
+                            {{-- <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Mediterranean
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                            alt="Bali, Indonesia" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Bali, Indonesia</h4>
+                            {{-- <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> Southeast Asia
+                            </div> --}}
+                            {{-- <p>Explore the tropical paradise with beautiful beaches and ancient temples</p>
                         <div class="wanderlust-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1964,19 +1986,20 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                             <i class="fas fa-star"></i>
                             <span>4.9 (412 reviews)</span>
                         </div> --}}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-left" data-aos-delay="400">
-                <div class="wanderlust-card">
-                    <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Machu Picchu, Peru" class="wanderlust-img">
-                    <div class="wanderlust-overlay">
-                        <h4>Machu Picchu, Peru</h4>
-                        <div class="wanderlust-location">
-                            <i class="fas fa-map-marker-alt"></i> South America
-                        </div>
-                        {{-- <p>Visit the ancient Incan citadel set high in the Andes Mountains</p>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-left" data-aos-delay="400">
+                    <div class="wanderlust-card">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                            alt="Machu Picchu, Peru" class="wanderlust-img">
+                        <div class="wanderlust-overlay">
+                            <h4>Machu Picchu, Peru</h4>
+                            {{-- <div class="wanderlust-location">
+                                <i class="fas fa-map-marker-alt"></i> South America
+                            </div> --}}
+                            {{-- <p>Visit the ancient Incan citadel set high in the Andes Mountains</p>
                         <div class="wanderlust-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1985,24 +2008,24 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                             <i class="fas fa-star"></i>
                             <span>5.0 (290 reviews)</span>
                         </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Auto Slider Gallery -->
-        <div class="wanderlust-slider" data-aos="fade-up" data-aos-delay="300">
-            <div class="wanderlust-slick-carousel">
-                <!-- Slider Item 1 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Kyoto, Japan" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>Kyoto, Japan</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> East Asia
-                            </div>
-                            {{-- <p>Discover traditional temples, gardens and geisha districts</p>
+            <div class="wanderlust-slider" data-aos="fade-up" data-aos-delay="300">
+                <div class="wanderlust-slick-carousel">
+                    <!-- Slider Item 1 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="Kyoto, Japan" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>Kyoto, Japan</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> East Asia
+                                </div> --}}
+                                {{-- <p>Discover traditional temples, gardens and geisha districts</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2011,20 +2034,21 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>4.7 (356 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slider Item 2 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Venice, Italy" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>Venice, Italy</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> Europe
-                            </div>
-                            {{-- <p>Explore the unique city built on canals with historic architecture</p>
+                    <!-- Slider Item 2 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="Venice, Italy" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>Venice, Italy</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> Europe
+                                </div> --}}
+                                {{-- <p>Explore the unique city built on canals with historic architecture</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2033,20 +2057,21 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="far fa-star"></i>
                                 <span>4.5 (278 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slider Item 3 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Maldives" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>Maldives Islands</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> Indian Ocean
-                            </div>
-                            {{-- <p>Enjoy crystal clear waters, white beaches and luxury overwater bungalows</p>
+                    <!-- Slider Item 3 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="Maldives" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>Maldives Islands</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> Indian Ocean
+                                </div> --}}
+                                {{-- <p>Enjoy crystal clear waters, white beaches and luxury overwater bungalows</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2055,20 +2080,21 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="fas fa-star"></i>
                                 <span>4.9 (410 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slider Item 4 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="New York, USA" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>New York City, USA</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> North America
-                            </div>
-                            {{-- <p>Experience the iconic cityscape, culture, and energy of the Big Apple</p>
+                    <!-- Slider Item 4 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="New York, USA" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>New York City, USA</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> North America
+                                </div> --}}
+                                {{-- <p>Experience the iconic cityscape, culture, and energy of the Big Apple</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2077,20 +2103,21 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>4.8 (520 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slider Item 5 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Cape Town, South Africa" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>Cape Town, South Africa</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> Africa
-                            </div>
-                            {{-- <p>Visit this stunning coastal city with Table Mountain as a backdrop</p>
+                    <!-- Slider Item 5 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="Cape Town, South Africa" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>Cape Town, South Africa</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> Africa
+                                </div> --}}
+                                {{-- <p>Visit this stunning coastal city with Table Mountain as a backdrop</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2099,20 +2126,21 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="far fa-star"></i>
                                 <span>4.6 (245 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slider Item 6 -->
-                <div>
-                    <div class="wanderlust-card">
-                        <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg" alt="Great Barrier Reef, Australia" class="wanderlust-img">
-                        <div class="wanderlust-overlay">
-                            <h4>Great Barrier Reef, Australia</h4>
-                            <div class="wanderlust-location">
-                                <i class="fas fa-map-marker-alt"></i> Oceania
-                            </div>
-                            {{-- <p>Explore the world's largest coral reef system with amazing marine life</p>
+                    <!-- Slider Item 6 -->
+                    <div>
+                        <div class="wanderlust-card">
+                            <img src="https://static.vecteezy.com/system/resources/previews/011/883/276/original/modern-graphic-apple-fruit-colorful-logo-good-for-technology-logo-fruits-logo-apple-logo-nutrition-logo-company-logo-dummy-logo-bussiness-logo-vector.jpg"
+                                alt="Great Barrier Reef, Australia" class="wanderlust-img">
+                            <div class="wanderlust-overlay">
+                                <h4>Great Barrier Reef, Australia</h4>
+                                {{-- <div class="wanderlust-location">
+                                    <i class="fas fa-map-marker-alt"></i> Oceania
+                                </div> --}}
+                                {{-- <p>Explore the world's largest coral reef system with amazing marine life</p>
                             <div class="wanderlust-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -2121,107 +2149,104 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>4.7 (330 reviews)</span>
                             </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {{-- <div class="wanderlust-controls">
-                <button class="wanderlust-prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="wanderlust-next"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div> --}}
-    </div>
-</section>
+            </div> 
+            @endif
+            
+            
+    </section>
 
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        // Initialize AOS animation library
-        AOS.init({
-            duration: 1000,
-            once: true,
-            mirror: false,
-            disable: window.innerWidth < 768 // Disable animations on mobile for better performance
-        });
+    <script>
+        $(document).ready(function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 1000,
+                once: true,
+                mirror: false,
+                disable: window.innerWidth < 768 // Disable animations on mobile for better performance
+            });
 
-        // Initialize the slick carousel with improved responsive settings
-        $('.wanderlust-slick-carousel').slick({
-            dots: false,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            prevArrow: $('.wanderlust-prev'),
-            nextArrow: $('.wanderlust-next'),
-            rtl: false,
-            responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 1
+            // Initialize the slick carousel with improved responsive settings
+            $('.wanderlust-slick-carousel').slick({
+                dots: false,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                prevArrow: $('.wanderlust-prev'),
+                nextArrow: $('.wanderlust-next'),
+                rtl: false,
+                responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 2500
+                        }
                     }
-                },
-                {
-                    breakpoint: 992,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        autoplaySpeed: 2500
-                    }
-                }
-            ]
-        });
+                ]
+            });
 
-        // Custom animations with new class names
-        setTimeout(function() {
-            $('.wanderlust-fade-up').addClass('active');
-        }, 300);
-
-        setTimeout(function() {
-            $('.wanderlust-zoom-in').addClass('active');
-        }, 600);
-
-        // Better responsive handling - adjust slider height on window resize
-        $(window).on('resize', function() {
+            // Custom animations with new class names
             setTimeout(function() {
-                $('.wanderlust-slick-carousel').slick('refresh');
-            }, 100);
-        });
+                $('.wanderlust-fade-up').addClass('active');
+            }, 300);
 
-        // Pause autoplay on hover
-        $('.wanderlust-slider').hover(
-            function() {
-                $('.wanderlust-slick-carousel').slick('slickPause');
-            },
-            function() {
-                $('.wanderlust-slick-carousel').slick('slickPlay');
-            }
-        );
-    });
-</script>
+            setTimeout(function() {
+                $('.wanderlust-zoom-in').addClass('active');
+            }, 600);
+
+            // Better responsive handling - adjust slider height on window resize
+            $(window).on('resize', function() {
+                setTimeout(function() {
+                    $('.wanderlust-slick-carousel').slick('refresh');
+                }, 100);
+            });
+
+            // Pause autoplay on hover
+            $('.wanderlust-slider').hover(
+                function() {
+                    $('.wanderlust-slick-carousel').slick('slickPause');
+                },
+                function() {
+                    $('.wanderlust-slick-carousel').slick('slickPlay');
+                }
+            );
+        });
+    </script>
 
 
 
@@ -2260,20 +2285,20 @@ document.getElementById('bookingEnquiryForm').addEventListener('submit', functio
         }
 
         /* .fade {
-                              animation: fadeInOut 4.7s infinite;
-                            }
+                                      animation: fadeInOut 4.7s infinite;
+                                    }
 
-                            @keyframes fadeInOut {
-                              0% {
-                                opacity: 0.5;
-                              }
-                              50% {
-                                opacity: 0.8;
-                              }
-                              100% {
-                                opacity: 1;
-                              }
-                            } */
+                                    @keyframes fadeInOut {
+                                      0% {
+                                        opacity: 0.5;
+                                      }
+                                      50% {
+                                        opacity: 0.8;
+                                      }
+                                      100% {
+                                        opacity: 1;
+                                      }
+                                    } */
         .text-primary {
             --bs-text-opacity: 1;
             color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;

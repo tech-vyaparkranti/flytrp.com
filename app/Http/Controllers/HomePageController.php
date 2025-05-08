@@ -14,6 +14,7 @@ use App\Models\WebSiteElements;
 use App\Traits\CommonFunctions;
 use App\Models\TestimonialModel;
 use App\Models\DestinationsModel;
+use App\Models\PackageCategoriesModel;
 use Mews\Captcha\Facades\Captcha;
 use App\Models\HomeRecognitionsModel;
 use App\Models\Tour;
@@ -41,7 +42,12 @@ class HomePageController extends Controller
                 ->orderBy(Blog::BLOG_SORTING, 'desc')
                 ->get();
                 $homedestinations = DestinationsModel::where('status','1')->get();
-            return view("HomePage.dynamicHomePage", compact('getPackages', 'packageCategory', 'packages', 'destinations', 'travelCategories', 'sliders', 'blogs','home_recognitions','homedestinations'), $data);
+
+            $offerPackage = PackageCategoriesModel::with('package')->where("status",1)->orderBy('updated_at','desc')->take(3)->get();
+            $galleryItems = $this->getCachedGalleryItems();
+            // dd($galleryItems);
+            return view("HomePage.dynamicHomePage", compact('getPackages', 'packageCategory', 'packages', 'destinations',
+                 'travelCategories', 'sliders', 'blogs','home_recognitions','homedestinations','offerPackage','galleryItems'), $data);
         } catch (Exception $exception) {
             echo $exception->getMessage();
             return false;

@@ -23,7 +23,8 @@ class PackageCategoriesModel extends Model
     const UPDATED_AT = "updated_at";
 
     const CATEGORIES = [
-        "popular"
+        "popular",
+        "new Arrival",
     ];
     public function package(){
         return $this->hasOne(PackageMaster::class,PackageMaster::ID,self::PACKAGE_ID)
