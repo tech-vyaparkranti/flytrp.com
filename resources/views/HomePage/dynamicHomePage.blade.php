@@ -491,6 +491,91 @@
         </div>
     </section>
     <!-- Popular Packages Area end -->
+
+    @if ($offerPackage->isNotEmpty())
+    <section class="promo-banner-section">
+        <!-- Background shapes -->
+        <div class="promo-shapes">
+            <div class="promo-shape promo-shape-1"></div>
+            <div class="promo-shape promo-shape-2"></div>
+            <div class="promo-shape promo-shape-3"></div>
+        </div>
+        <div class="container promo-container">
+
+
+            @php $first = true; @endphp
+            <div class="row">
+                @foreach ($offerPackage as $index => $item)
+                    @php
+                        $package = $item->package;
+                        $original = $package->package_price;
+                        $offer = $package->package_offer_price;
+                        $discount = $original > 0 ? round((($original - $offer) / $original) * 100) : 0;
+                        $desc = Str::limit(strip_tags($package->description), 200);
+                    @endphp
+
+                    @if ($first)
+                        {{-- First full-width primary banner --}}
+                        <div class="col-lg-12">
+                            <div class="promo-banner-primary animate__animated animate__fadeIn">
+                                <div class="promo-decoration promo-decoration-1"></div>
+                                <div class="promo-decoration promo-decoration-2"></div>
+                                <div class="promo-decoration promo-decoration-3"></div>
+
+                                <div class="promo-banner-content">
+                                    <span class="promo-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                                        {{ $item->category_name }}
+                                    </span>
+                                    <h2 class="promo-title animate__animated animate__fadeInUp animate__delay-1s">
+                                        {{ $package->package_name }}
+                                    </h2>
+                                    <p class="promo-description animate__animated animate__fadeInUp animate__delay-2s">
+                                        {{ $desc }}
+                                    </p>
+                                    {{-- <button class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                        Book Now <i class="fas fa-arrow-right"></i>
+                                    </button> --}}
+                                    <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                        Book Now <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+
+                                <div class="promo-discount-badge">
+                                    <span class="promo-discount-text">{{ $discount }}%</span>
+                                    <span class="promo-discount-label">OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                        @php $first = false; @endphp
+                    @else
+                        {{-- Secondary banners (2-column split) --}}
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div
+                                class="promo-banner-secondary animate__animated animate__fadeInLeft animate__delay-3s">
+                                <div class="promo-banner-content">
+                                    <span class="promo-subtitle">{{ $item->category_name }}</span>
+                                    <h3 class="promo-title">{{ $package->package_name }}</h3>
+                                    <p class="promo-description">{{ $desc }}</p>
+                                    {{-- <button class="promo-btn">
+                                        Book Now <i class="fas fa-arrow-right"></i>
+                                    </button> --}}
+                                    <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
+                                        Book Now <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                                <div class="promo-discount-badge">
+                                    <span class="promo-discount-text">{{ $discount }}%</span>
+                                    <span class="promo-discount-label">OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+        </div>
+    </section>
+@endif
     <!-- About Us Area start -->
     <section class="about-us-area py-100 rpb-90 rel z-1">
         <div class="container">
@@ -1423,91 +1508,7 @@
         }
     </style>
 
-    @if ($offerPackage->isNotEmpty())
-        <section class="promo-banner-section">
-            <!-- Background shapes -->
-            <div class="promo-shapes">
-                <div class="promo-shape promo-shape-1"></div>
-                <div class="promo-shape promo-shape-2"></div>
-                <div class="promo-shape promo-shape-3"></div>
-            </div>
-            <div class="container promo-container">
 
-
-                @php $first = true; @endphp
-                <div class="row">
-                    @foreach ($offerPackage as $index => $item)
-                        @php
-                            $package = $item->package;
-                            $original = $package->package_price;
-                            $offer = $package->package_offer_price;
-                            $discount = $original > 0 ? round((($original - $offer) / $original) * 100) : 0;
-                            $desc = Str::limit(strip_tags($package->description), 200);
-                        @endphp
-
-                        @if ($first)
-                            {{-- First full-width primary banner --}}
-                            <div class="col-lg-12">
-                                <div class="promo-banner-primary animate__animated animate__fadeIn">
-                                    <div class="promo-decoration promo-decoration-1"></div>
-                                    <div class="promo-decoration promo-decoration-2"></div>
-                                    <div class="promo-decoration promo-decoration-3"></div>
-
-                                    <div class="promo-banner-content">
-                                        <span class="promo-subtitle animate__animated animate__fadeInUp animate__delay-1s">
-                                            {{ $item->category_name }}
-                                        </span>
-                                        <h2 class="promo-title animate__animated animate__fadeInUp animate__delay-1s">
-                                            {{ $package->package_name }}
-                                        </h2>
-                                        <p class="promo-description animate__animated animate__fadeInUp animate__delay-2s">
-                                            {{ $desc }}
-                                        </p>
-                                        {{-- <button class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
-                                            Book Now <i class="fas fa-arrow-right"></i>
-                                        </button> --}}
-                                        <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
-                                            Book Now <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="promo-discount-badge">
-                                        <span class="promo-discount-text">{{ $discount }}%</span>
-                                        <span class="promo-discount-label">OFF</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @php $first = false; @endphp
-                        @else
-                            {{-- Secondary banners (2-column split) --}}
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <div
-                                    class="promo-banner-secondary animate__animated animate__fadeInLeft animate__delay-3s">
-                                    <div class="promo-banner-content">
-                                        <span class="promo-subtitle">{{ $item->category_name }}</span>
-                                        <h3 class="promo-title">{{ $package->package_name }}</h3>
-                                        <p class="promo-description">{{ $desc }}</p>
-                                        {{-- <button class="promo-btn">
-                                            Book Now <i class="fas fa-arrow-right"></i>
-                                        </button> --}}
-                                        <a href="{{ route('packageDetailpage', ['slug' => $package->slug]) }}" class="promo-btn animate__animated animate__fadeInUp animate__delay-3s">
-                                            Book Now <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="promo-discount-badge">
-                                        <span class="promo-discount-text">{{ $discount }}%</span>
-                                        <span class="promo-discount-label">OFF</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-
-
-            </div>
-        </section>
-    @endif
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
