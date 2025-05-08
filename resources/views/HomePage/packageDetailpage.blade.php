@@ -12,7 +12,7 @@
     </div>
     <div class="container-fluid">
         <div class="row gap-10 justify-content-center rel">
-            <h2 class="text-center pb-25" style="color:#022f5d;">Our Tours</h2>
+            <h2 class="text-center pb-25" style="color:#022f5d;">Our Packages</h2>
             <div class="col-lg-4 col-md-6">
                 <div class="gallery-item fixed-image-size">
                     @if (isset($package->package_image))
@@ -93,7 +93,7 @@
             <div class="col-xl-6 col-lg-7">
                 <div class="tour-header-content mb-15" data-aos="fade-left" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <span class="location d-inline-block mb-10"> {{ $package->package_type }}</span>
+                    <span class="location d-inline-block mb-10"> {{ $package->tour_type }}</span>
                     <div class="section-title pb-5">
                         <h2> {{ $package->package_name }}, {{ $package->package_country }}</h2>
                     </div>
@@ -126,7 +126,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="tour-details-content">
-                    <h3>Explore Tours</h3>
+                    <h3>Explore Packages</h3>
                     <p>
                         @if (isset($package->description) && !empty($package->description))
                                                 @php
@@ -844,7 +844,7 @@
                         <div class="content text-white">
                             <span class="h6">Explore The World</span>
                             <h3>Best Tourist Place</h3>
-                            <a href="{{ route('tourpage') }}" class="theme-btn style-two bgc-secondary">
+                            <a href="{{ route('packagePage') }}" class="theme-btn style-two bgc-secondary">
                                 <span data-hover="Explore Now">Explore Now</span>
                                 <i class="fal fa-arrow-right"></i>
                             </a>

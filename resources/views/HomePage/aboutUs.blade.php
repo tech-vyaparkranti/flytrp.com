@@ -37,8 +37,8 @@
                                         <li>Value for Money Travel</li>
                                         <li>Online Support 24/7</li>' !!}
                                     </ul>
-                                    <a href="{{ route('tourpage') }}" class="theme-btn style-three mt-30">
-                                        <span data-hover="Explore Tours">Explore Tours</span>
+                                    <a href="{{ route('packagePage') }}" class="theme-btn style-three mt-30">
+                                        <span data-hover="Explore Tours">Explore Packages</span>
                                         <i class="fal fa-arrow-right"></i>
                                     </a>
                                 </div>

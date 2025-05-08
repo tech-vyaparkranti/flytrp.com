@@ -28,12 +28,19 @@
                         multiple></x-input-with-label-element>
 
                     {{-- <x-input-with-label-element name="package_destination" id="package_destination" placeholder="Package Destination" label="Package Destination" ></x-input-with-label-element> --}}
+                    @php
+                        // Decode if tour_id is stored as JSON string
+                        $selectedTourIds = json_decode($packageData->tour_type, true) ?? [];
 
-                    <x-select-label-group required name="package_type" id="package_type" label_text="Package Type">
+                    @endphp
+                    <x-select-label-group required name="tour_type[]" id="package_type" label_text="Tour Type" multiple
+                        class="select2">
                         @if (!empty($package_types))
                             @foreach ($package_types as $item)
-                                <option {{ old('package_name', $packageData->package_type) == $item ? 'selected' : '' }}
-                                    value="{{ $item }}">{{ $item }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ in_array($item->id, $selectedTourIds) ? 'selected' : '' }}>
+                                    {{ $item->title }}
+                                </option>
                             @endforeach
                         @endif
                     </x-select-label-group>
@@ -49,13 +56,35 @@
                         label="Package Country"
                         value="{{ old('package_country', $packageData->package_country) }}"></x-input-with-label-element>
 
+                    @php
+                        $destinationIds = json_decode($packageData->destination, true);
+                        // If decoding fails, fallback to treating it as a single value
+                        $selectedDestinationIds = is_array($destinationIds)
+                            ? $destinationIds
+                            : explode(',', trim($packageData->destination, '[]"'));
+                    @endphp
+
+                    <x-select-label-group required name="destination[]" id="destination" label_text="Related Destinations"
+                        class="select2" multiple>
+                        @if (!empty($destination))
+                            @foreach ($destination as $item)
+                                <option value="{{ $item->id }}"
+                                    {{ in_array($item->id, $selectedDestinationIds) ? 'selected' : '' }}>
+                                    {{ $item->destination_name }}
+                                </option>
+                            @endforeach
+                        @endif
+                    </x-select-label-group>
+
+
                     <x-input-with-label-element type="number" min="0"
                         value="{{ old('package_price', $packageData->package_price) }}" name="package_price"
                         id="package_price" placeholder="Package Price" label="Package Price"></x-input-with-label-element>
 
                     <x-input-with-label-element type="number" min="0" name="package_offer_price"
-                        value="{{ old('package_offer_price', $packageData->package_offer_price) }}" id="package_offer_price"
-                        placeholder="Package Offer Price" label="Package Offer Price"></x-input-with-label-element>
+                        value="{{ old('package_offer_price', $packageData->package_offer_price) }}"
+                        id="package_offer_price" placeholder="Package Offer Price"
+                        label="Package Offer Price"></x-input-with-label-element>
 
                     <x-input-with-label-element type="number" min="0" name="package_duration_days"
                         value="{{ old('package_duration_days', $packageData->package_duration_days) }}"
@@ -228,12 +257,12 @@
                         </div>
 
                     </x-content-div>
-                    <x-input-with-label-element id="meta_keyword" label="Meta Keyword"
-                    name="meta_keyword" value="{{ old('meta_keyword', $packageData->meta_keyword) }}"></x-input-with-label-element>
-                    <x-input-with-label-element id="meta_title" label="Meta Title"
-                    name="meta_title" value="{{ old('meta_title', $packageData->meta_title) }}"></x-input-with-label-element>
-                    <x-input-with-label-element id="meta_description" label="Meta Description"
-                    name="meta_description" value="{{ old('meta_description', $packageData->meta_description) }}"></x-input-with-label-element>
+                    <x-input-with-label-element id="meta_keyword" label="Meta Keyword" name="meta_keyword"
+                        value="{{ old('meta_keyword', $packageData->meta_keyword) }}"></x-input-with-label-element>
+                    <x-input-with-label-element id="meta_title" label="Meta Title" name="meta_title"
+                        value="{{ old('meta_title', $packageData->meta_title) }}"></x-input-with-label-element>
+                    <x-input-with-label-element id="meta_description" label="Meta Description" name="meta_description"
+                        value="{{ old('meta_description', $packageData->meta_description) }}"></x-input-with-label-element>
                     <x-form-buttons></x-form-buttons>
                 </x-form>
             </x-card-body>
@@ -259,6 +288,12 @@
 
     @include('Dashboard.include.dataTablesScript')
     <script type="text/javascript">
+        $('#package_type').select2({
+            placeholder: 'Select Tour Types'
+        });
+        $('#destination').select2({
+            placeholder: 'Select Destinations'
+        });
         $('#description').summernote({
             placeholder: 'Description',
             tabsize: 2,

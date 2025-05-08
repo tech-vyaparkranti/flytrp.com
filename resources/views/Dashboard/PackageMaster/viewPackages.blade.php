@@ -16,10 +16,11 @@
                         label="Upload Package Image" placeholder="Images" accept="image/*"
                         multiple></x-input-with-label-element>
 
-                    <x-select-label-group required name="package_type" id="package_type" label_text="Package Type">
+                    <x-select-label-group required name="tour_type[]" id="package_type" label_text="Tour Type" multiple
+                        class="select2">
                         @if (!empty($package_types))
                             @foreach ($package_types as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
+                                <option value="{{ $item->id }}">{{ $item->title }}</option>
                             @endforeach
                         @endif
                     </x-select-label-group>
@@ -27,13 +28,14 @@
                     <x-input-with-label-element name="package_country" id="package_country" placeholder="Package Country"
                         label="Package Country"></x-input-with-label-element>
 
-                    {{-- <x-select-label-group required name="package_travel_category" id="package_travel_category" label_text="PPackage Travel Category">
-                        @if (!empty($package_travel_categories))
-                            @foreach ($package_travel_categories as $item)
-                                <option value="{{$item}}">{{$item}}</option>
+                    <x-select-label-group required name="destination[]" id="destination" label_text="Related Destinations"
+                        class="select2" multiple>
+                        @if (!empty($destination))
+                            @foreach ($destination as $item)
+                                <option value="{{ $item->id }}">{{ $item->destination_name }}</option>
                             @endforeach
                         @endif
-                </x-select-label-group> --}}
+                    </x-select-label-group>
 
                     <x-input-with-label-element type="number" min="0" name="package_price" id="package_price"
                         placeholder="Package Price" label="Package Price"></x-input-with-label-element>
@@ -154,11 +156,11 @@
 
                     </x-content-div>
                     <x-input-with-label-element id="meta_keyword" label="Meta Keyword"
-                    name="meta_keyword"></x-input-with-label-element>
+                        name="meta_keyword"></x-input-with-label-element>
                     <x-input-with-label-element id="meta_title" label="Meta Title"
-                    name="meta_title"></x-input-with-label-element>
+                        name="meta_title"></x-input-with-label-element>
                     <x-input-with-label-element id="meta_description" label="Meta Description"
-                    name="meta_description"></x-input-with-label-element>
+                        name="meta_description"></x-input-with-label-element>
                     <x-form-buttons></x-form-buttons>
                 </x-form>
             </x-card-body>
@@ -190,6 +192,12 @@
 
     @include('Dashboard.include.dataTablesScript')
     <script type="text/javascript">
+        $('#package_type').select2({
+            placeholder: 'Select Tour Types'
+        });
+        $('#destination').select2({
+            placeholder: 'Select Destinations'
+        });
         $('#description').summernote({
             placeholder: 'Description',
             tabsize: 2,
@@ -284,127 +292,9 @@
         function addCityModal() {
             $("#city_modal").modal("show");
         }
-        // $(function() {
-        //     table = $('.data-table').DataTable({
-        //         processing: true,
-        //         serverSide: true,
-        //         "scrollX": true,
-        //         ajax: {
-        //             url: "{{ route('packageMasterDataTable') }}",
-        //             type: 'POST',
-        //             data: {
-        //                 '_token': '{{ csrf_token() }}'
-        //             }
-        //         },
-        //         columns: [{
-        //                 data: "DT_RowIndex",
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: "Sr.No."
-        //             },
-        //             {
-        //                 data: 'id',
-        //                 name: 'id',
-        //                 title: 'Id',
-        //                 visible: false
-        //             },
-        //             {
-        //                 data: 'package_name',
-        //                 name: 'package_name',
-        //                 title: 'Package Name'
-        //             },
-        //             {
-        //                 data: 'package_image',
-        //                 name:'package_image',
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: "Package Image"
-        //             },
-        //             {
-        //                 data: 'package_type',
-        //                 name: 'package_type',
-        //                 title: 'Package Type'
-        //             },
-        //             {
-        //                 data: 'package_country',
-        //                 name: 'package_country',
-        //                 title: 'Package country'
-        //             },
-        //             {
-        //                 data: 'package_price',
-        //                 name: 'package_price',
-        //                 title: 'Package Price'
-        //             },
-        //             {
-        //                 data: 'package_offer_price',
-        //                 name: 'package_offer_price',
-        //                 title: 'Package Offer Price'
-        //             },
-        //             {
-        //                 data: 'package_duration_days',
-        //                 name: 'package_duration_days',
-        //                 title: 'Package Duration Days'
-        //             },
-        //             {
-        //                 data: 'package_duration_nights',
-        //                 name: 'package_duration_nights',
-        //                 title: 'Package Duration Nights'
-        //             },
-        //             {
-        //                 data: 'package_external_link',
-        //                 name: 'package_external_link',
-        //                 title: 'Package External Link'
-        //             },
-        //             {
-        //                 data: 'description',
-        //                 name: 'description',
-        //                 title: 'Package Description'
-        //             },
-        //             {
-        //                 data: 'package_included',
-        //                 name: 'package_included',
-        //                 title: 'Included Items'
-        //             },
-        //             {
-        //                 data: 'package_excluded',
-        //                 name: 'package_excluded',
-        //                 title: 'Excluded Items'
-        //             },
-        //             {
-        //                 data: 'itinerary_titles',
-        //                 name: 'itinerary_titles',
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: 'Itinerary Titles'
-        //             },
-        //             {
-        //                 data: 'itinerary_descriptions',
-        //                 name: 'itinerary_descriptions',
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: 'Itinerary Descriptions'
-        //             },
-        //             {
-        //                 data: 'itinerary_details',
-        //                 name: 'itinerary_details',
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: 'Itinerary Details'
-        //             },
-        //             {
-        //                 data: 'action',
-        //                 name: 'action',
-        //                 orderable: false,
-        //                 searchable: false,
-        //                 title: 'Action'
-        //             },
-        //         ],
-        //         order: [
-        //             [1, "desc"]
-        //         ]
-        //     });
+        const tourTypes = @json($package_types->map(fn($t) => ['id' => $t->id, 'title' => $t->title]));
+        const destination = @json($destination->map(fn($t) => ['id' => $t->id, 'name' => $t->destination_name]));
 
-        //     });
         $(function() {
             $('.data-table').DataTable({
                 processing: true, // Show a processing indicator
@@ -440,9 +330,48 @@
                         title: 'Package Image'
                     },
                     {
-                        data: 'package_type',
-                        name: 'package_type',
-                        title: 'Package Type'
+                        data: 'tour_type',
+                        name: 'tour_type',
+                        title: 'Tour Type',
+                        render: function(data, type, row) {
+                            const htmlDecoded = data.replace(/&quot;/g, '"');
+
+                            let ids = [];
+                            try {
+                                ids = JSON.parse(htmlDecoded);
+                            } catch (e) {
+                                console.warn('Invalid JSON in tour_id:', htmlDecoded);
+                            }
+
+                            // Map IDs to titles
+                            const names = tourTypes
+                                .filter(t => ids.includes(t.id.toString()))
+                                .map(t => t.title);
+
+                            return names.join(', ') || 'No Tour Types';
+                        }
+                    },
+                    {
+                        data: 'destination',
+                        name: 'destination',
+                        title: 'Destinations',
+                        render: function(data, type, row) {
+                            const htmlDecoded = data.replace(/&quot;/g, '"');
+
+                            let ids = [];
+                            try {
+                                ids = JSON.parse(htmlDecoded);
+                            } catch (e) {
+                                console.warn('Invalid JSON in tour_id:', htmlDecoded);
+                            }
+
+                            // Map IDs to titles
+                            const names = destination
+                                .filter(t => ids.includes(t.id.toString()))
+                                .map(t => t.name);
+
+                            return names.join(', ') || 'No destination found';
+                        }
                     },
                     {
                         data: 'package_country',

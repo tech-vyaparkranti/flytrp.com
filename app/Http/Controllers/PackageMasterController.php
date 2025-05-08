@@ -7,6 +7,8 @@ use App\Models\CityMaster;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PackageMaster;
+use App\Models\DestinationsModel;
+use App\Models\Tour;
 use App\Traits\CommonFunctions;
 use App\Models\PackageItinerary;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +30,11 @@ class PackageMasterController extends Controller
     public function index()
     {
         try {
-            $package_types = PackageMaster::PACKAGE_TYPES;
+            // $package_types = PackageMaster::PACKAGE_TYPES;
+            $package_types = Tour::where('status',1)->get();
+            $destination = DestinationsModel::where('status',1)->get();
             $city_master = CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID]);
-            return view("Dashboard.PackageMaster.viewPackages", compact("package_types", "city_master"));
+            return view("Dashboard.PackageMaster.viewPackages", compact("package_types", "city_master" ,'destination'));
         } catch (Exception $exception) {
             dd($exception->getMessage());
         }
@@ -76,9 +80,10 @@ class PackageMasterController extends Controller
             $newPackage->{PackageMaster::PACKAGE_DURATION_NIGHTS} = $request->input(PackageMaster::PACKAGE_DURATION_NIGHTS);
             $newPackage->{PackageMaster::PACKAGE_OFFER_PRICE} = $request->input(PackageMaster::PACKAGE_OFFER_PRICE);
             $newPackage->{PackageMaster::PACKAGE_PRICE} = $request->input(PackageMaster::PACKAGE_PRICE);
-            $newPackage->{PackageMaster::PACKAGE_TYPE} = $request->input(PackageMaster::PACKAGE_TYPE);
+            $newPackage->{PackageMaster::PACKAGE_TYPE} = json_encode($request->input(PackageMaster::PACKAGE_TYPE));
             $newPackage->{PackageMaster::PACKAGE_EXTERNAL_LINK} = $request->input(PackageMaster::PACKAGE_EXTERNAL_LINK);
             $newPackage->{PackageMaster::DESCRIPTION} = $request->input(PackageMaster::DESCRIPTION);
+            $newPackage->{PackageMaster::DESTINATION} = json_encode($request->input(PackageMaster::DESTINATION));
             $newPackage->{PackageMaster::PACKAGE_INCLUDED} = $request->input(PackageMaster::PACKAGE_INCLUDED);
             $newPackage->{PackageMaster::PACKAGE_EXCLUDED} = $request->input(PackageMaster::PACKAGE_EXCLUDED);
             $newPackage->{PackageMaster::ITINERARY_TITLES} = $request->input(PackageMaster::ITINERARY_TITLES);
@@ -135,10 +140,11 @@ class PackageMasterController extends Controller
             [PackageMaster::STATUS, 1]
         ])->with("itinerary", "itinerary.city")->first();
 
-        $package_types = PackageMaster::PACKAGE_TYPES;
+        // $package_types = PackageMaster::PACKAGE_TYPES;
         $city_master = CityMaster::where(CityMaster::STATUS, 1)->get([CityMaster::CITY_NAME, CityMaster::ID]);
-
-        return view("Dashboard.PackageMaster.editPackage", compact("package_types", "city_master", 'packageData'));
+        $package_types = Tour::where('status',1)->get();
+        $destination = DestinationsModel::where('status',1)->get();
+        return view("Dashboard.PackageMaster.editPackage", compact("package_types", "city_master", 'packageData','destination'));
     }
 
     /**
@@ -170,11 +176,13 @@ class PackageMasterController extends Controller
         return Validator::make($request->all(), [
             "id" => "nullable|bail|required_if:action,edit",
             "package_name" => "required|bail|unique:package_master,package_name," . $request->id . ",id",
-            "package_type" => "required|bail|in:" . implode(",", PackageMaster::PACKAGE_TYPES),
+            // "tour_type" => "required|bail|in:" . implode(",", PackageMaster::PACKAGE_TYPES),
+            "tour_type" => "required",
             "package_price" => "required|integer|gt:" . $request->package_offer_price,
             "package_offer_price" => "required|integer|lt:" . $request->package_price . "|gt:0",
             "package_duration_days" => "required|integer|gte:0",
             "package_country" => "required|bail",
+            'destination' => "required",
             "package_duration_nights" => "required|integer|gte:0",
             "package_external_link" => "nullable|url",
             "package_image.*" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
@@ -223,7 +231,8 @@ class PackageMasterController extends Controller
                 'id',
                 'package_name',
                 'package_image',
-                'package_type',
+                'tour_type',
+                'destination',
                 'package_country',
                 'status',
                 'package_price',

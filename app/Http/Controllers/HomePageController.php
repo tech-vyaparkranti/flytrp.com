@@ -16,6 +16,8 @@ use App\Models\TestimonialModel;
 use App\Models\DestinationsModel;
 use Mews\Captcha\Facades\Captcha;
 use App\Models\HomeRecognitionsModel;
+use App\Models\Tour;
+
 
 class HomePageController extends Controller
 {
@@ -33,7 +35,7 @@ class HomePageController extends Controller
             $data = $this->getElement();
             $packages = PackageMaster::where(PackageMaster::STATUS, "1")->get();
             $destinations = PackageMaster::distinct()->pluck('package_country')->toArray();
-            $travelCategories = PackageMaster::distinct()->pluck('package_type')->toArray();
+            $travelCategories = PackageMaster::distinct()->pluck('tour_type')->toArray();
             $home_recognitions=HomeRecognitionsModel::where('slide_status','live')->get();
             $blogs = Blog::where(Blog::BLOG_STATUS, Blog::BLOG_STATUS_LIVE)
                 ->orderBy(Blog::BLOG_SORTING, 'desc')
@@ -111,21 +113,21 @@ class HomePageController extends Controller
     // public function servicePages(){
     //     return view("HomePage.servicePages");
     // }
-    public function tourpage()
+    public function packagePage()
     {
         $data = $this->getElement();
         $getPackages = (new PackageMasterController())->getActivePackages();
         $packageCategory = (new PackageCategoryController())->getActivePackagesCategoryData();
         $data = $this->getElement();
         $packages = PackageMaster::where(PackageMaster::STATUS, "1")->get();
-        return view("HomePage.tourpage", compact('getPackages', 'packages', 'packageCategory'), $data);
+        return view("HomePage.packagePage", compact('getPackages', 'packages', 'packageCategory'), $data);
     }
-    public function tourDetailpage($slug)
+    public function packageDetailpage($slug)
     {
         $data = $this->getElement();
         $package = PackageMaster::where('slug', $slug)->firstOrFail();
         $getHomeAllFaq = HomeFaqModel::all();
-        return view("HomePage.tourDetailpage", compact('package', 'getHomeAllFaq'), $data);
+        return view("HomePage.packageDetailpage", compact('package', 'getHomeAllFaq'), $data);
     }
     public function destinationpage()
     {
@@ -150,10 +152,21 @@ class HomePageController extends Controller
         //     ->where('package_country', $homedestination->destination_name)
         //     ->firstOrFail();
         $package = PackageMaster::where(PackageMaster::STATUS, "1")->get();
-        $packages = PackageMaster::where(PackageMaster::STATUS, 1)
-            ->where('package_country', $homedestination->destination_name)
-            ->get();
-            $homedestinations = DestinationsModel::where('status','1')->get();
+
+        // $packages = PackageMaster::where(PackageMaster::STATUS, 1)
+        //     ->where('package_country', $homedestination->destination_name)
+        //     ->get();
+
+            $destinationIds = is_array($homedestination->pluck('id')) ? $homedestination->pluck('id')->toArray() : [$homedestination->id];
+
+            $packages = PackageMaster::where(PackageMaster::STATUS, 1)
+                ->where(function ($query) use ($destinationIds) {
+                    foreach ($destinationIds as $desId) {
+                        $query->orWhereJsonContains('destination', (string)$desId);
+                    }
+                })
+                ->get();
+        $homedestinations = DestinationsModel::where('status','1')->get();
 
         // $country = PackageMaster::select('package_country', 'package_image', 'package_name')
         //     ->where('status', 1)
@@ -161,6 +174,44 @@ class HomePageController extends Controller
         //     ->get();
         return view("HomePage.destinationDetailpage", compact('homedestination','packages','homedestinations'), $data);
     }
+
+    public function tourPage()
+    {
+        $data = $this->getElement();
+        $getTours = Tour::where('status',1)->get();
+       
+        return view("HomePage.tourPage", compact('getTours'), $data);
+    }
+
+    public function tourDetailPage($tour_slug)
+    {
+        $tours = Tour::where('slug', $tour_slug)
+        ->where(Tour::TOUR_STATUS, Tour::TOUR_STATUS_LIVE)
+        ->firstOrFail();
+        $otherTours = Tour::where('slug', '!=', $tour_slug)
+        ->where(Tour::TOUR_STATUS, Tour::TOUR_STATUS_LIVE)
+        // ->orderBy(Tour::TOUR_SORTING, 'desc')
+        ->orderBy(Tour::raw('RAND()'))
+        ->take(4)
+        ->get();
+
+        $tourIds = is_array($tours->pluck('id')) ? $tours->pluck('id')->toArray() : [$tours->id];
+
+        $packages = PackageMaster::where(PackageMaster::STATUS, 1)
+            ->where(function ($query) use ($tourIds) {
+                foreach ($tourIds as $tourId) {
+                    $query->orWhereJsonContains('tour_type', (string)$tourId);
+                }
+            })
+            ->get();
+        $destinations = PackageMaster::where(PackageMaster::STATUS,"1")->distinct()->pluck('package_country')->toArray();
+        $travelCategories = PackageMaster::where(PackageMaster::STATUS,"1")->distinct()->pluck('tour_type')->toArray();
+        $data = $this->getElement();
+        $ourdestination = DestinationsModel::where('status','1')->get();
+
+        return view("HomePage.tourDetail",compact('tours','otherTours','packages','destinations','travelCategories','ourdestination'),$data);
+   }
+
     public function blogpage()
     {
         $blogs = Blog::where(Blog::BLOG_STATUS, Blog::BLOG_STATUS_LIVE)
@@ -198,39 +249,7 @@ class HomePageController extends Controller
         $data['galleryImages'] = $galleryImages;
         return view("HomePage.blogDetailpage", $data, compact('blogs', 'otherBlogs'));
     }
-    // public function filterPackages(Request $request)
-    // {
-        
-    //     $data = $this->getElement();
-        
-    //     $destination = $request->input('destination');
-    //     $category = $request->input('category'); 
-        
-    //     $query = PackageMaster::where(PackageMaster::STATUS, 1);
-        
-    //     if ($destination) {
-    //         $query->where('package_country', 'LIKE', '%' . $destination . '%');
-    //     }
-        
-    //     if ($category) {
-    //         $query->where('package_type', 'LIKE', '%' . $category . '%');
-    //     }
-        
-    //     $packages = $query->get();
-        
-    //     // \Log::info(\DB::getQueryLog());
-        
-    
-    //     // $service = Service::where(Service::SERVICE_STATUS, Service::SERVICE_STATUS_LIVE)
-    //     //     ->orderBy(Service::SERVICE_SORTING, 'desc')
-    //     //     ->get();
-        
-    //     $destinations = PackageMaster::distinct()->pluck('package_country')->toArray();
-    //     $categories = PackageMaster::distinct()->pluck('package_type')->toArray(); 
-    //     // $categories = PackageMaster::distinct()->pluck('package_travel_category')->toArray(); 
-        
-    //     return view("HomePage.filteredList", $data, compact('packages', 'destinations','categories'));
-    // }
+   
     public function filterPackages(Request $request)
 {
     // Fetch filters from the request

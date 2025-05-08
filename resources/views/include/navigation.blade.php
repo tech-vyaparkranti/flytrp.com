@@ -32,16 +32,16 @@
                             <ul class="navigation clearfix">
                                 <li class="current"><a href="{{ url('/') }}">Home</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
-                                {{-- <li class="dropdown"><a href="{{ route('tourpage') }}">Tours</a>
+                                {{-- <li class="dropdown"><a href="{{ route('packagePage') }}">Tours</a>
                                     <ul>
-                                        <li><a href="{{ route('tourpage') }}">Tour</a></li>
-                                        <li><a href="{{ route('tourDetailpage') }}">Tour Details</a></li>
+                                        <li><a href="{{ route('packagePage') }}">Tour</a></li>
+                                        <li><a href="{{ route('packageDetailpage') }}">Tour Details</a></li>
                                     </ul>
                                 </li> --}}
-                                <li><a href="{{ route('tourpage') }}">Tours</a>
+                                <li><a href="{{ route('packagePage') }}">Package</a>
                                     <ul>
-                                        <li><a href="{{ route('tourpage') }}">Tour</a></li>
-                                        <li><a href="">Tour Details</a></li>
+                                        <li><a href="{{ route('packagePage') }}">Package</a></li>
+                                        <li><a href="">Package Details</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('destinationpage') }}">Destinations</a>
@@ -51,6 +51,7 @@
                                     </ul> --}}
                                 </li>
                                 <li><a href="{{ route('servicePages') }}">Services</a></li>
+                                <li><a href="{{ route('tourPage') }}">Tours</a></li>
                                 <li><a href="{{ route('galleryPages') }}">Gallery</a></li>
                                 {{-- <li class="dropdown"><a href="{{ route('blogpage') }}">Blog</a>
                                     <ul>

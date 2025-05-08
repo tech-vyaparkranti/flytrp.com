@@ -17,9 +17,10 @@ class PackageMaster extends Model
     const ID = "id";
     const PACKAGE_NAME = "package_name";
     const PACKAGE_IMAGE = "package_image";
-    const PACKAGE_TYPE = "package_type";
+    const PACKAGE_TYPE = "tour_type";
     const PACKAGE_COUNTRY = "package_country";
     const PACKAGE_PRICE = "package_price";
+    const DESTINATION = "destination";
     const PACKAGE_OFFER_PRICE = "package_offer_price";
     const PACKAGE_DURATION_DAYS = "package_duration_days";
     const PACKAGE_DURATION_NIGHTS = "package_duration_nights";

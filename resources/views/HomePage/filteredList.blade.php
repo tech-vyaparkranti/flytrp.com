@@ -33,7 +33,7 @@
                                         {{ $item->package_duration_nights }} Nights</li>
                                 </ul>
                                 <div class="destination-footers">
-                                    <a href="{{ route('tourDetailpage', ['slug' => $item->slug]) }}"
+                                    <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}"
                                         class="theme-btn style-two style-three">
                                         <span data-hover="View More">View More</span>
                                         <i class="fal fa-arrow-right"></i>
@@ -70,7 +70,7 @@
                                         @else
                                             <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
                                         @endif
-                                        <div class="ratting">{{ $item->package_type }}</div>
+                                        <div class="ratting">{{ $item->tour_type }}</div>
                                     </div>
                                     <div class="content">
                                         <div class="destination-header">

@@ -18,7 +18,7 @@ class CreatePackageMastersTable extends Migration
             $table->string("package_name",255)->unique("unique_package_name")->nullable(false);
             $table->string('slug')->unique()->nullable();
             $table->text("package_image")->nullable(false);
-            $table->string("package_type",50)->nullable(false);
+            $table->string("tour_type",50)->nullable(false);
             $table->string("package_country",50)->nullable(false);
             $table->string('destination_slug', 255)->nullable(false);
             $table->integer("package_price")->nullable(false);

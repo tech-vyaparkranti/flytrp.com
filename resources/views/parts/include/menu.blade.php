@@ -12,7 +12,7 @@
 			<!-- <li><a href="tour-list.php">Tour List</a></li> -->
 			<li><a href="{{ route('tourpage') }}">Tour</a></li>
 			<!-- <li><a href="tour-sidebar.php">Tour Sidebar</a></li> -->
-			<li><a href="{{ route('tourDetailpage') }}">Tour Details</a></li>
+			<li><a href="{{ route('packageDetailpage') }}">Tour Details</a></li>
 			<!-- <li><a href="tour-guide.php">Tour Guide</a></li> -->
 		</ul>
 	</li>

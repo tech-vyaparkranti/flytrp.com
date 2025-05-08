@@ -56,10 +56,10 @@
                             <ul class="navigation clearfix">
                                 <li class="current"><a href="{{ url('/') }}">Home</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
-                                <!-- <li class="dropdown"><a href="{{ route('tourpage') }}">Tours</a>
+                                <!-- <li class="dropdown"><a href="{{ route('packagePage') }}">Tours</a>
                                     <ul>
-                                        <li><a href="{{ route('tourpage') }}">Tour</a></li>
-                                        <li><a href="{{ route('tourDetailpage') }}">Tour Details</a></li>
+                                        <li><a href="{{ route('packagePage') }}">Tour</a></li>
+                                        <li><a href="{{ route('packageDetailpage') }}">Tour Details</a></li>
                                     </ul>
                                 </li> -->
                                 <li><a href="{{ route('destinationpage') }}">Destinations</a>
@@ -118,7 +118,7 @@
     <li><a href="{{ route('aboutUs') }}">About Us</a></li>
     <li class="dropdown"> <a href="{{ route('tourpage') }}">Tour</a>
         <ul>
-            <li><a href="{{ route('tourDetailpage') }}">Tour Detail</a></li>
+            <li><a href="{{ route('packageDetailpage') }}">Tour Detail</a></li>
         </ul>
     </li>
     <li class="dropdown"><a href="{{ route('destinationpage') }}">Destinations</a>

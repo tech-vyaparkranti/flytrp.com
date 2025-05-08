@@ -325,7 +325,7 @@
     <div class="input-wrapper" style="padding-right: 5px">
     <i class="fal fa-map-marker-alt"></i>
     <select name="city" id="city" >
-        <option value=""   >Destinations</option>
+        <option value="">Destinations</option>
         @foreach ($destinations as $destination)
             <option value="{{ $destination }}" {{ request('city') == $destination ? 'selected' : '' }}>
                 {{ $destination }}
@@ -391,7 +391,7 @@
                                     $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
                                 @endphp
                                 <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
-                                    <a href="{{ route('tourDetailpage', ['slug' => $item->slug]) }}">
+                                    <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}">
                                         <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
                                             data-aos-offset="50">
                                             <div class="image">
@@ -445,7 +445,7 @@
                 </div>
             </div>
             <div class="view-more-buttons" style="display:block; text-align:center;">
-                <a class="service-view-buttons" style="color:white;" href="{{ route('tourpage') }}"><button
+                <a class="service-view-buttons" style="color:white;" href="{{ route('packagePage') }}"><button
                         type="submit" class="theme-btn style-two text-center col-4 ">
                         <span data-hover="Send Comments">Explore More</span>
                         <i class="fal fa-arrow-right"></i></a>
@@ -663,7 +663,7 @@
                             <div class="feature-item">
                                 <div class="icon"><i class="fa-solid fa-umbrella-beach fs-1 text-primary"></i></div>
                                 <div class="content">
-                                    <h5><a href="{{ route('tourpage') }}">Holidays</a></h5>
+                                    <h5><a href="{{ route('packagePage') }}">Holidays</a></h5>
                                     <p>{!! $home_other_services_holidays_content ?? 'We are Casting Moments & Creating Memories lifelong Your ideal leaves are staying for
                                         you.' !!}</p>
                                 </div>
@@ -671,7 +671,7 @@
                             <div class="feature-item">
                                 <div class="icon"><i class="fa-regular fa-calendar-check fs-1 text-primary"></i></div>
                                 <div class="content">
-                                    <h5><a href="{{ route('tourpage') }}">Event</a></h5>
+                                    <h5><a href="{{ route('packagePage') }}">Event</a></h5>
                                     <p>{!! $home_other_services_event_content ?? 'Moments, Perfecting Every Detail Events Which is Beyond Imagination.' !!}</p>
                                 </div>
                             </div>
@@ -680,7 +680,7 @@
                             <div class="feature-item mt-20">
                                 <div class="icon"><i class="fa-solid fa-hand-holding-hand fs-1 text-primary"></i></div>
                                 <div class="content">
-                                    <h5><a href="{{ route('tourpage') }}">Weddings</a></h5>
+                                    <h5><a href="{{ route('packagePage') }}">Weddings</a></h5>
                                     <p>{!! $home_other_services_weddings_content ?? 'Love in Every Detail Creating Your Perfect Day, Your Dream marriage, Our violent
                                         Hand.' !!}</p>
                                 </div>
@@ -688,7 +688,7 @@
                             <div class="feature-item">
                                 <div class="icon"><i class="fa-solid fa-headset fs-1 text-primary"></i></div>
                                 <div class="content">
-                                    <h5><a href="{{ route('tourpage') }}">Friendly Support</a></h5>
+                                    <h5><a href="{{ route('packagePage') }}">Friendly Support</a></h5>
                                     <p>{!! $home_other_services_friendly_support_content ?? 'Trip Support Beyond Boundaries Leading Your peregrination, trip Support Beyond
                                         Boundaries.' !!}</p>
                                 </div>

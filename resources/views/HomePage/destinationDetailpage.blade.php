@@ -149,99 +149,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            {{-- @if (isset($packages) && count($packages) > 0)
-                @foreach ($packages as $item)
-                    @php
-                        $images = is_string($item->package_image)
-                            ? json_decode($item->package_image, true)
-                            : $item->package_image;
-
-                        $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
-                    @endphp
-                    <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a href="{{ route('destinationpage') }}">
-                            <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
-                                data-aos-offset="50">
-                                <div class="image">
-                                    @if ($displayImage)
-                                        <img src="{{ asset('storage/' . $displayImage) }}"
-                                            alt="{{ $item->package_name }}" class="gallery-image">
-                                    @else
-                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
-                                    @endif
-                                </div>
-                                <div class="content">
-                                    <span class="location">
-                                        {{ $item->package_type }}
-                                    </span>
-                                    <h5 class="card-heading">
-                                        {!! $item->package_name !!}
-                                    </h5>
-                                    <span class="time">
-                                        {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!} Nights
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-xxl-3 col-xl-4 col-md-6">
-                    <div class="destination-item" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                        <div class="image">
-                            <img src="./assets/images/destination1.jpg" alt="Destination">
-                        </div>
-                        <div class="content">
-                            <span class="location"><i class="fal fa-map-marker-alt"></i> Tours, France</span>
-                            <h5><a href="{{ route('destinationpage') }}">Brown Concrete Building Basilica St
-                                    Martin</a>
-                            </h5>
-                            <span class="time">3 days 2 nights</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6">
-                    <div class="destination-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1500"
-                        data-aos-offset="50">
-                        <div class="image">
-                            <img src="./assets/images/destination2.jpg" alt="Destination">
-                        </div>
-                        <div class="content">
-                            <span class="location"><i class="fal fa-map-marker-alt"></i> Wildest, Italy</span>
-                            <h5><a href="{{ route('destinationpage') }}">Blue lake water view taken travel with
-                                    daytime</a>
-                            </h5>
-                            <span class="time">3 days 2 night</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6">
-                    <div class="destination-item" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1500"
-                        data-aos-offset="50">
-                        <div class="image">
-                            <img src="./assets/images/destination4.jpg" alt="Destination">
-                        </div>
-                        <div class="content">
-                            <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
-                            <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum, Rome</a></h5>
-                            <span class="time">3 days 2 nights</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6">
-                    <div class="destination-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1500"
-                        data-aos-offset="50">
-                        <div class="image">
-                            <img src="./assets/images/destination3.jpg" alt="Destination">
-                        </div>
-                        <div class="content">
-                            <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
-                            <h5><a href="{{ route('destinationpage') }}">Woman standing near Colosseum, Rome</a></h5>
-                            <span class="time">3 days 2 nights</span>
-                        </div>
-                    </div>
-                </div>
-            @endif --}}
+            
             <div class="swiper packages mt-4">
                 <div class="swiper-wrapper">
                     @if (isset($packages) && count($packages) > 0)
@@ -256,7 +164,7 @@
                                 $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
                             @endphp
                             <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
-                                <a href="{{ route('tourDetailpage', ['slug' => $item->slug]) }}">
+                                <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}">
                                     <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
                                         data-aos-offset="50">
                                         <div class="image">
@@ -271,7 +179,7 @@
                                                 {{-- </figure> --}}
                                             @endif
 
-                                            <div class="ratting">{{ $item->package_type }}</div>
+                                            {{-- <div class="ratting">{{ $item->tour_type }}</div> --}}
                                         </div>
                                         <div class="content tourpackage">
                                             {{-- <span class="location">

@@ -61,8 +61,8 @@ Route::post('subscribe-news-letter',[NewsLetterController::class,"subscribeNewsL
 
 Route::get("service-page",[HomePageController::class,"servicePages"])->name("servicePages");
 
-Route::get("tours",[HomePageController::class,"tourpage"])->name("tourpage");
-Route::get("tour/{slug}",[HomePageController::class,"tourDetailpage"])->name("tourDetailpage");
+Route::get("packages",[HomePageController::class,"packagePage"])->name("packagePage");
+Route::get("packages/{slug}",[HomePageController::class,"packageDetailpage"])->name("packageDetailpage");
 Route::match(['get', 'post'], '/filter-packages', [HomePageController::class, 'filterPackages'])->name('filterPackages');
 Route::get("destinations",[HomePageController::class,"destinationpage"])->name("destinationpage");
 Route::get("destination/{destination_slug}",[HomePageController::class,"destinationDetailpage"])->name("destinationDetailpage");
@@ -71,6 +71,9 @@ Route::get("blogs",[HomePageController::class,"blogpage"])->name("blogpage");
 Route::get("blog/{slug}",[HomePageController::class,"blogDetailpage"])->name("blogDetailpage");
 
 Route::post('enquiry-form',[EnquiryFormController::class,"enquiryDetails"])->name("saveEnquiryFormData");
+
+Route::get("tours",[HomePageController::class,"tourPage"])->name("tourPage");
+Route::get("tourDetail/{tour_slug}",[HomePageController::class,"tourDetailPage"])->name("tourDetail");
 
 // require __DIR__.'/auth.php';
 
