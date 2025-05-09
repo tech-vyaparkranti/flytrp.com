@@ -13,11 +13,11 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{{ asset('assets/js/jquery.fancybox.js') }}"></script>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <a class="footer-whatsapp" aria-label="Whatsapp Button"
-    href="https://wa.me/+91{!! strip_tags($whatsapp_footer_link) ?? '+919315625528' !!}?text=Let%27s+start+build+a+project"><img
+    href="https://wa.me/+91{{ strip_tags($whatsapp_footer_link  ?? '+919315625528') }}?text=Let%27s+start+build+a+project"><img
         src="{{ asset('./assets/images/whatsapp.png') }}" alt="Whatsapp" class="img-fluid" height=""
         width="150"></a>
 <a class="footer-whatsapp footer-call" aria-label="Phone Call Button"
@@ -166,14 +166,14 @@
 <script>
   var swiper = new Swiper('.packages', {
        loop: true,
-       spaceBetween: 20, 
+       spaceBetween: 20,
        autoplay: {
          delay: 2500,
          disableOnInteraction: false,
        },
        breakpoints: {
            500:{slidePerView:1},
-           768: { slidesPerView: 2 }, 
+           768: { slidesPerView: 2 },
            1024: { slidesPerView: 4 }
        }
    });

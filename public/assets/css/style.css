@@ -8575,3 +8575,14 @@ span.sale-price, .tours-block-one .inner-box .lower-content h5 span.offer-amount
   font-size: 16px;
   width: 100%;
 }
+
+
+
+@media (max-width: 768px) {
+  .search-filter-inner {
+
+
+    margin-top: -25px;
+  }
+}
+
