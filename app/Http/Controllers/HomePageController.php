@@ -186,7 +186,7 @@ class HomePageController extends Controller
         $data = $this->getElement();
         $getTours = Tour::where('status',1)->get();
        
-        return view("HomePage.tourPage", compact('getTours'), $data);
+        return view("HomePage.tourpage", compact('getTours'), $data);
     }
 
     public function tourDetailPage($tour_slug)

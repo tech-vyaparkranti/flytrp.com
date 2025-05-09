@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("package_categories",function (Blueprint $table)
-        {
-            $table->id();
-            $table->string("category_name");
-            $table->string("package_id");
-            $table->integer("position");
-            $table->tinyInteger("status")->default(1);
-            $table->string("created_by")->nullable();
-            $table->string("updated_by")->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('package_categories')) {
+            Schema::create("package_categories",function (Blueprint $table)
+            {
+                $table->id();
+                $table->string("category_name");
+                $table->string("package_id");
+                $table->integer("position");
+                $table->tinyInteger("status")->default(1);
+                $table->string("created_by")->nullable();
+                $table->string("updated_by")->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
