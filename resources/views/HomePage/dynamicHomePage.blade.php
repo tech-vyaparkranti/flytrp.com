@@ -2167,6 +2167,272 @@
 
     </section>
 
+    <!-- Blade file popup-modal.blade.php -->
+
+<!-- Modal Popup CSS -->
+<style>
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    .modal-container {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 800px;
+       
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh; /* Prevent modal from exceeding screen */
+        overflow-y: auto;
+    }
+
+    @media (min-width: 768px) {
+    .modal-container {
+        flex-direction: row; /* Side-by-side only on desktop */
+        max-height: 80vh;     /* Adjust height for large screens */
+    }
+}
+
+    .modal-image-section {
+        width: 100%;
+        background-color: #EFF6FF; /* blue-50 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .modal-image-section {
+            width: 50%;
+        }
+    }
+
+    .modal-form-section {
+        width: 100%;
+        padding: 1.5rem;
+        position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .modal-form-section {
+            width: 50%;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #6B7280; /* gray-500 */
+    }
+
+    .close-btn:hover {
+        color: #374151; /* gray-700 */
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151; /* gray-700 */
+        margin-bottom: 0.25rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #D1D5DB; /* gray-300 */
+        border-radius: 0.375rem;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #3B82F6; /* blue-500 */
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
+
+    .form-textarea {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #D1D5DB; /* gray-300 */
+        border-radius: 0.375rem;
+        resize: vertical;
+    }
+
+    .form-textarea:focus {
+        outline: none;
+        border-color: #3B82F6; /* blue-500 */
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
+
+    .submit-btn {
+        width: 100%;
+        background-color: #2563EB; /* blue-600 */
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #1D4ED8; /* blue-700 */
+    }
+</style>
+
+<!-- Modal Structure -->
+<div id="contactModal" class="modal-overlay">
+    <div class="modal-container">
+        <!-- Image Section -->
+        <div class="modal-image-section">
+            <div style="width: 100%; max-width: 400px; aspect-ratio: 1/1; background-color: #BFDBFE; border-radius: 0.5rem; overflow: hidden;height:400px">
+                <img src="{{ asset('./assets/images/banner_hom2.jpg') }}" alt="Contact us" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        
+        <!-- Form Section -->
+        <div class="modal-form-section">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: #1F2937; margin-bottom: 0.5rem;">Enquiry Now</h2>
+                <p style="color: #4B5563;">Fill out the form below and we'll get back to you soon!</p>
+            </div>
+            
+            <form id="contactForm" method="POST">
+                @csrf
+                
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone_number" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" rows="3" class="form-textarea" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="captcha_enquiry_form" class="form-label">Captcha</label>
+                    <input type="text" id="captcha_enquiry_form" name="captcha" class="form-input" required placeholder="Enter Captcha">
+                
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
+                        <img class="img-thumbnail" style="max-width: 150px;" 
+                        src="{{ captcha_src() }}" 
+                        id="captcha_img_id_enquiry_form" 
+                        alt="captcha">
+                                   
+                        <button type="button" class="btn btn-icon btn-light" onclick="refreshCapthca('captcha_img_id_enquiry_form','captcha_enquiry_form')">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                
+                <button type="submit" class="submit-btn mb-5">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Modal functionality -->
+<script>
+    // Show modal after 20 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }, 20000); 
+    });
+
+    // Close modal function
+    function closeModal() {
+        $("#contactForm")[0].reset();
+        document.getElementById('contactModal').style.display = 'none';
+    }
+
+    function refreshCapthca(imgId, inputId) {
+        const baseUrl = "{{ url('captcha/default') }}";
+        document.getElementById(imgId).src = baseUrl + "?" + Math.random();
+        document.getElementById(inputId).value = "";
+    }
+
+    // Submit form with AJAX (optional)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(this);
+        // let captcha_enquiry_form = $("#captcha_enquiry_form").val();
+        // if(!captcha_enquiry_form){
+        //     errorMessage("Captcha is required.");
+        //     return false;
+        // }
+        
+        $.ajax({
+            type: 'post',
+            url: '{{ route('saveEnquiryFormData') }}',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status) {
+                    successMessage(response.message);
+                    closeModal();
+
+                } else {
+                    errorMessage(response.message ?? "Something went wrong.");
+                    $("#submitButton").attr("disabled", false);
+                }
+            },
+            failure: function(response) {
+                errorMessage(response.message ?? "Something went wrong.");
+                $("#submitButton").attr("disabled", false);
+            },
+            error: function(response) {
+                errorMessage(response.message ?? "Something went wrong.");
+                $("#submitButton").attr("disabled", false);
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('contactModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+</script>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

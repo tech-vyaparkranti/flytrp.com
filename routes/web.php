@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use Mews\Captcha\Captcha;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,6 +78,8 @@ Route::get("tours",[HomePageController::class,"tourPage"])->name("tourPage");
 Route::get("tourDetail/{tour_slug}",[HomePageController::class,"tourDetailPage"])->name("tourDetail");
 
 Route::post("booking-enquiry",[BookingEnquiryController::class,"bookingEnquiry"])->name("bookingEnquiry");
+
+Route::get('captcha/{config?}', [Captcha::class, 'index'])->name('captcha');
 
 // require __DIR__.'/auth.php';
 
