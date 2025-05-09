@@ -221,6 +221,7 @@
                             border-radius: 25px;
                             font-weight: bold;
                             cursor: pointer;
+
                         }
 
                         .theme-btn:hover {
@@ -353,9 +354,14 @@
 
                     <!-- Submit Button -->
                     <div class="search-button">
-                        <button type="submit" class="theme-btn">
-                            <span>Submit</span>
+                        <button type="submit" class="theme-btn style-two bgc-secondary">
+                            <span data-hover="Submit">Submit</span>
+
                         </button>
+                         {{-- <a href="contact.php" class="theme-btn style-two bgc-secondary">
+                                <span data-hover="Book Now">Book Now</span>
+                                <i class="fal fa-arrow-right"></i>
+                            </a> --}}
                     </div>
                 </form>
 
@@ -1913,7 +1919,7 @@
                 <p>Discover Amazing Destinations</p>
             </div>
 
-            
+
             @if ($galleryItems->isNotEmpty())
             <div class="row wanderlust-featured-gallery">
                 @foreach($galleryItems as $index => $item)
@@ -1923,14 +1929,14 @@
                                 <img src="{{ $item->image_link ?? asset($item->local_image) }}" alt="{{ $item->alternate_text }}" class="wanderlust-img">
                                 <div class="wanderlust-overlay">
                                     <h4>{{ $item->title }}</h4>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     @endif
                 @endforeach
             </div>
-            
+
             <!-- Slider Section -->
             @if(count($galleryItems) > 3)
             <div class="wanderlust-slider" data-aos="fade-up" data-aos-delay="300">
@@ -1967,7 +1973,7 @@
                         </div>
                     </div>
                 </div>
-            
+
 
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="zoom-in" data-aos-delay="200">
                     <div class="wanderlust-card">
@@ -2155,10 +2161,10 @@
                     </div>
                 </div>
 
-            </div> 
+            </div>
             @endif
-            
-            
+
+
     </section>
 
     <!-- Scripts -->
