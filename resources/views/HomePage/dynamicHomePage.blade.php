@@ -598,7 +598,7 @@
                         </p>
                         <div class="divider counter-text-wrap mt-45 mb-55"><span>We have <span><span
                                         class="count-text plus" data-speed="3000"
-                                        data-stop="{!! strip_tags($years_of_experience) ?? '15' !!}"></span> Years</span> of
+                                        data-stop="{{ strip_tags($years_of_experience ?? '15') }}"></span> Years</span> of
                                 experience</span></div>
                         <div class="row">
                             <div class="col-6">
@@ -794,7 +794,7 @@
                             <div class="content">
                                 <h6>{!! $home_other_services_happy_customer_no ?? '850K+ Happy Customer' !!}</h6>
                                 <div class="divider style-two counter-text-wrap my-25"><span><span class="count-text plus"
-                                            data-speed="3000" data-stop="{!! strip_tags($years_of_experience) ?? '15' !!}"></span> Years</span>
+                                            data-speed="3000" data-stop="{{ strip_tags($years_of_experience ?? '15') }}"></span> Years</span>
                                 </div>
                                 <p>{!! $home_other_services_content_subheading ?? 'We pride ourselves offering personalized itineraries' !!}</p>
                             </div>
