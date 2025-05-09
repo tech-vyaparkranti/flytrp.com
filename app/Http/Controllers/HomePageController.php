@@ -208,6 +208,7 @@ class HomePageController extends Controller
         ->orderBy(Tour::raw('RAND()'))
         ->take(4)
         ->get();
+        
 
         $tourIds = is_array($tours->pluck('id')) ? $tours->pluck('id')->toArray() : [$tours->id];
 
