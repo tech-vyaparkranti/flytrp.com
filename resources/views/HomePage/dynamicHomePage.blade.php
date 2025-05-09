@@ -2345,7 +2345,7 @@
                     <label for="captcha_enquiry_form" class="form-label">Captcha</label>
                     <input type="text" id="captcha_enquiry_form" name="captcha" class="form-input" required placeholder="Enter Captcha">
                 
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
+                    {{-- <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
                         <img class="img-thumbnail" style="max-width: 150px;" 
                         src="{{ captcha_src() }}" 
                         id="captcha_img_id_enquiry_form" 
@@ -2354,7 +2354,7 @@
                         <button type="button" class="btn btn-icon btn-light" onclick="refreshCapthca('captcha_img_id_enquiry_form','captcha_enquiry_form')">
                             <i class="fa fa-refresh"></i>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
                 
                 
@@ -2379,11 +2379,11 @@
         document.getElementById('contactModal').style.display = 'none';
     }
 
-    function refreshCapthca(imgId, inputId) {
-        const baseUrl = "{{ url('captcha/default') }}";
-        document.getElementById(imgId).src = baseUrl + "?" + Math.random();
-        document.getElementById(inputId).value = "";
-    }
+    // function refreshCapthca(imgId, inputId) {
+    //     const baseUrl = "{{ url('captcha/default') }}";
+    //     document.getElementById(imgId).src = baseUrl + "?" + Math.random();
+    //     document.getElementById(inputId).value = "";
+    // }
 
     // Submit form with AJAX (optional)
     document.getElementById('contactForm').addEventListener('submit', function(e) {

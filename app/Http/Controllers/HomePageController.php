@@ -479,6 +479,7 @@ class HomePageController extends Controller
         }
         return response()->json($return);
     }
+    
     public function getElement()
     {
         $elements = $this->getWebSiteElements();

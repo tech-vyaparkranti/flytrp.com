@@ -79,7 +79,6 @@ Route::get("tourDetail/{tour_slug}",[HomePageController::class,"tourDetailPage"]
 
 Route::post("booking-enquiry",[BookingEnquiryController::class,"bookingEnquiry"])->name("bookingEnquiry");
 
-Route::get('captcha/{config?}', [Captcha::class, 'index'])->name('captcha');
 
 // require __DIR__.'/auth.php';
 
