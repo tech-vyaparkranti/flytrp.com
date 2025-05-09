@@ -278,9 +278,9 @@
                                 </a>
                             </div>
                             <div class="image">
-                                {{-- <img src="girl_travel1.png" alt="CTA"> --}}
+                                <img src="converted_traveler_image (2).png" alt="CTA">
 
-                                <img src="./assets/images/cta-widget.png" alt="CTA">
+                                {{-- <img src="./assets/images/cta-widget.png" alt="CTA"> --}}
                             </div>
                             <!-- <div class="cta-shape"><img src="./assets/images/cta-shape.png" alt="Shape"></div> -->
                         </div>

@@ -16,19 +16,19 @@
                 @else
                     <div class="swiper-slide swiper-slide-next">
                         <img class="img-fluid" width="" height="" alt="Image"
-                            src="./assets/images/aisbanner1.jpg" />
+                            src="./assets/images/banner_hom5.jpg" />
                     </div>
                     <div class="swiper-slide">
                         <img class="img-fluid" width="" height="" alt="Image"
-                            src="./assets/images/aisbanner2.jpg" />
+                            src="./assets/images/banner_hom2.jpg" />
                     </div>
                     <div class="swiper-slide">
                         <img class="img-fluid" width="" height="" alt="Image"
-                            src="./assets/images/aisbanner3.jpg" />
+                            src="./assets/images/banner_hom3.jpg" />
                     </div>
                     <div class="swiper-slide">
                         <img class="img-fluid" width="" height="" alt="Image"
-                            src="./assets/images/aisbanner4.jpg" />
+                            src="./assets/images/banner_hom4.jpg" />
                     </div>
                 @endif
             </div>
@@ -449,7 +449,7 @@
                                                     {{-- </figure> --}}
                                                 @endif
 
-                                                <div class="ratting">{{ $item->package_type }}</div>
+                                                {{-- <div class="ratting">{{ $item->package_type }}</div> --}}
                                             </div>
                                             <div class="content tourpackage">
                                                 <span class="location">
@@ -631,7 +631,7 @@
                         <div class="shape"><img src="assets/images/about/shape5.png" alt="Shape"></div>
                         <div class="shape"><img src="assets/images/about/shape6.png" alt="Shape"></div>
                         <div class="shape"><img src="assets/images/about/shape7.png" alt="Shape"></div>
-                        <img src="{{ asset($home_aboutus_content_image ?? './assets/images/confidence.png') }}"
+                        <img src="{{ asset($home_aboutus_content_image ?? '/gir_suit_final.png') }}"
                             alt="About">
                     </div>
                 </div>

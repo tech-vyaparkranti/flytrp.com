@@ -45,7 +45,7 @@ class HomePageController extends Controller
 
             $offerPackage = PackageCategoriesModel::with('package')->where("status",1)->orderBy('updated_at','desc')->take(3)->get();
             $galleryItems = $this->getCachedGalleryItems();
-            // dd($galleryItems);
+
             return view("HomePage.dynamicHomePage", compact('getPackages', 'packageCategory', 'packages', 'destinations',
                  'travelCategories', 'sliders', 'blogs','home_recognitions','homedestinations','offerPackage','galleryItems'), $data);
         } catch (Exception $exception) {
@@ -126,6 +126,7 @@ class HomePageController extends Controller
         $packageCategory = (new PackageCategoryController())->getActivePackagesCategoryData();
         $data = $this->getElement();
         $packages = PackageMaster::where(PackageMaster::STATUS, "1")->get();
+       
         return view("HomePage.packagePage", compact('getPackages', 'packages', 'packageCategory'), $data);
     }
     public function packageDetailpage($slug)
