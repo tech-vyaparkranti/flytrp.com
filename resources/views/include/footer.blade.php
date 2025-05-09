@@ -123,11 +123,11 @@
                             <h5>Follow Us</h5>
                         </div>
                         <div class="social-style-one mt-15">
-                            <a href="{!! $facebook_link ?? 'https://www.facebook.com' !!}"><i class="fab fa-facebook-f"></i></a>
-                            <a href="{!! $youtube_link ?? 'https://www.youtube.com' !!}"><i class="fab fa-youtube"></i></a>
+                            <a href="{!! $facebook_link ?? 'https://www.facebook.com' !!}"><i class="fab fa-facebook-f" style="padding: 10px"></i></a>
+                            <a href="{!! $youtube_link ?? 'https://www.youtube.com' !!}"><i class="fab fa-youtube" style="padding: 10px"></i></a>
                             {{-- <a href="{!! $pinterest_link ?? 'https://www.pinterest.com' !!}"><i class="fab fa-pinterest"></i></a> --}}
                             {{-- <a href="{!! $x_link ?? 'https://www.x.com' !!}"><i class="fa-brands fa-x-twitter"></i></a> --}}
-                            <a href="{!! $insta_link ?? 'https://www.youtube.com' !!}"><i class="fab fa-instagram"></i></a>
+                            <a href="{!! $insta_link ?? 'https://www.youtube.com' !!}"><i class="fab fa-instagram" style="padding: 10px"></i></a>
                         </div>
                     </div>
                 </div>
