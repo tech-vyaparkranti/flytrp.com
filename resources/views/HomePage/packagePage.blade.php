@@ -78,7 +78,7 @@
                                         {{-- </figure> --}}
                                     @endif
 
-                                    <div class="ratting">{{ $item->tour_type }}</div>
+                                    {{-- <div class="ratting">{{ $item->tour_type }}</div> --}}
                                 </div>
                                 <div class="content">
                                     <div class="destination-header">

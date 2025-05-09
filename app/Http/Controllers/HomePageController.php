@@ -133,7 +133,14 @@ class HomePageController extends Controller
         $data = $this->getElement();
         $package = PackageMaster::where('slug', $slug)->firstOrFail();
         $getHomeAllFaq = HomeFaqModel::all();
-        return view("HomePage.packageDetailpage", compact('package', 'getHomeAllFaq'), $data);
+        $getTours = Tour::where('status',1)->get();
+        $tourIds = json_decode($package->tour_type, true);
+
+        $matchedTourTitles = Tour::whereIn('id', $tourIds)
+            ->where('status', 1)
+            ->pluck('title');
+
+        return view("HomePage.packageDetailpage", compact('package', 'getHomeAllFaq','matchedTourTitles'), $data);
     }
     public function destinationpage()
     {

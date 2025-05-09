@@ -93,7 +93,7 @@
             <div class="col-xl-6 col-lg-7">
                 <div class="tour-header-content mb-15" data-aos="fade-left" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <span class="location d-inline-block mb-10"> {{ $package->tour_type }}</span>
+                    <span class="location d-inline-block mb-10">  {{ $matchedTourTitles->implode(', ') }}</span>
                     <div class="section-title pb-5">
                         <h2> {{ $package->package_name }}, {{ $package->package_country }}</h2>
                     </div>

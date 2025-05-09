@@ -54,12 +54,12 @@
                             <div class="content">
                                 <h5>Need Any Urgent</h5>
                                 <div class="text"><i class="fal fa-phone-volume"></i>
-                                    <a href="tel:{!! $Phone_number1 ?? '+91 7838602000' !!}">{!! $Phone_number1 ?? '91 7838602000' !!}</a>&nbsp; |&nbsp;
-                                    <a href="tel:{!! $Phone_number2 ?? '+91 7838502000' !!}">{!! $Phone_number2 ?? '+91 7838502000' !!}</a></div>
-                                <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number3 ?? '+91 7428280000' !!}">
-                                    {!! $Phone_number3 ?? '+91 7428280000' !!}</a>&nbsp; |&nbsp;
-                                    <a href="tel:{!! $Phone_number4 ?? '+91 7831003500' !!}">{!! $Phone_number4 ?? '+91 7831003500' !!}</a></div>
-                                <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number5 ?? '+01 141004080' !!}">{!! $Phone_number5 ?? '+01 141004080' !!}</a></div>
+                                    <a href="tel:{!! $Phone_number1 ?? '+91 770909909' !!}">{!! $Phone_number1 ?? '91 6745638790' !!}</a>&nbsp; |&nbsp;
+                                    <a href="tel:{!! $Phone_number2 ?? '+91 798909609' !!}">{!! $Phone_number2 ?? '+91 6749038790' !!}</a></div>
+                                <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number3 ?? '+91 6749038790' !!}">
+                                    {!! $Phone_number3 ?? '+91 6749038790' !!}</a>&nbsp; |&nbsp;
+                                    <a href="tel:{!! $Phone_number4 ?? '+91 6749038790' !!}">{!! $Phone_number4 ?? '+91 6749038790' !!}</a></div>
+                                <div class="text"><i class="fal fa-phone-volume"></i> <a href="tel:{!! $Phone_number5 ?? '+01 6749038790' !!}">{!! $Phone_number5 ?? '+01 141004080' !!}</a></div>
 
                             </div>
                         </div>
@@ -189,7 +189,10 @@
 
 <!-- Contact Map Start -->
 <div class="contact-map container">
-<iframe src="{!! $Map_link ?? 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3502.56396446877!2d76.986643!3d28.612855!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0fc2b49b1605%3A0xa87789dceea6dbcc!2sNajafgarh%20Delhi%20Gate!5e0!3m2!1sen!2sin!4v1734677910084!5m2!1sen!2sin' !!}" width="100%" height="450" style="border:0; display:block; margin:auto;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    @php
+        $map = $Map_link ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2512.4975914888837!2d77.08075600000001!3d28.629971500000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d04bf1f02cad5%3A0xac288815e727f6e9!2sPRS%20Flying%20Trip%20Online%20Pvt.%20Ltd.!5e1!3m2!1sen!2sin!4v1746773412629!5m2!1sen!2sin';
+    @endphp
+<iframe src="{{strip_tags($map)}}" width="100%" height="450" style="border:0; display:block; margin:auto;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 <!-- Contact Map End -->
 <style>

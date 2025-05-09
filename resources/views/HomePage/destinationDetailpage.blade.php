@@ -51,9 +51,9 @@
                                     <img src="{{ asset('storage/' . $images[3]) }}" alt="Destination" class="img-fluid">
                                 @endif
                             @else
-                                <img src="./assets/images/destination-details1.jpg" alt="Destination"
+                                <img src="{{ asset("./assets/images/destination-details1.jpg")}}" alt="Destination"
                                     class="img-fluid fixed-image-size">
-                                <img src="./assets/images/destination-details4.jpg" alt="Destination"
+                                <img src="{{ asset("./assets/images/destination-details4.jpg")}}" alt="Destination"
                                     class="img-fluid fixed-image-size">
                             @endif
                         </div>

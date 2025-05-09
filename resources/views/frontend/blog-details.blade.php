@@ -259,9 +259,9 @@
                                     </a>
                                 </div>
                                 <div class="image">
-                                    <img src="assets/images/widgets/cta-widget.png" alt="CTA">
+                                    <img src="girl_travel1.jpg" alt="CTA">
                                 </div>
-                                <div class="cta-shape"><img src="assets/images/widgets/cta-shape.png" alt="Shape"></div>
+                                <div class="cta-shape"><img src="girl_travel1.jpg" alt="Shape"></div>
                             </div>
                             
                         </div>

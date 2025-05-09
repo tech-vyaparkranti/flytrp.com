@@ -17,11 +17,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <a class="footer-whatsapp" aria-label="Whatsapp Button"
-    href="https://wa.me/+91{!! $whatsapp_footer_link ?? '7838602000' !!}?text=Let%27s+start+build+a+project"><img
+    href="https://wa.me/+91{!! strip_tags($whatsapp_footer_link) ?? '+919315625528' !!}?text=Let%27s+start+build+a+project"><img
         src="{{ asset('./assets/images/whatsapp.png') }}" alt="Whatsapp" class="img-fluid" height=""
         width="150"></a>
 <a class="footer-whatsapp footer-call" aria-label="Phone Call Button"
-    href="tel:+91{{ isset($phone_footer_link) ? str_replace(' ', '', $phone_footer_link) : '7838602000' }}"><img
+    href="tel:+91{{ isset($phone_footer_link) ? str_replace(' ', '', $phone_footer_link) : '+919315625528' }}"><img
         src="{{ asset('./assets/images/phone-call.png') }}" alt="Phone Call" class="img-fluid" height=""
         width="150"></a>
 
