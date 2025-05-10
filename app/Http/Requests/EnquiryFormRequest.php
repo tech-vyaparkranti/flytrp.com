@@ -38,6 +38,7 @@ class EnquiryFormRequest extends FormRequest
             // "email" => "required|email|max:255",
             "phone_number" => "required|numeric|digits_between:9,20",
             "message" => "nullable|string|max:1000",
+            'captcha' => 'required|captcha',
             // "package_name" => "required|string|max:255",
             // "travel_date" => "nullable|date|after_or_equal:today",
             // "traveller_count" => "nullable|integer|min:1",

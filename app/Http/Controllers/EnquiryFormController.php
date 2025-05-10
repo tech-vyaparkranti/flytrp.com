@@ -15,34 +15,23 @@ class EnquiryFormController extends Controller
     use CommonFunctions;
     use ResponseAPI;
 
-    public function enquiryDetails(EnquiryFormRequest $request){
-        try{
-            
-            $check = EnquiryForm::where([
-                // [EnquiryForm::EMAIL,$request->input(EnquiryForm::EMAIL)],
-                [EnquiryForm::PHONE_NUMBER,$request->input(EnquiryForm::PHONE_NUMBER)],
-            ])->whereRaw("date(created_at)=date(now())")->first();
-            if($check){
-                $response = $this->error("You already sent a message for today.");
-            } else {
-                $newEnquiry = new EnquiryForm();
-                $newEnquiry->{EnquiryForm::NAME} = $request->input(EnquiryForm::NAME);
-                // $newEnquiry->{EnquiryForm::EMAIL} = $request->input(EnquiryForm::EMAIL);
-                $newEnquiry->{EnquiryForm::PHONE_NUMBER} = $request->input(EnquiryForm::PHONE_NUMBER);
-                $newEnquiry->{EnquiryForm::MESSAGE} = $request->input(EnquiryForm::MESSAGE);
-                // $newEnquiry->{EnquiryForm::PACKAGE_NAME} = $request->input(EnquiryForm::PACKAGE_NAME);
-                // $newEnquiry->{EnquiryForm::TRAVEL_DATE} = $request->input(EnquiryForm::TRAVEL_DATE);
-                // $newEnquiry->{EnquiryForm::TRAVELLER_COUNT} = $request->input(EnquiryForm::TRAVELLER_COUNT);
-                $newEnquiry->save();
+    public function enquiryDetails(EnquiryFormRequest $request)
+{
+    try {
+        $newEnquiry = new EnquiryForm();
+        $newEnquiry->{EnquiryForm::NAME} = $request->input(EnquiryForm::NAME);
+        $newEnquiry->{EnquiryForm::PHONE_NUMBER} = $request->input(EnquiryForm::PHONE_NUMBER);
+        $newEnquiry->{EnquiryForm::MESSAGE} = $request->input(EnquiryForm::MESSAGE);
+        $newEnquiry->save();
 
-                $response = $this->success("Thank you for your message. We will contact you shortly.",[]);
-            }
-        }catch(Exception $exception){
-            report($exception);
-             $response = $this->error("Something went wrong. " . $exception->getMessage());
-        }
-        return $response;
+        $response = $this->success("Thank you for your message. We will contact you shortly.", []);
+    } catch (Exception $exception) {
+        report($exception);
+        $response = $this->error("Something went wrong. " . $exception->getMessage());
     }
+
+    return $response;
+}
 
     public function enquiryAdminPage(){
         return view("Dashboard.Pages.enquiryAdmin");

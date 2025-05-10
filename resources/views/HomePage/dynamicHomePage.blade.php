@@ -2422,7 +2422,7 @@
                     <label for="message" class="form-label">Message</label>
                     <textarea id="message" name="message" rows="3" class="form-textarea" required></textarea>
                 </div>
-                 {{--<div class="form-group">
+                 <div class="form-group">
                     <label for="captcha_enquiry_form" class="form-label">Captcha</label>
                     <input type="text" id="captcha_enquiry_form" name="captcha" class="form-input" required placeholder="Enter Captcha">
                 
@@ -2436,10 +2436,10 @@
                             <i class="fa fa-refresh"></i>
                         </button>
                     </div> 
-                </div>--}}
+                </div>
                 
                 
-                <button type="submit" class="submit-btn mb-5">Submit</button>
+                <button type="submit" class="submit-btn mb-5" >Submit</button>
             </form>
         </div>
     </div>
@@ -2451,7 +2451,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             document.getElementById('contactModal').style.display = 'flex';
-        }, 20000); 
+        }, 20000);
     });
 
     // Close modal function
@@ -2460,26 +2460,30 @@
         document.getElementById('contactModal').style.display = 'none';
     }
 
-    // function refreshCapthca(imgId, inputId) {
-    //     const baseUrl = "{{ url('captcha/default') }}";
-    //     document.getElementById(imgId).src = baseUrl + "?" + Math.random();
-    //     document.getElementById(inputId).value = "";
-    // }
+    // Refresh CAPTCHA
+    function refreshCapthca(imgId, inputId) {
+        const baseUrl = "{{ url('captcha/default') }}";
+        document.getElementById(imgId).src = baseUrl + "?" + Math.random();
+        document.getElementById(inputId).value = "";
+    }
 
-    // Submit form with AJAX (optional)
+    // Form submit handler with AJAX
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Get form data
+
         const formData = new FormData(this);
-        // let captcha_enquiry_form = $("#captcha_enquiry_form").val();
-        // if(!captcha_enquiry_form){
-        //     errorMessage("Captcha is required.");
-        //     return false;
-        // }
-        
+
+        // Optional quick check if captcha is empty
+        const captchaValue = $('#captcha_enquiry_form').val().trim();
+        if (!captchaValue) {
+            errorMessage("Please enter the captcha.");
+            return;
+        }
+
+        $('#submitButton').attr('disabled', true); // disable button
+
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: '{{ route('saveEnquiryFormData') }}',
             data: formData,
             cache: false,
@@ -2489,19 +2493,25 @@
                 if (response.status) {
                     successMessage(response.message);
                     closeModal();
-
                 } else {
                     errorMessage(response.message ?? "Something went wrong.");
-                    $("#submitButton").attr("disabled", false);
+                    $('#submitButton').attr('disabled', false);
                 }
             },
-            failure: function(response) {
-                errorMessage(response.message ?? "Something went wrong.");
-                $("#submitButton").attr("disabled", false);
-            },
-            error: function(response) {
-                errorMessage(response.message ?? "Something went wrong.");
-                $("#submitButton").attr("disabled", false);
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    if (errors?.captcha) {
+                        errorMessage(errors.captcha[0]); // show "Invalid captcha"
+                    } else {
+                        errorMessage("Please check all required fields.");
+                    }
+                    // Refresh CAPTCHA
+                    refreshCapthca('captcha_img_id_enquiry_form', 'captcha_enquiry_form');
+                } else {
+                    errorMessage("Something went wrong.");
+                }
+                $('#submitButton').attr('disabled', false);
             }
         });
     });
@@ -2513,6 +2523,7 @@
         }
     });
 </script>
+
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
