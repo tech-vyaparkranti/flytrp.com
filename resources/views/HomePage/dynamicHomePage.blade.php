@@ -331,12 +331,12 @@
                         <i class="fal fa-map-marker-alt"></i>
                         <select name="destination" id="city">
                             <option value="">Destinations</option>
-                            @foreach ($destinations as $destination)
+                            {{-- @foreach ($destinations as $destination)
                                 <option value="{{ $destination }}"
                                     {{ request('destination') == $destination ? 'selected' : '' }}>
                                     {{ $destination }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
 
@@ -410,7 +410,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="section-title text-white text-center counter-text-wrap mb-70" data-aos="fade-up"
+                    <div class="section-title text-white text-center counter-text-wrap mb-30" data-aos="fade-up"
                         data-aos-duration="1500" data-aos-offset="50">
                         <!-- <h2>Discover the World's Treasures with FLYTRP Holidays</h2> -->
                         <h2 class="popular-destination mt-5" data-aos="fade-up">Explore Popular Packages</h2>
@@ -452,9 +452,9 @@
                                                 {{-- <div class="ratting">{{ $item->package_type }}</div> --}}
                                             </div>
                                             <div class="content tourpackage">
-                                                <span class="location">
+                                                {{-- <span class="location">
                                                     <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
-                                                </span>
+                                                </span> --}}
                                                 <h5 class="card-heading">
                                                     {!! $item->package_name !!}
                                                 </h5>
@@ -645,7 +645,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="section-title text-white text-center counter-text-wrap mb-70" data-aos="fade-up"
+                    <div class="section-title text-white text-center counter-text-wrap mb-30" data-aos="fade-up"
                         data-aos-duration="1500" data-aos-offset="50">
                         <!-- <h2>Discover the World's Treasures with FLYTRP Holidays</h2> -->
                         <h2 class="popular-destination" data-aos="fade-up"> Popular Destinations</h2>
@@ -774,6 +774,87 @@
     </section>
     <!-- Destinations Area end -->
 
+
+     <!-- related Tour Area start -->
+    <section class="destinations-area bgc-black pt-100 pb-30 rel z-1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section-title text-white text-center counter-text-wrap mb-30" data-aos="fade-up"
+                        data-aos-duration="1500" data-aos-offset="50">
+                        <h2 class="popular-destination" data-aos="fade-up">Our Tours</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+
+                <div class="swiper packages mt-4">
+                    <div class="swiper-wrapper">
+                        @if (isset($matchedTourTitles) && count($matchedTourTitles) > 0)
+                            @if (!empty($matchedTourTitles) && count($matchedTourTitles))
+                                @foreach ($matchedTourTitles as $item)
+                                    <div class="col-xl-4 col-md-6 swiper-slide">
+                                        <div class="destination-item tour-grid style-three bgc-lighter" data-aos="fade-up"
+                                            data-aos-duration="1500" data-aos-offset="50">
+                                            <div class="image">
+                                               
+                                                {{-- @if ($displayImage) --}}
+                                                <img src="{{ asset($item->image) }}" alt="{{ $item->title }}"
+                                                    class="hotel-image" style="margin-right: 10px;">
+                                                {{-- @else
+                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image" class="hotel-image">
+                                    @endif --}}
+                                            </div>
+                                            <div class="content">
+                                                <div class="destination-header">
+                                                    {{-- <span class="location">
+                                            {{ $item->package_type }}</span> --}}
+                                                    {{-- <div class="ratting">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div> --}}
+                                                </div>
+                                                <h5><a
+                                                        href="{{ route('tourDetail', ['tour_slug' => $item->slug]) }}">{{ $item->title }}</a>
+                                                </h5>
+                                                {{-- <p>Bali, Indonesia, is tropical paradise renowned breathtaking beaches and landscapes</p> --}}
+                                                {{-- <ul class="blog-meta"> --}}
+                                                {{-- <li><i class="far fa-clock"></i> {!! $item->package_duration_days !!} Days /
+                                            {!! $item->package_duration_nights !!} Nights</li> --}}
+                                                {{-- <li><i class="far fa-user"></i> 5-8 guest</li> --}}
+                                                {{-- </ul> --}}
+                                                <div class="destination-footers">
+                                                    <!-- <span class="price"><span>$58.00</span>/person</span> -->
+                                                    <a href="{{ route('tourDetail', ['tour_slug' => $item->slug]) }}"
+                                                        class="theme-btn style-two style-three">
+                                                        <span data-hover="Book Now text-center">View More</span>
+                                                        <i class="fal fa-arrow-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <span>No Travel Tour found.</span>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="view-more-buttons" style="display:block; text-align:center;">
+                <a class="service-view-buttons" style="color:white;" href="{{ route('tourPage') }}"><button
+                        type="submit" class="theme-btn style-two text-center col-4 ">
+                        <span data-hover="Send Comments">Explore More</span>
+                        <i class="fal fa-arrow-right"></i></a>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- related Tour  Area end -->
 
     <!-- Features Area start -->
     <section class="features-area pt-100 pb-45 rel z-1">

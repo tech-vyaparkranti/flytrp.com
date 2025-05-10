@@ -82,8 +82,8 @@
                                 </div>
                                 <div class="content">
                                     <div class="destination-header">
-                                        <span class="location"><i class="fal fa-map-marker-alt"></i>
-                                            {{ $item->package_country }}</span>
+                                        {{-- <span class="location"><i class="fal fa-map-marker-alt"></i>
+                                            {{ $item->package_country }}</span> --}}
                                         {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -121,7 +121,7 @@
                             </div>
                             <div class="content">
                                 <div class="destination-header">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
+                                    {{-- <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span> --}}
                                     {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -157,7 +157,7 @@
                             </div>
                             <div class="content">
                                 <div class="destination-header">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Bali, Indonesia</span>
+                                    {{-- <span class="location"><i class="fal fa-map-marker-alt"></i> Bali, Indonesia</span> --}}
                                     {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -193,7 +193,7 @@
                             </div>
                             <div class="content">
                                 <div class="destination-header">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
+                                    {{-- <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span> --}}
                                     {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -229,7 +229,7 @@
                             </div>
                             <div class="content">
                                 <div class="destination-header">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span>
+                                    {{-- <span class="location"><i class="fal fa-map-marker-alt"></i> Rome, Italy</span> --}}
                                     {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -265,7 +265,7 @@
                             </div>
                             <div class="content">
                                 <div class="destination-header">
-                                    <span class="location"><i class="fal fa-map-marker-alt"></i> Bali, Indonesia</span>
+                                    {{-- <span class="location"><i class="fal fa-map-marker-alt"></i> Bali, Indonesia</span> --}}
                                     {{-- <div class="ratting">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>

@@ -309,7 +309,7 @@
                         <div class="container-fluid">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12">
-                                    <div class="section-title text-white text-center counter-text-wrap mb-70"
+                                    <div class="section-title text-white text-center counter-text-wrap mb-30"
                                         data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                                         <h2 class="popular-destination" data-aos="fade-up">Related Packages</h2>
                                         <p>One site most popular experience you’ll remember</p>

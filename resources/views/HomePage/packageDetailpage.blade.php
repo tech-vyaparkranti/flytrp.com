@@ -121,7 +121,7 @@
 
 
 <!-- Tour Details Area start -->
-<section class="tour-details-page pb-100">
+<section class="tour-details-page pb-20">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -142,17 +142,7 @@
                     </p>
                     <div class="row pb-55">
                         <div class="col-md-6">
-                            {{-- <div class="tour-include-exclude mt-4">
-                                <h5>Included</h5>
-                                <ul class="list-style-one check mt-2">
-                                    <li><i class="fa-solid fa-check"></i> Pick and Drop Services</li>
-                                    <li><i class="fa-solid fa-check"></i> 1 Meal Per Day</li>
-                                    <li><i class="fa-solid fa-check"></i> Cruise Dinner & Music Event</li>
-                                    <li><i class="fa-solid fa-check"></i> Visit 7 Best Places in the City</li>
-                                    <li><i class="fa-solid fa-check"></i> Bottled Water on Buses</li>
-                                    <li><i class="fa-solid fa-check"></i> Transportation Luxury Tour Bus</li>
-                                </ul>
-                            </div> --}}
+                            
                             <div class="tour-include-exclude mt-4">
                                 <h5>Included</h5>
                                 <ul class="list-style-one check mt-2">
@@ -862,7 +852,97 @@
 </section>
 <!-- Tour Details Area end -->
 
+<!-- Popular Packages Area start -->
+    <section class="destinations-area bgc-black pt-40 pb-70 rel z-1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section-title text-white text-center counter-text-wrap mb-30" data-aos="fade-up"
+                        data-aos-duration="1500" data-aos-offset="50">
+                        <!-- <h2>Discover the World's Treasures with FLYTRP Holidays</h2> -->
+                        <h2 class="popular-destination mt-5" data-aos="fade-up">Explore Other Packages</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="swiper packages mt-4">
+                    <div class="swiper-wrapper">
+                        @if (isset($otherPackages) && count($otherPackages) > 0)
+                            @foreach ($otherPackages as $item)
+                                @php
+                                    // Ensure package_image is a valid JSON string before decoding
+                                    $images = is_string($item->package_image)
+                                        ? json_decode($item->package_image, true)
+                                        : $item->package_image;
 
+                                    // Check if images is a valid array and get the first image
+                                    $displayImage = is_array($images) && !empty($images) ? $images[0] : null;
+                                @endphp
+                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
+                                    <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}">
+                                        <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
+                                            data-aos-offset="50">
+                                            <div class="image">
+                                                @if ($displayImage)
+                                                    {{-- <figure class="images"> --}}
+                                                    <img src="{{ asset('storage/' . $displayImage) }}"
+                                                        alt="{{ $item->package_name }}" class="gallery-image">
+                                                    {{-- </figure> --}}
+                                                @else
+                                                    {{-- <figure class="images"> --}}
+                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
+                                                        alt="Default Image">
+                                                    {{-- </figure> --}}
+                                                @endif
+
+                                                {{-- <div class="ratting">{{ $item->package_type }}</div> --}}
+                                            </div>
+                                            <div class="content tourpackage">
+                                                {{-- <span class="location">
+                                                    <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
+                                                </span> --}}
+                                                <h5 class="card-heading">
+                                                    {!! $item->package_name !!}
+                                                </h5>
+                                                <span class="time">
+                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!} Nights
+                                                </span>
+                                            </div>
+                                            <div class="destination-footer price">
+                                                <span class="offer-price">
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {!! IND_money_format($item->package_offer_price) !!}
+                                                </span>
+                                                <span class="sale-price">
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {!! IND_money_format($item->package_price) !!}
+                                                </span>
+                                                <span class="offer-amount">
+                                                    Save <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                    {{ IND_money_format($item->package_price - $item->package_offer_price) }}
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>NO Data Available</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="view-more-buttons" style="display:block; text-align:center;">
+                <a class="service-view-buttons" style="color:white;" href="{{ route('packagePage') }}"><button
+                        type="submit" class="theme-btn style-two text-center col-4 ">
+                        <span data-hover="Send Comments">Explore More</span>
+                        <i class="fal fa-arrow-right"></i></a>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Popular Packages Area end -->
 
 <style>
     .form-container {

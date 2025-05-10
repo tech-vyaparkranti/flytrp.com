@@ -46,8 +46,9 @@ class HomePageController extends Controller
             $offerPackage = PackageCategoriesModel::with('package')->where("status",1)->orderBy('updated_at','desc')->take(3)->get();
             $galleryItems = $this->getCachedGalleryItems();
 
+            $matchedTourTitles = Tour::where("status",1)->get();
             return view("HomePage.dynamicHomePage", compact('getPackages', 'packageCategory', 'packages', 'destinations',
-                 'travelCategories', 'sliders', 'blogs','home_recognitions','homedestinations','offerPackage','galleryItems'), $data);
+                 'travelCategories', 'sliders', 'blogs','home_recognitions','homedestinations','offerPackage','galleryItems' ,'matchedTourTitles'), $data);
         } catch (Exception $exception) {
             echo $exception->getMessage();
             return false;
@@ -135,13 +136,20 @@ class HomePageController extends Controller
         $package = PackageMaster::where('slug', $slug)->firstOrFail();
         $getHomeAllFaq = HomeFaqModel::all();
         $getTours = Tour::where('status',1)->get();
+
         $tourIds = json_decode($package->tour_type, true);
 
         $matchedTourTitles = Tour::whereIn('id', $tourIds)
             ->where('status', 1)
             ->pluck('title');
 
-        return view("HomePage.packageDetailpage", compact('package', 'getHomeAllFaq','matchedTourTitles'), $data);
+        $otherPackages = PackageMaster::where('slug', '!=', $slug)
+        ->where(PackageMaster::STATUS,1)
+        ->orderBy(PackageMaster::raw('RAND()'))
+        ->take(4)
+        ->get();
+
+        return view("HomePage.packageDetailpage", compact('package', 'getHomeAllFaq','matchedTourTitles','otherPackages'), $data);
     }
     public function destinationpage()
     {
@@ -157,14 +165,7 @@ class HomePageController extends Controller
     {
         $data = $this->getElement();
         $homedestination = DestinationsModel::where('destination_slug', $destination_slug)->firstOrFail();
-        // $destination = PackageMaster::where('destination_slug', $destination_slug)->firstOrFail();
-        // $service = Service::where(Service::SERVICE_STATUS, Service::SERVICE_STATUS_LIVE)
-        //     ->orderBy(Service::SERVICE_SORTING, 'desc')
-        //     ->get();
-        // $destinations = PackageMaster::distinct()->pluck('package_country')->toArray();
-        // $package = PackageMaster::where(PackageMaster::STATUS, 1)
-        //     ->where('package_country', $homedestination->destination_name)
-        //     ->firstOrFail();
+        
         $package = PackageMaster::where(PackageMaster::STATUS, "1")->get();
 
         // $packages = PackageMaster::where(PackageMaster::STATUS, 1)
@@ -181,12 +182,12 @@ class HomePageController extends Controller
                 })
                 ->get();
         $homedestinations = DestinationsModel::where('status','1')->get();
+        $tourIds = json_decode($homedestination->tour_id, true);
 
-        // $country = PackageMaster::select('package_country', 'package_image', 'package_name')
-        //     ->where('status', 1)
-        //     ->where('package_country', '!=', $homedestination->destination_name) 
-        //     ->get();
-        return view("HomePage.destinationDetailpage", compact('homedestination','packages','homedestinations'), $data);
+        $matchedTourTitles = Tour::whereIn('id', $tourIds)
+            ->where('status', 1)->get();
+           
+        return view("HomePage.destinationDetailpage", compact('homedestination','packages','homedestinations','matchedTourTitles'), $data);
     }
 
     public function tourPage()
