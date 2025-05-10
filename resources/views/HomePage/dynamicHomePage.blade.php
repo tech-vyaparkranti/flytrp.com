@@ -340,18 +340,19 @@
                         </select>
                     </div>
 
+                     <!-- Departure Date -->
+                    <div class="input-wrapper">
+                        <i class="fal fa-calendar-alt"></i>
+                        <input type="date" name="destination_date" id="departure_date" placeholder="=travel Date">
+                    </div>
+
                     <!-- Mobile Number -->
                     <div class="input-wrapper">
                         <i class="fal fa-phone-alt"></i>
                         <input type="text" name="phone" id="mobile_no" placeholder="Mobile Number">
                     </div>
 
-                    <!-- Departure Date -->
-                    <div class="input-wrapper">
-                        <i class="fal fa-calendar-alt"></i>
-                        <input type="date" name="destination_date" id="departure_date" placeholder="=travel Date">
-                    </div>
-
+                   
                     <!-- Submit Button -->
                     <div class="search-button">
                         <button type="submit" class="theme-btn style-two bgc-secondary">

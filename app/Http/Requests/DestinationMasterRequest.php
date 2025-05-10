@@ -28,12 +28,14 @@ class DestinationMasterRequest extends FormRequest
      */
     public function rules()
     {
+        
+
         return [
             DestinationsModel::ID => "bail|required_if:action,update,enable,disable|nullable|exists:destination_master,id",
             DestinationsModel::DESTINATION_NAME => "bail|required_if:action,update,insert|nullable",
             // Allow multiple images and validate each file as an image
-            DestinationsModel::DESTINATION_IMAGE => "bail|nullable|array", // Accept multiple images as array
-            DestinationsModel::DESTINATION_IMAGE . ".*" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048", // Validate each image
+            DestinationsModel::DESTINATION_IMAGE => "bail|nullable|array|min:5", // Accept multiple images as array
+            DestinationsModel::DESTINATION_IMAGE . ".*" => "bail|image|mimes:jpeg,png,jpg|max:2048", // Validate each image
             DestinationsModel::DESTINATION_DETAILS => "bail|nullable|string",
             DestinationsModel::META_TITLE => "bail|nullable",
             DestinationsModel::META_KEYWORD => "bail|nullable",

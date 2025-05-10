@@ -12,7 +12,7 @@
 
                 <x-input-with-label-element id="destination_name" label="Destination Name" placeholder="Destination Name" name="destination_name" required ></x-input-with-label-element>
 
-                <x-input-with-label-element div_id="destination_image_div" id="destination_image" label="Destination Image" type="file" accept="image/*"
+                <x-input-with-label-element div_id="destination_image_div" id="destination_image" label="Destination Image (only .jpeg, .png, .jpg)" type="file" accept="image/*"
                 placeholder="Destination Image" name="destination_image[]" required="true" multiple></x-input-with-label-element>
 
                 <x-select-label-group required name="tour_id[]" id="tour_type" label_text="Tour Type" multiple class="select2">

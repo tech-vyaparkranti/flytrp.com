@@ -100,7 +100,7 @@
                             <h2>{{ $homedestination->destination_name }}</h2>
                         </div>
                         <p>
-                            {{ $homedestination->destination_details }}
+                            {!! $homedestination->destination_details !!}
                         </p>
                         <a href="{{ route('destinationpage') }}" class="theme-btn mt-25 style-two">
                             <span data-hover="Explore Destinations">Explore Destinations</span>

@@ -185,6 +185,7 @@ class PackageMasterController extends Controller
             'destination' => "required",
             "package_duration_nights" => "required|integer|gte:0",
             "package_external_link" => "nullable|url",
+            "package_image" => "nullable|min:5|array",
             "package_image.*" => "nullable|image|mimes:jpeg,png,jpg,gif|max:2048",
             'description' => 'nullable|string|max:65535',
             "package_included" => "nullable|array",
