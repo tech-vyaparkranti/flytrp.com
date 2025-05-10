@@ -2422,11 +2422,11 @@
                     <label for="message" class="form-label">Message</label>
                     <textarea id="message" name="message" rows="3" class="form-textarea" required></textarea>
                 </div>
-                <div class="form-group">
+                 {{--<div class="form-group">
                     <label for="captcha_enquiry_form" class="form-label">Captcha</label>
                     <input type="text" id="captcha_enquiry_form" name="captcha" class="form-input" required placeholder="Enter Captcha">
                 
-                    {{-- <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem;">
                         <img class="img-thumbnail" style="max-width: 150px;" 
                         src="{{ captcha_src() }}" 
                         id="captcha_img_id_enquiry_form" 
@@ -2435,8 +2435,8 @@
                         <button type="button" class="btn btn-icon btn-light" onclick="refreshCapthca('captcha_img_id_enquiry_form','captcha_enquiry_form')">
                             <i class="fa fa-refresh"></i>
                         </button>
-                    </div> --}}
-                </div>
+                    </div> 
+                </div>--}}
                 
                 
                 <button type="submit" class="submit-btn mb-5">Submit</button>
