@@ -136,80 +136,93 @@
         </div>
     </section>
     <!-- About Us Area end -->
-    <!-- related Tour Area start -->
-    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="section-title text-white text-center counter-text-wrap mb-30" data-aos="fade-up"
-                        data-aos-duration="1500" data-aos-offset="50">
-                        <h2 class="popular-destination" data-aos="fade-up">Our Related Tours</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
+    <section class="destinations-area bgc-black pt-50 pb-10 rel z-1">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="section-title text-white text-center counter-text-wrap mb-30"
+                                        data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
+                                        <h2 class="popular-destination" data-aos="fade-up">Related Packages</h2>
+                                        <p>One site most popular experience you’ll remember</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
 
-                <div class="swiper packages mt-4">
-                    <div class="swiper-wrapper">
-                        @if (isset($matchedTourTitles) && count($matchedTourTitles) > 0)
-                            @if (!empty($matchedTourTitles) && count($matchedTourTitles))
-                                @foreach ($matchedTourTitles as $item)
-                                    <div class="col-xl-4 col-md-6 swiper-slide">
-                                        <div class="destination-item tour-grid style-three bgc-lighter" data-aos="fade-up"
-                                            data-aos-duration="1500" data-aos-offset="50">
-                                            <div class="image">
-                                               
-                                                {{-- @if ($displayImage) --}}
-                                                <img src="{{ asset($item->image) }}" alt="{{ $item->title }}"
-                                                    class="hotel-image" style="margin-right: 10px;">
-                                                {{-- @else
-                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image" class="hotel-image">
-                                    @endif --}}
-                                            </div>
-                                            <div class="content">
-                                                <div class="destination-header">
-                                                    {{-- <span class="location">
-                                            {{ $item->package_type }}</span> --}}
-                                                    {{-- <div class="ratting">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div> --}}
-                                                </div>
-                                                <h5><a
-                                                        href="{{ route('tourDetail', ['tour_slug' => $item->slug]) }}">{{ $item->title }}</a>
-                                                </h5>
-                                                {{-- <p>Bali, Indonesia, is tropical paradise renowned breathtaking beaches and landscapes</p> --}}
-                                                {{-- <ul class="blog-meta"> --}}
-                                                {{-- <li><i class="far fa-clock"></i> {!! $item->package_duration_days !!} Days /
-                                            {!! $item->package_duration_nights !!} Nights</li> --}}
-                                                {{-- <li><i class="far fa-user"></i> 5-8 guest</li> --}}
-                                                {{-- </ul> --}}
-                                                <div class="destination-footers">
-                                                    <!-- <span class="price"><span>$58.00</span>/person</span> -->
-                                                    <a href="{{ route('tourDetail', ['tour_slug' => $item->slug]) }}"
-                                                        class="theme-btn style-two style-three">
-                                                        <span data-hover="Book Now text-center">View More</span>
-                                                        <i class="fal fa-arrow-right"></i>
+                                <div class="swiper packages mt-4">
+                                    <div class="swiper-wrapper">
+                                        @if (isset($packages) && count($packages) > 0)
+                                            @foreach ($packages as $item)
+                                                @php
+                                                    // Ensure package_image is a valid JSON string before decoding
+                                                    $images = is_string($item->package_image)
+                                                        ? json_decode($item->package_image, true)
+                                                        : $item->package_image;
+
+                                                    // Check if images is a valid array and get the first image
+                                                    $displayImage =
+                                                        is_array($images) && !empty($images) ? $images[0] : null;
+                                                @endphp
+                                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
+                                                    <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}">
+                                                        <div class="destination-item" data-aos="fade-up"
+                                                            data-aos-duration="1500" data-aos-offset="50">
+                                                            <div class="image">
+                                                                @if ($displayImage)
+                                                                    {{-- <figure class="images"> --}}
+                                                                    <img src="{{ asset('storage/' . $displayImage) }}"
+                                                                        alt="{{ $item->package_name }}"
+                                                                        class="gallery-image">
+                                                                    {{-- </figure> --}}
+                                                                @else
+                                                                    {{-- <figure class="images"> --}}
+                                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
+                                                                        alt="Default Image">
+                                                                    {{-- </figure> --}}
+                                                                @endif
+
+                                                                {{-- <div class="ratting">{{ $item->tour_type }}</div> --}}
+                                                            </div>
+                                                            <div class="content tourpackage">
+                                                                {{-- <span class="location">
+                                                            <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
+                                                        </span> --}}
+                                                                <h5 class="card-heading">
+                                                                    {!! $item->package_name !!}
+                                                                </h5>
+                                                                <span class="time">
+                                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!}
+                                                                    Nights
+                                                                </span>
+                                                            </div>
+                                                            <div class="destination-footer price">
+                                                                <span class="offer-price">
+                                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                    {!! IND_money_format($item->package_offer_price) !!}
+                                                                </span>
+                                                                <span class="sale-price">
+                                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                    {!! IND_money_format($item->package_price) !!}
+                                                                </span>
+                                                                <span class="offer-amount">
+                                                                    Save <i class="fa-solid fa-indian-rupee-sign"></i>
+                                                                    {{ IND_money_format($item->package_price - $item->package_offer_price) }}
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
                                                     </a>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @else
+                                            <span>No Similar Packages found.</span>
+                                           
+                                        @endif
                                     </div>
-                                @endforeach
-                            @else
-                                <span>No Similar Travel Tour found.</span>
-                               
-                            @endif
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- related Tour  Area end -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
     <!-- Destinations Area start -->
     <section class="destinations-area bgc-lighter pt-85 pb-100 rel z-1">

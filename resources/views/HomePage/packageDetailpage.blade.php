@@ -95,7 +95,7 @@
                     data-aos-offset="50">
                     <span class="location d-inline-block mb-10">  {{ $matchedTourTitles->implode(', ') }}</span>
                     <div class="section-title pb-5">
-                        <h2> {{ $package->package_name }}, {{ $package->package_country }}</h2>
+                        <h2> {{ $package->package_name }}</h2>
                     </div>
                     {{-- <div class="ratting">
                         <i class="fas fa-star"></i>
@@ -114,7 +114,7 @@
                 </div>
             </div> --}}
         </div>
-        <hr class="mt-50 mb-70">
+        {{-- <hr class="mt-20 mb-20"> --}}
     </div>
 </section>
 <!-- Tour Header Area end -->
@@ -126,7 +126,6 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="tour-details-content">
-                    <h3>Explore Packages</h3>
                     <p>
                         @if (isset($package->description) && !empty($package->description))
                                                 @php

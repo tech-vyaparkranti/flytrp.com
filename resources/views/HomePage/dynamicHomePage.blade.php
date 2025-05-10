@@ -331,12 +331,12 @@
                         <i class="fal fa-map-marker-alt"></i>
                         <select name="destination" id="city">
                             <option value="">Destinations</option>
-                            {{-- @foreach ($destinations as $destination)
+                            @foreach ($destinations as $destination)
                                 <option value="{{ $destination }}"
                                     {{ request('destination') == $destination ? 'selected' : '' }}>
                                     {{ $destination }}
                                 </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                     </div>
 
@@ -406,7 +406,7 @@
     <!-- Hero Area End -->
 
     <!-- Popular Packages Area start -->
-    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
+    <section class="destinations-area bgc-black pt-100 pb-20 rel z-1">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -583,7 +583,7 @@
     </section>
 @endif
     <!-- About Us Area start -->
-    <section class="about-us-area py-100 rpb-90 rel z-1">
+    <section class="about-us-area py-30 rpb-90 rel z-1">
         <div class="container">
             <div class="row align-items-center">
                 <h2 class="text-center mb-4">About Us </h2>
@@ -641,7 +641,7 @@
     <!-- About Us Area end -->
 
     <!-- Destinations Area start -->
-    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
+    <section class="destinations-area bgc-black pt-70 pb-50 rel z-1">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -788,7 +788,7 @@
             </div>
             <div class="row justify-content-center">
 
-                <div class="swiper packages mt-4">
+                <div class="swiper packages mt-2">
                     <div class="swiper-wrapper">
                         @if (isset($matchedTourTitles) && count($matchedTourTitles) > 0)
                             @if (!empty($matchedTourTitles) && count($matchedTourTitles))
@@ -935,7 +935,7 @@
             </div>
         </div>
     </section>
-    <div class="client-logo-area mb-100">
+    <div class="client-logo-area mb-30">
         <div class="container">
             <div class="client-logo-wrap pt-60 pb-55">
                 <div class="text-center mb-40" data-aos="zoom-in" data-aos-duration="1500" data-aos-offset="50">
@@ -968,11 +968,11 @@
     </div>
 
     <!-- Blog Area start -->
-    <section class="blog-area py-70 rel z-1">
+    <section class="blog-area py-30 rel z-1">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="section-title text-center counter-text-wrap mb-70" data-aos="fade-up"
+                    <div class="section-title text-center counter-text-wrap mb-30" data-aos="fade-up"
                         data-aos-duration="1500" data-aos-offset="50">
                         <h2>Read Latest News & Blog</h2>
                         <p>One site many popular experience you’ll remember</p>
@@ -1700,7 +1700,7 @@
                 } */
 
         .wanderlust-gallery-section {
-            padding: 80px 0;
+            padding: 30px 0;
             background-color: #fff;
             position: relative;
             overflow: hidden;
@@ -1708,7 +1708,7 @@
 
         .wanderlust-section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -1908,7 +1908,7 @@
             }
 
             .wanderlust-section-title {
-                margin-bottom: 30px;
+                margin-bottom: 10px;
             }
 
             .wanderlust-overlay {
@@ -2005,7 +2005,7 @@
             <div class="row wanderlust-featured-gallery">
                 @foreach($galleryItems as $index => $item)
                     @if($index < 3)
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="{{ $index == 0 ? 'fade-up' : ($index == 1 ? 'zoom-in' : 'fade-left') }}" data-aos-delay="{{ $index * 200 }}">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-2" data-aos="{{ $index == 0 ? 'fade-up' : ($index == 1 ? 'zoom-in' : 'fade-left') }}" data-aos-delay="{{ $index * 200 }}">
                             <div class="wanderlust-card">
                                 <img src="{{ $item->image_link ?? asset($item->local_image) }}" alt="{{ $item->alternate_text }}" class="wanderlust-img">
                                 <div class="wanderlust-overlay">

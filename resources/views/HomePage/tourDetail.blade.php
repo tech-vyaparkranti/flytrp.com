@@ -20,9 +20,10 @@
 
             <div class="default-content pt-4  our-service-page">
 
-                 <div class="blog-banner" style="padding: 0; margin-bottom: 30px;">
-            <img src="{{ asset('assets/images/Banner_HD.png') }}" alt="Tour Banner" style=" height:350px; max-height:350px; width:100%; object-fit:cover; border-radius: 0px !important;">
-        </div>
+                <div class="blog-banner" style="padding: 0; margin-bottom: 30px;">
+                    <img src="{{ asset('assets/images/Banner_HD.png') }}" alt="Tour Banner"
+                        style=" height:350px; max-height:350px; width:100%; object-fit:cover; border-radius: 0px !important;">
+                </div>
                 <div class="custom-container">
 
                     {{-- <div class="main-container">
@@ -57,192 +58,192 @@
                     </div> --}}
 
 
-        <style>
-        .blog-banner {
-            margin-bottom: 50px;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+                    <style>
+                        .blog-banner {
+                            margin-bottom: 50px;
+                            width: 100%;
+                            overflow: hidden;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        }
 
 
 
-        .main-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+                        .main-container {
+                            width: 100%;
+                            max-width: 1200px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }
 
-        .detail-blog-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-bottom: 40px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 25px;
-        }
+                        .detail-blog-container {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 30px;
+                            margin-bottom: 40px;
+                            background-color: #fff;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                            padding: 25px;
+                        }
 
-        .blog-left-container {
-            flex: 1;
-        }
+                        .blog-left-container {
+                            flex: 1;
+                        }
 
-        .blog-left-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            object-fit: cover;
-        }
+                        .blog-left-item img {
+                            width: 100%;
+                            height: auto;
+                            border-radius: 8px;
+                            object-fit: cover;
+                        }
 
-        .blog-left-content {
-            padding: 15px 0;
-        }
+                        .blog-left-content {
+                            padding: 15px 0;
+                        }
 
-        .blog-left-content h3 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
+                        .blog-left-content h3 {
+                            font-size: 24px;
+                            color: #2c3e50;
+                            margin-bottom: 15px;
+                        }
 
-        .blog-left-content p {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: #444;
-        }
+                        .blog-left-content p {
+                            font-size: 16px;
+                            line-height: 1.7;
+                            margin-bottom: 15px;
+                            color: #444;
+                        }
 
-        .blog-right-container {
-            width: 100%;
-        }
+                        .blog-right-container {
+                            width: 100%;
+                        }
 
-        .recent-posts {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-        }
+                        .recent-posts {
+                            background-color: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 8px;
+                        }
 
-        .recent-posts h4 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e1e8ed;
-            color: #2c3e50;
-        }
+                        .recent-posts h4 {
+                            font-size: 20px;
+                            margin-bottom: 20px;
+                            padding-bottom: 10px;
+                            border-bottom: 2px solid #e1e8ed;
+                            color: #2c3e50;
+                        }
 
-        .posts {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 20px;
-        }
+                        .posts {
+                            display: grid;
+                            grid-template-columns: repeat(1, 1fr);
+                            gap: 20px;
+                        }
 
-        .post-cards {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+                        .post-cards {
+                            background-color: #fff;
+                            border-radius: 8px;
+                            overflow: hidden;
+                            transition: transform 0.3s ease;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                        }
 
-        .post-cards:hover {
-            transform: translateY(-5px);
-        }
+                        .post-cards:hover {
+                            transform: translateY(-5px);
+                        }
 
-        .post-cards img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
+                        .post-cards img {
+                            width: 100%;
+                            height: 180px;
+                            object-fit: cover;
+                        }
 
-        .post-cards h5 {
-            padding: 15px;
-            font-size: 16px;
-        }
+                        .post-cards h5 {
+                            padding: 15px;
+                            font-size: 16px;
+                        }
 
-        .post-cards h5 a {
-            color: #2c3e50;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+                        .post-cards h5 a {
+                            color: #2c3e50;
+                            text-decoration: none;
+                            transition: color 0.3s ease;
+                        }
 
-        .post-cards h5 a:hover {
-            color: #3498db;
-        }
+                        .post-cards h5 a:hover {
+                            color: #3498db;
+                        }
 
-        /* Media Queries for Responsiveness */
-        @media (min-width: 768px) {
-            .detail-blog-container {
-                flex-direction: row;
-            }
+                        /* Media Queries for Responsiveness */
+                        @media (min-width: 768px) {
+                            .detail-blog-container {
+                                flex-direction: row;
+                            }
 
-            .blog-left-container {
-                flex: 2;
-                padding-right: 25px;
-            }
+                            .blog-left-container {
+                                flex: 2;
+                                padding-right: 25px;
+                            }
 
-            .blog-right-container {
-                flex: 1;
-                min-width: 300px;
-            }
+                            .blog-right-container {
+                                flex: 1;
+                                min-width: 300px;
+                            }
 
-            .posts {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+                            .posts {
+                                grid-template-columns: repeat(2, 1fr);
+                            }
+                        }
 
-        @media (min-width: 992px) {
-            .posts {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
+                        @media (min-width: 992px) {
+                            .posts {
+                                grid-template-columns: repeat(1, 1fr);
+                            }
+                        }
 
-        @media (max-width: 767px) {
-            .detail-blog-container {
-                padding: 15px;
-            }
+                        @media (max-width: 767px) {
+                            .detail-blog-container {
+                                padding: 15px;
+                            }
 
-            .blog-left-content h3 {
-                font-size: 22px;
-            }
+                            .blog-left-content h3 {
+                                font-size: 22px;
+                            }
 
-            .recent-posts {
-                padding: 15px;
-            }
-        }
-    </style>
+                            .recent-posts {
+                                padding: 15px;
+                            }
+                        }
+                    </style>
 
-    <div class="main-container">
-        <div class="detail-blog-container">
-            <div class="blog-left-container">
-                <div class="blog-left-item">
-                    <img src="{{ asset($tours->image) }}" alt="{{ $tours->title }}">
-                    <div class="blog-left-content">
-                        <h3>{{ $tours->title }}</h3>
-                        <div class="text-justify">{!! $tours->content !!}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-right-container">
-                <div class="recent-posts">
-                    <h4>Our Recent Posts</h4>
-                    <div class="posts">
-                        @foreach ($otherTours as $otherTour)
-                            <div class="post-cards">
-                                <img src="{{ asset($otherTour->image) }}" alt="{{ $otherTour->title }}">
-                                <h5>
-                                    <a href="{{ route('tourDetail', ['tour_slug' => $otherTour->slug]) }}">
-                                        {{ $otherTour->title }}
-                                    </a>
-                                </h5>
+                    <div class="main-container">
+                        <div class="detail-blog-container">
+                            <div class="blog-left-container">
+                                <div class="blog-left-item">
+                                    <img src="{{ asset($tours->image) }}" alt="{{ $tours->title }}">
+                                    <div class="blog-left-content">
+                                        <h3>{{ $tours->title }}</h3>
+                                        <div class="text-justify">{!! $tours->content !!}</div>
+                                    </div>
+                                </div>
                             </div>
-                        @endforeach
+                            <div class="blog-right-container">
+                                <div class="recent-posts">
+                                    <h4>Our Recent Posts</h4>
+                                    <div class="posts">
+                                        @foreach ($otherTours as $otherTour)
+                                            <div class="post-cards">
+                                                <img src="{{ asset($otherTour->image) }}" alt="{{ $otherTour->title }}">
+                                                <h5>
+                                                    <a href="{{ route('tourDetail', ['tour_slug' => $otherTour->slug]) }}">
+                                                        {{ $otherTour->title }}
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
                     {{-- <h4 class="text-center mb-2 mt-2">Similar Packages</h4>
@@ -305,14 +306,15 @@
             @else
                 <span>Sorry no similar packs found</span>
             @endif --}}
-                    <section class="destinations-area bgc-black pt-100 pb-70 rel z-1">
+
+                    <!-- related Tour Area start -->
+                    <section class="destinations-area bgc-black pt-30 pb-70 rel z-1">
                         <div class="container-fluid">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12">
                                     <div class="section-title text-white text-center counter-text-wrap mb-30"
                                         data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                                        <h2 class="popular-destination" data-aos="fade-up">Related Packages</h2>
-                                        <p>One site most popular experience you’ll remember</p>
+                                        <h2 class="popular-destination" data-aos="fade-up">Our Related Destinations</h2>
                                     </div>
                                 </div>
                             </div>
@@ -320,145 +322,67 @@
 
                                 <div class="swiper packages mt-4">
                                     <div class="swiper-wrapper">
-                                        @if (isset($packages) && count($packages) > 0)
-                                            @foreach ($packages as $item)
+                                        @if (isset($ourdestination) && count($ourdestination) > 0)
+                            @foreach ($ourdestination as $item)
+                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
+                                    <a
+                                        href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">
+                                        <div class="destination-item" data-aos="fade-up" data-aos-duration="1500"
+                                            data-aos-offset="50">
+                                            <div class="image">
                                                 @php
                                                     // Ensure package_image is a valid JSON string before decoding
-                                                    $images = is_string($item->package_image)
-                                                        ? json_decode($item->package_image, true)
-                                                        : $item->package_image;
+                                                    $images = is_string($item->destination_image)
+                                                        ? json_decode($item->destination_image, true)
+                                                        : $item->destination_image;
 
                                                     // Check if images is a valid array and get the first image
                                                     $displayImage =
                                                         is_array($images) && !empty($images) ? $images[0] : null;
                                                 @endphp
-                                                <div class="col-xxl-3 col-xl-4 col-md-6 swiper-slide">
-                                                    <a href="{{ route('packageDetailpage', ['slug' => $item->slug]) }}">
-                                                        <div class="destination-item" data-aos="fade-up"
-                                                            data-aos-duration="1500" data-aos-offset="50">
-                                                            <div class="image">
-                                                                @if ($displayImage)
-                                                                    {{-- <figure class="images"> --}}
-                                                                    <img src="{{ asset('storage/' . $displayImage) }}"
-                                                                        alt="{{ $item->package_name }}"
-                                                                        class="gallery-image">
-                                                                    {{-- </figure> --}}
-                                                                @else
-                                                                    {{-- <figure class="images"> --}}
-                                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
-                                                                        alt="Default Image">
-                                                                    {{-- </figure> --}}
-                                                                @endif
 
-                                                                {{-- <div class="ratting">{{ $item->tour_type }}</div> --}}
-                                                            </div>
-                                                            <div class="content tourpackage">
-                                                                {{-- <span class="location">
-                                                            <i class="fal fa-map-marker-alt"></i> {{ $item->package_country }}
-                                                        </span> --}}
-                                                                <h5 class="card-heading">
-                                                                    {!! $item->package_name !!}
-                                                                </h5>
-                                                                <span class="time">
-                                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!}
-                                                                    Nights
-                                                                </span>
-                                                            </div>
-                                                            <div class="destination-footer price">
-                                                                <span class="offer-price">
-                                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                                    {!! IND_money_format($item->package_offer_price) !!}
-                                                                </span>
-                                                                <span class="sale-price">
-                                                                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                                    {!! IND_money_format($item->package_price) !!}
-                                                                </span>
-                                                                <span class="offer-amount">
-                                                                    Save <i class="fa-solid fa-indian-rupee-sign"></i>
-                                                                    {{ IND_money_format($item->package_price - $item->package_offer_price) }}
-                                                                </span>
-
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <span>No Similar Packages found.</span>
-                                            {{-- <div class="col-xxl-3 col-xl-4 col-md-6">
-                                <div class="destination-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1500"
-                                    data-aos-offset="50">
-                                    <div class="image">
-                                        <div class="ratting">Pilgrimage</div>
-                                        <!-- <a href="#" class="heart"><i class="fas fa-heart"></i></a> -->
-                                        <img src="./assets/images/destination2.jpg" alt="Destination">
-                                    </div>
-                                    <div class="content">
-                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Italy</span>
-                                        <h5><a href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">San Giovanni Rotondo</a></h5>
-                                        <span class="time">3 days 2 nights</span>
-                                    </div>
-                                    <div class="destination-footer">
-                                        <span class="price"><span class="span-time">Rs. 6300</span>/per person</span>
-                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
-                                                class="fal fa-angle-right"></i></a>
-                                    </div>
+                                                @if ($displayImage)
+                                                    <img src="{{ asset('storage/' . $displayImage) }}"
+                                                        alt="{{ $item->destination_name }}" class="hotel-image"
+                                                        style="margin-right: 10px;">
+                                                @else
+                                                    <img src="{{ asset('path/to/default/image.jpg') }}"
+                                                        alt="Default Image" class="hotel-image">
+                                                @endif
+                                            </div>
+                                            <div class="content">
+                                                {{-- <span class="location">
+                                                    {{ $item->package_type }}
+                                                </span> --}}
+                                                <h5 class="card-heading">
+                                                    {{ $item->destination_name }}
+                                                </h5>
+                                                {{-- <span class="time">
+                                                    {!! $item->package_duration_days !!} Days / {!! $item->package_duration_nights !!} Nights
+                                                </span> --}}
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-xxl-3 col-xl-4 col-md-6">
-                                <div class="destination-item" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1500"
-                                    data-aos-offset="50">
-                                    <div class="image">
-                                        <div class="ratting"></i>Religious</div>
-                                        <!-- <a href="#" class="heart"><i class="fas fa-heart"></i></a> -->
-                                        <img src="./assets/images/destination4.jpg" alt="Destination">
-                                    </div>
-                                    <div class="content">
-                                        <span class="location"><i class="fal fa-map-marker-alt"></i>France</span>
-                                        <h5><a href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">Notre-Dame de la Garde</a></h5>
-                                        <span class="time">3 days 2 nights</span>
-                                    </div>
-                                    <div class="destination-footer">
-                                        <span class="price"><span class="span-time">Rs. 4200</span>/per person</span>
-                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
-                                                class="fal fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xxl-3 col-xl-4 col-md-6">
-                                <div class="destination-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1500"
-                                    data-aos-offset="50">
-                                    <div class="image">
-                                        <div class="ratting"></i>Leisure </div>
-                                        <!-- <a href="#" class="heart"><i class="fas fa-heart"></i></a> -->
-                                        <img src="./assets/images/destination3.jpg" alt="Destination">
-                                    </div>
-                                    <div class="content">
-                                        <span class="location"><i class="fal fa-map-marker-alt"></i> Rome</span>
-                                        <h5><a href="{{ route('destinationDetailpage', ['destination_slug' => $item->destination_slug]) }}">otium</a></h5>
-                                        <span class="time">3 days 2 nights</span>
-                                    </div>
-                                    <div class="destination-footer">
-                                        <span class="price"><span class="span-time">Rs. 5200</span>/per person</span>
-                                        <a href="{{ route('tourPage') }}" class="read-more">Book Now <i
-                                                class="fal fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div> --}}
-                                        @endif
+                            @endforeach
+                        @else
+                            No Related Detination Found
+                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
+                    <!-- related Tour  Area end -->
+
 
                 </div>
             </div>
-        </section>
+    </section>
 
-            @endsection
+@endsection
 
-        @section('pageScript')
-            <script type="text/javascript"></script>
+@section('pageScript')
+    <script type="text/javascript"></script>
 
-        @endsection
+@endsection

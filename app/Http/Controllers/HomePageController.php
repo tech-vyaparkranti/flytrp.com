@@ -173,7 +173,6 @@ class HomePageController extends Controller
         //     ->get();
 
             $destinationIds = is_array($homedestination->pluck('id')) ? $homedestination->pluck('id')->toArray() : [$homedestination->id];
-
             $packages = PackageMaster::where(PackageMaster::STATUS, 1)
                 ->where(function ($query) use ($destinationIds) {
                     foreach ($destinationIds as $desId) {
@@ -213,19 +212,19 @@ class HomePageController extends Controller
 
         $tourIds = is_array($tours->pluck('id')) ? $tours->pluck('id')->toArray() : [$tours->id];
 
-        $packages = PackageMaster::where(PackageMaster::STATUS, 1)
+        $ourdestination = DestinationsModel::where(DestinationsModel::STATUS, 1)
             ->where(function ($query) use ($tourIds) {
                 foreach ($tourIds as $tourId) {
-                    $query->orWhereJsonContains('tour_type', (string)$tourId);
+                    $query->orWhereJsonContains('tour_id', (string)$tourId);
                 }
             })
             ->get();
         $destinations = PackageMaster::where(PackageMaster::STATUS,"1")->distinct()->pluck('package_country')->toArray();
         $travelCategories = PackageMaster::where(PackageMaster::STATUS,"1")->distinct()->pluck('tour_type')->toArray();
         $data = $this->getElement();
-        $ourdestination = DestinationsModel::where('status','1')->get();
+        // $ourdestination = DestinationsModel::where('status','1')->get();
 
-        return view("HomePage.tourDetail",compact('tours','otherTours','packages','destinations','travelCategories','ourdestination'),$data);
+        return view("HomePage.tourDetail",compact('tours','otherTours','destinations','travelCategories','ourdestination'),$data);
    }
 
     public function blogpage()

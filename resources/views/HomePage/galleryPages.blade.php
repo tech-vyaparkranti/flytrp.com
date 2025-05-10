@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- Gallery Area start -->
-    <section class="gallery-two-area py-100 pt-120 rel z-1">
+    <section class="gallery-two-area py-80 pt-120 rel z-1">
     <div class="blog-banner" style="margin-bottom:50px; ">
             <img src="{{ asset('./assets/images/bg-contact).jpg') }}" alt=""
                 style="height: 350px; max-height:350px;width:100%; object-fit:cover;">
